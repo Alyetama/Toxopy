@@ -6,7 +6,7 @@ import os
 from subprocess import call
 
 
-def ffmpeg_concat(cats, tvp):
+def ffconcat(cats, tvp):
 # cats is a list of strings ["cat--id"]
 # tvp: /path/to/trials/videos/
 

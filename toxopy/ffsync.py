@@ -4,7 +4,7 @@ import pandas as pd
 import shlex
 
 
-def sync(sync_csv, videos_dir):
+def ffsync(sync_csv, videos_dir):
 
     df = pd.read_csv(sync_csv, sep=",")
 
