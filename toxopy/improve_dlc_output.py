@@ -31,10 +31,8 @@ def improve_dlc_output(csv_file, type=None):
 
     trials = []
 
-
     if type is None:
         print("Please specify type!")
-
 
     elif type is "owner":
 
@@ -50,26 +48,26 @@ def improve_dlc_output(csv_file, type=None):
             elif 840 < i <= 1020:
                 trials.append('Second Urine')
 
-
     elif type is "cat":
-            t = 120
-            if i < t:
-                trials.append('Cat alone (1)')
-            elif t < i < t*2:
-                trials.append('Cat alone (2)')
-            elif t*2 < i < t*3:
-                trials.append('Cat alone (3)')
-            elif t*3 < i < t*4:
-                trials.append('Cat alone (4)')
-            elif t*4 < i <= t*5:
-                trials.append('Cat alone (5)')
+        t = 120
+        if i < t:
+            trials.append('Cat alone (1)')
+        elif t < i < t * 2:
+            trials.append('Cat alone (2)')
+        elif t * 2 < i < t * 3:
+            trials.append('Cat alone (3)')
+        elif t * 3 < i < t * 4:
+            trials.append('Cat alone (4)')
+        elif t * 4 < i <= t * 5:
+            trials.append('Cat alone (5)')
 
     tl = pd.DataFrame(trials, columns=['trial'])
 
     result = pd.concat([df, result, tl], axis=1)
 
+    result = result.iloc[2:, :]
+
     result.to_csv(csv_file.strip('.csv') + '_improved.csv',
                   index=False,
                   sep=',',
                   encoding='utf-8')
-
