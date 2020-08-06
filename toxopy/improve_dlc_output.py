@@ -37,35 +37,40 @@ def improve_dlc_output(csv_file, type=None):
     elif type is "owner":
 
         for i in indx:
-            if i < 300:
+            k = 300
+            j = 180
+            if i < k:
                 trials.append('No treatment')
-            elif 300 < i < 480:
+            elif k < i < k + j:
                 trials.append('First Saline')
-            elif 480 < i < 660:
+            elif k + j < i < k + j * 2:
                 trials.append('First Urine')
-            elif 660 < i < 840:
+            elif k + j * 2 < i < k + j * 3:
                 trials.append('Second Saline')
-            elif 840 < i <= 1020:
+            elif k + j * 3 < i <= k + j * 4:
                 trials.append('Second Urine')
 
     elif type is "cat":
         t = 120
-        if i < t:
-            trials.append('Cat alone (1)')
-        elif t < i < t * 2:
-            trials.append('Cat alone (2)')
-        elif t * 2 < i < t * 3:
-            trials.append('Cat alone (3)')
-        elif t * 3 < i < t * 4:
-            trials.append('Cat alone (4)')
-        elif t * 4 < i <= t * 5:
-            trials.append('Cat alone (5)')
+        for i in indx:
+            if i < t:
+                trials.append('Cat alone (1)')
+            elif t < i < t * 2:
+                trials.append('Cat alone (2)')
+            elif t * 2 < i < t * 3:
+                trials.append('Cat alone (3)')
+            elif t * 3 < i < t * 4:
+                trials.append('Cat alone (4)')
+            elif t * 4 < i <= t * 5:
+                trials.append('Cat alone (5)')
 
     tl = pd.DataFrame(trials, columns=['trial'])
 
     result = pd.concat([df, result, tl], axis=1)
 
     result = result.iloc[2:, :]
+
+    result.columns = ['indx', 'x', 'y', 'time', 'trial']
 
     result.to_csv(csv_file.strip('.csv') + '_improved.csv',
                   index=False,
