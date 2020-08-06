@@ -61,7 +61,7 @@ def improve_dlc_output(csv_file, type=None):
                 trials.append('Cat alone (3)')
             elif t*3 < i < t*4:
                 trials.append('Cat alone (4)')
-            elif t*4 < i <= t*4:
+            elif t*4 < i <= t*5:
                 trials.append('Cat alone (5)')
 
     tl = pd.DataFrame(trials, columns=['trial'])
