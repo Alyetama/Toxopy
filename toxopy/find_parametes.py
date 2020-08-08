@@ -33,14 +33,23 @@ def find_distance(cat, owner):
                        axis=1)
 
 
+
     result = result[[
         'indx', 'time', 'trial', 'x_cat', 'y_cat', 'x_owner', 'y_owner',
         'distance'
     ]]
 
 
+    # velocities = []
+
+    # for c, z in result['time', ] :
+    #     velocity = float(pos/time)
+    #     velocities.append(velocity)
+
     result.to_csv(cat[:-24] + '_improved.csv',
               index=False,
               sep=',',
               encoding='utf-8')
 
+
+find_distance('/Users/Felis.catus/Desktop/dlc-results/owner_head/smokey_owner_head_improved.csv', '/Users/Felis.catus/Desktop/dlc-results/hand/smokey_owner_hand_improved.csv')
