@@ -76,3 +76,4 @@ def improve_dlc_output(csv_file, type=None):
                   index=False,
                   sep=',',
                   encoding='utf-8')
+
