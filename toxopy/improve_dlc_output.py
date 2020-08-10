@@ -94,7 +94,7 @@ def improve_dlc_output(cat, owner):
 
     ds = []
 
-    print("CALCULATING THE DISTANCE BETWEEN CAT AND OWNER")
+    print("\nCALCULATING THE DISTANCE BETWEEN CAT AND OWNER")
 
     for i, j in tqdm(zip(df_cat['indx'], df_owner['indx'])):
 
