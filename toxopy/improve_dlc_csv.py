@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def improve_dlc_output(csv_file, type=None):
+def improve_dlc_csv(csv_file, type=None):
 
     df = pd.read_csv(csv_file)
 
