@@ -3,14 +3,10 @@ from math import sqrt
 from numpy import nan
 from os import remove
 from tqdm import tqdm
-import time
-
-
 """Add time and trial type."""
 
 
 def improve_dlc_output(cat, owner):
-
     def improve_dlc_csv(csv_file, type=None):
 
         df = pd.read_csv(csv_file)
@@ -86,7 +82,6 @@ def improve_dlc_output(cat, owner):
 
     improve_dlc_csv(cat, type='owner')
     improve_dlc_csv(owner, type='owner')
-
     """Calculate distance between cat and owner."""
 
     cat_improved = cat.strip('.csv') + '_improved.csv'
@@ -100,8 +95,6 @@ def improve_dlc_output(cat, owner):
     ds = []
 
     print("CALCULATING THE DISTANCE BETWEEN CAT AND OWNER")
-
-    time.sleep(1)
 
     for i, j in tqdm(zip(df_cat['indx'], df_owner['indx'])):
 
@@ -121,7 +114,7 @@ def improve_dlc_output(cat, owner):
         df_cat[{'indx', 'x_cat', 'y_cat'}],
         df_owner[{'x_owner', 'y_owner', 'time', 'trial'}], ds
     ],
-        axis=1)
+                       axis=1)
 
     result = result[[
         'indx', 'time', 'trial', 'x_cat', 'y_cat', 'x_owner', 'y_owner',
@@ -131,7 +124,6 @@ def improve_dlc_output(cat, owner):
     cols = ["x_cat", "y_cat", "x_owner", "y_owner"]
 
     result[cols] = result[cols].replace({0: nan})
-
     """Calculate cat traveled distance."""
 
     def calculateDistance(x1, y1, x2, y2):
@@ -148,8 +140,6 @@ def improve_dlc_output(cat, owner):
 
     print("\nCALCULATING THE CAT'S TRAVELED DISTANCE")
 
-    time.sleep(1)
-
     for i in tqdm(range(0, n)):
 
         x1 = df_cat.iloc[i]['x_cat']
@@ -162,7 +152,6 @@ def improve_dlc_output(cat, owner):
     cat_dst[0] = nan
 
     cat_dst = pd.DataFrame(cat_dst, columns=['cat_distance'])
-
     """Calculate cat velocity."""
 
     def calculateVelocity(dist, time):
@@ -171,8 +160,6 @@ def improve_dlc_output(cat, owner):
     velocity_ls = []
 
     print("\nCALCULATING THE CAT'S VELOCITY")
-
-    time.sleep(1)
 
     for j in tqdm(range(0, n)):
 
@@ -187,15 +174,12 @@ def improve_dlc_output(cat, owner):
         velocity_ls.append(float(calculateVelocity(d, 0.033)))
 
     velocity = pd.DataFrame(velocity_ls, columns=['velocity'])
-
     """Calculate cat movement state."""
 
     moving = []
     notMoving = []
 
     print("\nESTIMATING THE CAT'S MOVEMENT STATE")
-
-    time.sleep(1)
 
     for z in tqdm(cat_dst['cat_distance']):
 
@@ -211,7 +195,6 @@ def improve_dlc_output(cat, owner):
 
     moving = pd.DataFrame(moving, columns=['moving'])
     notMoving = pd.DataFrame(notMoving, columns=['not_moving'])
-
     """Calculate cat acceleration."""
 
     def calculateAcc(vi, vf, ti, tf):
@@ -220,8 +203,6 @@ def improve_dlc_output(cat, owner):
     acc = []
 
     print("\nCALCULATING THE CAT'S ACCELERATION")
-
-    time.sleep(1)
 
     for q in tqdm(range(0, n)):
 
@@ -235,7 +216,6 @@ def improve_dlc_output(cat, owner):
         acc.append(float(calculateAcc(vi, vf, ti, tf)))
 
     acc = pd.DataFrame(acc, columns=['acceleration'])
-
     """Clean zero values in relevant data,
     then append data to one csv file."""
 
@@ -246,8 +226,6 @@ def improve_dlc_output(cat, owner):
     idx = df.index[df['indx']].tolist()
 
     print("\nCLEANING OUTPUT")
-
-    time.sleep(1)
 
     for s, w in tqdm(zip(df['velocity'], idx)):
         if s == 0:
@@ -265,5 +243,3 @@ def improve_dlc_output(cat, owner):
               encoding='utf-8')
 
     print("\nDONE!")
-
-    time.sleep(1)
