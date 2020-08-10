@@ -1,6 +1,6 @@
 import pandas as pd
-from math import sqrt, isnan
-import numpy as np
+from math import sqrt
+from numpy import nan
 
 csv_file = '/Users/Felis.catus/Desktop/vars.csv'
 
@@ -33,7 +33,7 @@ for i in range(0, n):
 
     cat_dst.append(float(calculateDistance(x1, y1, x2, y2)))
 
-cat_dst[0] = np.nan
+cat_dst[0] = nan
 
 cat_dst = pd.DataFrame(cat_dst, columns=['cat_distance'])
 
@@ -48,7 +48,7 @@ velocity = []
 for j in range(0, n):
 
     if j == 0:
-        velocity.append(np.nan)
+        velocity.append(nan)
         continue
 
     d = cat_dst.iloc[j]['cat_distance']
@@ -67,8 +67,8 @@ notMoving = []
 for z in cat_dst['cat_distance']:
 
     if str(z) == 'nan':
-        moving.append(np.nan)
-        notMoving.append(np.nan)
+        moving.append(nan)
+        notMoving.append(nan)
     elif z >= 0.07:
         moving.append(1)
         notMoving.append(0)

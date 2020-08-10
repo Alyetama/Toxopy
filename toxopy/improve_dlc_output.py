@@ -1,5 +1,4 @@
 import pandas as pd
-from csv import reader
 
 
 def improve_dlc_output(csv_file, type=None):
