@@ -32,15 +32,12 @@ def find_distance(cat, owner):
     ],
                        axis=1)
 
-
     result = result[[
         'indx', 'time', 'trial', 'x_cat', 'y_cat', 'x_owner', 'y_owner',
         'distance'
     ]]
 
-
     result.to_csv(cat[:-24] + '_improved.csv',
-              index=False,
-              sep=',',
-              encoding='utf-8')
-
+                  index=False,
+                  sep=',',
+                  encoding='utf-8')

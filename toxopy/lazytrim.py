@@ -2,7 +2,6 @@ import json
 
 
 def lazytrim(trial_times_json):
-
     def getList(dict):
         list = []
         for key in dict.keys():
@@ -20,8 +19,8 @@ def lazytrim(trial_times_json):
     for i in catslist:
 
         d = '#' * 20
-        print('\n\n', d, '#' * len(i), d, '\n', d, i, d, '\n', d, '#' * len(i), d,
-              '\n')
+        print('\n\n', d, '#' * len(i), d, '\n', d, i, d, '\n', d, '#' * len(i),
+              d, '\n')
 
         for j in trials:
 
@@ -29,6 +28,6 @@ def lazytrim(trial_times_json):
             total = trial_times[i][j][1] - trial_times[i][j][0]
             input_dir = ''
             output_dir = ''
-            print('ffmpeg -ss', start, '-i', input_dir + i + '.mp4', '-t', total,
-                  '-y', output_dir + i + '_' + j + '.mp4')
+            print('ffmpeg -ss', start, '-i', input_dir + i + '.mp4', '-t',
+                  total, '-y', output_dir + i + '_' + j + '.mp4')
             print('&&')
