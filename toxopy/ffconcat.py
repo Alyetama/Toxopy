@@ -7,14 +7,15 @@ from subprocess import call
 
 
 def ffconcat(cats, tvp):
-# cats is a list of strings ["cat--id"]
-# tvp: /path/to/trials/videos/
+    # cats is a list of strings ["cat--id"]
+    # tvp: /path/to/trials/videos/
 
     for cat in cats:
 
         vid_list = [
-            tvp + cat + '_T2.mp4', tvp + cat + '_T4.mp4', tvp + cat + '_T6.mp4',
-            tvp + cat + '_T8.mp4', tvp + cat + '_T10.mp4'
+            tvp + cat + '_T2.mp4', tvp + cat + '_T4.mp4',
+            tvp + cat + '_T6.mp4', tvp + cat + '_T8.mp4',
+            tvp + cat + '_T10.mp4'
         ]
 
         cat_txt = cat + '.txt'

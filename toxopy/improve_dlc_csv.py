@@ -75,4 +75,3 @@ def improve_dlc_csv(csv_file, type=None):
                   index=False,
                   sep=',',
                   encoding='utf-8')
-

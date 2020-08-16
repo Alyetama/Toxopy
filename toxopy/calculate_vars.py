@@ -44,7 +44,6 @@ def calculateVelocity(dist, time):
 
 velocity = []
 
-
 for j in range(0, n):
 
     if j == 0:
@@ -57,9 +56,7 @@ for j in range(0, n):
 
     velocity.append(float(calculateVelocity(d, 0.033)))
 
-
 velocity = pd.DataFrame(velocity, columns=['velocity'])
-
 
 moving = []
 notMoving = []
@@ -75,7 +72,6 @@ for z in cat_dst['cat_distance']:
     else:
         moving.append(0)
         notMoving.append(1)
-
 
 moving = pd.DataFrame(moving, columns=['moving'])
 notMoving = pd.DataFrame(notMoving, columns=['not_moving'])
@@ -97,7 +93,6 @@ for q in range(0, n):
     tf = df_cat.iloc[q - 1]['time']
 
     acc.append(float(calculateAcc(vi, vf, ti, tf)))
-
 
 acc = pd.DataFrame(acc, columns=['acceleration'])
 
