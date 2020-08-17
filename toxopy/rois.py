@@ -32,6 +32,7 @@ def rois(cat, improved_file):
     plt.xlabel('Time in seconds')
     plt.ylabel('Speed in pixels per second')
     plt.savefig(cat + '_velocity.png')
+    plt.close()
 
     # Calculate and plot rois
 
@@ -100,6 +101,7 @@ def rois(cat, improved_file):
 
     plt.ylim(-100, 600)
     plt.savefig(cat + '_rois.png')
+    plt.close()
 
     res = time_in_each_roi.get_timeinrois_stats(bp_tracking.T,
                                                 rois,
