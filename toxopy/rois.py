@@ -12,8 +12,9 @@ from collections import namedtuple
 import matplotlib.patches as patches
 
 
+
 def rois(cat, improved_file):
-    # Load dataset
+# Load dataset
 
     Dataframe = pd.read_csv(improved_file)
     df = Dataframe.dropna()
@@ -30,9 +31,10 @@ def rois(cat, improved_file):
     plt.plot(time, velocity)
     plt.xlabel('Time in seconds')
     plt.ylabel('Speed in pixels per second')
-    plt.show()
+    plt.savefig('annabelle_velocity.png')
 
     # Calculate and plot rois
+
 
     def rois_gen(i):
         def getList(dict):
@@ -47,9 +49,7 @@ def rois(cat, improved_file):
 
         catslist = getList(p)
 
-        positions = [
-            'middle', 'rightside', 'leftside', 'topside', 'bottomside'
-        ]
+        positions = ['middle', 'rightside', 'leftside', 'topside', 'bottomside']
 
         colors = ['orange', 'purple', 'red', 'blue', 'green']
 
@@ -75,6 +75,7 @@ def rois(cat, improved_file):
                      (p[i]['bottom_br'][0], p[i]['bottom_br'][1]))
         }
 
+
     bp_tracking = np.array((x_cat, y_cat, velocity))
 
     rois = rois_gen(cat)
@@ -98,7 +99,7 @@ def rois(cat, improved_file):
         ax.add_patch(rect)
 
     plt.ylim(-100, 600)
-    plt.show()
+    plt.savefig('annabelle_rois.png')
 
     res = time_in_each_roi.get_timeinrois_stats(bp_tracking.T,
                                                 rois,
@@ -107,6 +108,6 @@ def rois(cat, improved_file):
                                                 check_inroi=True)
 
     res.to_csv(improved_file[:-4] + '_rois.csv',
-               index=False,
-               sep=',',
-               encoding='utf-8')
+              index=False,
+              sep=',',
+              encoding='utf-8')
