@@ -3,8 +3,8 @@ import json
 
 def lazytrim(select_cats, trial_times_json):
 
-    #select_cat is a lisr ['cat--id']
-    #trial_times_json is a json files with trials time
+    #select_cat is a list ['cat--id']
+    #trial_times_json is a json file with trials time
 
     with open(trial_times_json) as json_file:
         trial_times = json.load(json_file)
