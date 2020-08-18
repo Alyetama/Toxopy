@@ -18,7 +18,7 @@ def ffconcat(cats, tvp, trial_type):
             vid_list = [
                 tvp + cat + '_T2.mp4', tvp + cat + '_T4.mp4',
                 tvp + cat + '_T6.mp4', tvp + cat + '_T8.mp4',
-                tvp + cat + '_T10.mp4s'
+                tvp + cat + '_T10.mp4'
             ]
 
         elif trial_type == "with_owner":
