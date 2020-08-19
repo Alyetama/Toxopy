@@ -2,7 +2,6 @@ import pandas as pd
 from math import sqrt
 from numpy import nan
 
-csv_file = '/Users/Felis.catus/Desktop/vars.csv'
 
 
 def calculateDistance(x1, y1, x2, y2):
