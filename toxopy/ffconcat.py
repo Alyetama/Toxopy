@@ -7,6 +7,7 @@ from subprocess import call
 def ffconcat(cats, tvp, trial_type):
     # cats is a list of strings ["cat--id"]
     # tvp: /path/to/trials/videos/
+    # trial_type: either "cat_alone" or "owner"
 
     if tvp.endswith('/') == False:
 
