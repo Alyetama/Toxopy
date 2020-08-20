@@ -7,7 +7,14 @@ from pathlib import Path
 """Add time and trial type."""
 
 
-def improve_dlc_output_cat_alone(cat):
+def improve_dlc_output_cat_alone(cat, output_dir):
+
+    if output_dir.endswith('/') == False:
+
+        raise ValueError(
+            'Output directory does not end with a trailing slash "/"!')
+
+
     def improve_dlc_csv(csv_file):
 
 
@@ -65,6 +72,8 @@ def improve_dlc_output_cat_alone(cat):
 
     df_cat = pd.read_csv(cat[:-4] + '_init_improved.csv', sep=",")
     df_cat = pd.DataFrame(df_cat, columns=df_cat.columns)
+
+    tls = pd.DataFrame(df_cat, columns=['trial'])
 
 
     """Calculate cat traveled distance."""
@@ -160,7 +169,7 @@ def improve_dlc_output_cat_alone(cat):
     """Clean zero values in relevant data,
     then append data to one csv file."""
 
-    df = pd.concat([df_cat, cat_dst, velocity, moving, notMoving, acc], axis=1)
+    df = pd.concat([df_cat, tls, cat_dst, velocity, moving, notMoving, acc], axis=1)
 
     cols = ['cat_distance', 'velocity', 'acceleration']
 
@@ -177,7 +186,7 @@ def improve_dlc_output_cat_alone(cat):
     df[cols] = df[cols].replace({0: nan})
 
 
-    df.to_csv(Path(cat).stem + '_improved.csv',
+    df.to_csv(output_dir + Path(cat).stem + '_improved.csv',
               index=False,
               sep=',',
               encoding='utf-8')
