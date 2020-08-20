@@ -136,7 +136,25 @@ def analyze_rois(file, room_layout, output_dir):
 
         res['trial'] = current_trial
 
-        res.to_csv(output_dir + cat + trial_name + '_deleteme' + '.csv',
+
+        walls = res.loc[(res['ROI_name'] == 'rightside') | (res['ROI_name'] == 'leftside') | (res['ROI_name'] == 'topside') | (res['ROI_name'] == 'bottomside')]
+
+        middle = res.loc[res['ROI_name'] == 'middle']
+
+        df_walls = walls.sum(axis=0)
+        df_walls['ROI_name'] = 'walls'
+        df_walls['trial'] = trial_name
+        df_walls = df_walls.T
+
+        df_middle = middle.sum(axis=0)
+        df_middle['ROI_name'] = 'middle'
+        df_middle['trial'] = trial_name
+        df_middle = df_middle.T
+
+        df_final = pd.concat([df_walls, df_middle], axis=1, sort=False)
+        df_final = df_final.T
+        
+        df_final.to_csv(output_dir + cat + trial_name + '_deleteme' + '.csv',
                    index=False,
                    sep=',',
                    encoding='utf-8')
