@@ -17,7 +17,7 @@ def concat_rois(directory):
 
         df["cat"] = cat
 
-        df = df[['cat', 'ROI_name', 'transitions_per_roi', 'cumlative_time_in_roi_sec', 'avg_time_in_roi_sec', 'avg_vel_in_roi']]
+        df = df[['cat', 'ROI_name', 'transitions_per_roi', 'cumulative_time_in_roi_sec', 'avg_time_in_roi_sec', 'avg_vel_in_roi']]
 
         df.to_csv(file, index=False)
 
