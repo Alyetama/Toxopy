@@ -14,7 +14,7 @@ $ pip install toxopy
 toxopy.improve_dlc_output(cat, owner)
 ```
 
-#### Parameters:
+
 ```python
 cat: string
     Full path of the original DLC output .csv file for a 'cat head with owner' project as a string.
@@ -30,7 +30,7 @@ owner: string
 toxopy.improve_dlc_output_cat_alone(cat, output_dir)
 ```
 
-#### Parameters:
+
 ```python
 cat: string
     Full path of the original DLC output .csv file for a 'cat alone' project as a string.
@@ -46,7 +46,7 @@ output_dir: string
 toxopy.analyze_rois(file, room_layout, output_dir, trial_type)
 ```
 
-#### Parameters:
+
 ```python
 file: string
     Full path of the improved .csv file as a string.
