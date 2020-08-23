@@ -58,6 +58,41 @@ output_dir: string
     Full path of the output directory ending with a trailing slash.
 
 trial_type: string
-    The trial type in the .csv file.  This can take two arguments: "cat_alone" or "with_owner".
+    The trial type in the .csv file.  This can take one of two arguments: "cat_alone" or "with_owner".
+
+span: string
+    The span value in the Loess smoothing variables.  The default is 0.10.  This can be changed to 0.50 by passing span='05'.
 ````
 
+
+### Concatenate ROIs
+
+``python
+toxopy.concat_rois(directory, output_dir, trial_type)
+```
+
+
+```python
+directory: string
+    Full path of the input directory containing the ROIs .csv files.
+
+output_dir: string
+    Full path of the output directory ending with a trailing slash.
+
+trial_type: string
+    The trial type in the .csv file.  This can take one of two arguments: "cat_alone" or "with_owner".
+```
+
+
+### Calculate Mann-Whitney's U Statistics for ROIs
+
+```python
+toxopy.roi_calc_mw(data_file, voi)
+```
+
+```python
+data_file: string
+    Full path of the concatenated ROIs .csv file.  The file must indicate the "infection_status"!
+voi: string
+    Variable of interest.  This can take one of three arguments: "cumulative_time_in_roi_sec", "avg_time_in_roi_sec", or "avg_vel_in_roi".
+```
