@@ -67,7 +67,7 @@ span: string
 
 ### Concatenate ROIs
 
-``python
+```python
 toxopy.concat_rois(directory, output_dir, trial_type)
 ```
 
