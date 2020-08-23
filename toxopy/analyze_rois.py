@@ -14,7 +14,7 @@ import os
 # %matplotlib inline
 
 
-def analyze_rois(file, room_layout, output_dir, trial_type):
+def analyze_rois(file, room_layout, output_dir, trial_type, span=''):
 
     if output_dir.endswith('/') == False:
 
@@ -68,17 +68,17 @@ def analyze_rois(file, room_layout, output_dir, trial_type):
     for trial, trial_name in zip(trials, trials_names):
 
         time = trial['time']
-        velocity = trial['velocity_loess']
+        velocity = trial['velocity_loess' + span]
 
         if trial_type == 'with_owner':
 
-            x_cat = trial['x_cat_loess']
-            y_cat = trial['y_cat_loess']
+            x_cat = trial['x_cat_loess' + span]
+            y_cat = trial['y_cat_loess' + span]
 
         elif trial_type == 'cat_alone':
 
-            x_cat = trial['x_loess']
-            y_cat = trial['y_loess']
+            x_cat = trial['x_loess' + span]
+            y_cat = trial['y_loess' + span]
 
         # Calculate and plot rois
 
