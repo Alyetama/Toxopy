@@ -110,7 +110,7 @@ toxopy.csv2h5(directory=None, files=None)
 directory: string
     Full path of the input directory containing the .csv files.  To convert multiple files, use this option.
 files: list
-    Full path of .csv files as a list. For example, ['~/data/file1.csv', '~/data/file2.csv']
+    Full path of .csv files as a list. For example, ['/usr/data/file1.csv', '/usr/data/file2.csv']
 ```
 
 
