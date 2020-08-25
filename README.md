@@ -43,7 +43,7 @@ output_dir: string
 ### Analyze ROIs
 
 ```python
-toxopy.analyze_rois(file, room_layout, output_dir, trial_type)
+toxopy.analyze_rois(file, room_layout, output_dir, trial_type, span='10')
 ```
 
 
@@ -90,9 +90,57 @@ trial_type: string
 toxopy.roi_calc_mw(data_file, voi)
 ```
 
+
 ```python
 data_file: string
     Full path of the concatenated ROIs .csv file.  The file must indicate the "infection_status"!
 voi: string
     Variable of interest.  This can take one of three arguments: "cumulative_time_in_roi_sec", "avg_time_in_roi_sec", or "avg_vel_in_roi".
+```
+
+
+### Convert .csv to .h5
+
+```python
+toxopy.csv2h5(directory=None, files=None)
+```
+
+
+```python
+directory: string
+    Full path of the input directory containing the .csv files.  To convert multiple files, use this option.
+files: list
+    Full path of .csv files as a list. For example, ['~/data/file1.csv', '~/data/file2.csv']
+```
+
+
+### FFmpeg Lazy Trim
+
+```python
+toxopy.lazytrim(select_cats, trial_times_json)
+```
+
+
+```python
+select_cats: list
+    List of cat name followed by id ["cat--id"].
+trial_times_json: string
+    Full path to json file containing trial times.
+```
+
+
+### Concatenate FFmpeg
+
+```python
+toxopy.ffconcat(cats, tvp, trial_type)
+```
+
+
+```python
+cats: list
+    List of cat name followed by id ["cat--id"].
+tvp: string
+    Full path of the input directory containing the video files.
+trial_type: string
+    The trial type in the .csv file.  This can take one of two arguments: "cat_alone" or "with_owner".
 ```
