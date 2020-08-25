@@ -14,9 +14,7 @@ def improve_dlc_output_cat_alone(cat, output_dir):
         raise ValueError(
             'Output directory does not end with a trailing slash "/"!')
 
-
     def improve_dlc_csv(csv_file):
-
 
         df = pd.read_csv(csv_file)
         df = df.iloc[:, :3]
@@ -62,7 +60,6 @@ def improve_dlc_output_cat_alone(cat, output_dir):
                       sep=',',
                       encoding='utf-8')
 
-
     improve_dlc_csv(cat)
     """Create dataframes for each file type."""
 
@@ -74,8 +71,6 @@ def improve_dlc_output_cat_alone(cat, output_dir):
     df_cat = pd.DataFrame(df_cat, columns=df_cat.columns)
 
     tls = pd.DataFrame(df_cat, columns=['trial'])
-
-
     """Calculate cat traveled distance."""
 
     def calculateDistance(x1, y1, x2, y2):
@@ -169,7 +164,8 @@ def improve_dlc_output_cat_alone(cat, output_dir):
     """Clean zero values in relevant data,
     then append data to one csv file."""
 
-    df = pd.concat([df_cat, tls, cat_dst, velocity, moving, notMoving, acc], axis=1)
+    df = pd.concat([df_cat, tls, cat_dst, velocity, moving, notMoving, acc],
+                   axis=1)
 
     cols = ['cat_distance', 'velocity', 'acceleration']
 
@@ -185,12 +181,10 @@ def improve_dlc_output_cat_alone(cat, output_dir):
 
     df[cols] = df[cols].replace({0: nan})
 
-
     df.to_csv(output_dir + Path(cat).stem + '_improved.csv',
               index=False,
               sep=',',
               encoding='utf-8')
-
 
     os.remove(cat[:-4] + '_init_improved.csv')
 
