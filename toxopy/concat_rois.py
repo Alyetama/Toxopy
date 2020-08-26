@@ -9,9 +9,7 @@ def concat_rois(directory, output_dir, trial_type):
 
         raise ValueError(
             'Output directory does not end with a trailing slash "/"!')
-
-    else:
-        pass
+    pass
 
     files = glob.glob(directory + '/*.csv')
 
