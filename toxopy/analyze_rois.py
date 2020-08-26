@@ -16,13 +16,12 @@ import os
 
 def analyze_rois(file, room_layout, output_dir, trial_type, span=''):
 
+
     if output_dir.endswith('/') == False:
 
         raise ValueError(
             'Output directory does not end with a trailing slash "/"!')
-
-    else:
-        pass
+    pass
 
     # Load dataset
 
