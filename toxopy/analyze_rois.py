@@ -16,7 +16,7 @@ warnings.filterwarnings("ignore")
 
 def analyze_rois(file, room_layout, output_dir, trial_type, span=''):
 
-    if output_dir.endswith('/') == False:
+    if output_dir.endswith('/') is False:
 
         raise ValueError(
             'Output directory does not end with a trailing slash "/"!')
