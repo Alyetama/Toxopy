@@ -65,8 +65,6 @@ def improve_dlc_output_cat_alone(cat, output_dir):
 
     cat_file_name = Path(cat).stem
 
-    cat_improved = cat_file_name + '_init_improved.csv'
-
     df_cat = pd.read_csv(cat[:-4] + '_init_improved.csv', sep=",")
     df_cat = pd.DataFrame(df_cat, columns=df_cat.columns)
 
@@ -113,8 +111,6 @@ def improve_dlc_output_cat_alone(cat, output_dir):
             continue
 
         d = cat_dst.iloc[j]['cat_distance']
-
-        t = df_cat.iloc[j]['time'] - df_cat.iloc[j - 1]['time']
 
         velocity_ls.append(float(calculateVelocity(d, 0.033)))
 

@@ -52,4 +52,4 @@ def ffsync(sync_csv, videos_dir):
                              end_time + ' -y ' + videos_dir + '/synced_' +
                              str(offset[0]))
 
-    run(ffmpeg_run)
+    run(ffmpeg_run, check=True)

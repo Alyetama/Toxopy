@@ -65,7 +65,7 @@ def analyze_rois(file, room_layout, output_dir, trial_type, span=''):
 
     for trial, trial_name in zip(trials, trials_names):
 
-        time = trial['time']
+        # time = trial['time']
         velocity = trial['velocity_loess' + span]
 
         if trial_type == 'with_owner':
@@ -91,13 +91,7 @@ def analyze_rois(file, room_layout, output_dir, trial_type, span=''):
             with open(room_layout) as json_file:
                 p = json.load(json_file)
 
-            catslist = getList(p)
-
-            positions = [
-                'middle', 'rightside', 'leftside', 'topside', 'bottomside'
-            ]
-
-            colors = ['orange', 'purple', 'red', 'blue', 'green']
+            # catslist = getList(p)
 
             position = namedtuple('position', ['topleft', 'bottomright'])
 
@@ -125,7 +119,7 @@ def analyze_rois(file, room_layout, output_dir, trial_type, span=''):
 
         rois = rois_gen(cat)
 
-        fig, ax = plt.subplots(1)
+        # fig, ax = plt.subplots(1)
 
         plt.plot(x_cat, y_cat, '.-')
 
@@ -157,9 +151,9 @@ def analyze_rois(file, room_layout, output_dir, trial_type, span=''):
 
         current_trial = []
 
-        for x in range(0, len(res)):
+        # for x in range(0, len(res)):
 
-            current_trial.append(trial_name)
+        #     current_trial.append(trial_name)
 
         res['trial'] = current_trial
 

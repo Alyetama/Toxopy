@@ -169,7 +169,7 @@ def improve_dlc_output(cat, owner):
 
         d = cat_dst.iloc[j]['cat_distance']
 
-        t = df_cat.iloc[j]['time'] - df_cat.iloc[j - 1]['time']
+        # t = df_cat.iloc[j]['time'] - df_cat.iloc[j - 1]['time']
 
         velocity_ls.append(float(calculateVelocity(d, 0.033)))
 
