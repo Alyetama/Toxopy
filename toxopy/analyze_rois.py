@@ -2,7 +2,7 @@ import os
 import glob
 import matplotlib.patches as patches
 from collections import namedtuple
-from dlcu import PlottingResults, time_in_each_roi
+from dlcu import time_in_each_roi
 import matplotlib.pyplot as plt
 import json
 import numpy as np
