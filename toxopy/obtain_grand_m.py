@@ -4,8 +4,8 @@ from numpy import mean, median
 
 def obtain_grand_m(json_file_loc):
 
-    #json_file_loc is the path to the json file with all individual avgs data
-    #output_dir is where you want to dump the .csv file to (optional)
+    # json_file_loc is the path to the json file with all individual avgs data
+    # output_dir is where you want to dump the .csv file to (optional)
 
     with open(json_file_loc) as json_file:
         data = json.load(json_file)
