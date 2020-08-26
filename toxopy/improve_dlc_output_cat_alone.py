@@ -9,7 +9,7 @@ from pathlib import Path
 
 def improve_dlc_output_cat_alone(cat, output_dir):
 
-    if output_dir.endswith('/') == False:
+    if output_dir.endswith('/') is False:
 
         raise ValueError(
             'Output directory does not end with a trailing slash "/"!')
