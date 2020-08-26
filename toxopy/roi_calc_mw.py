@@ -1,5 +1,4 @@
 from scipy.stats import mannwhitneyu
-from numpy import mean
 import pandas as pd
 
 
