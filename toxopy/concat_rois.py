@@ -5,7 +5,6 @@ from pathlib import Path
 
 def concat_rois(directory, output_dir, trial_type):
 
-
     if output_dir.endswith('/') == False:
 
         raise ValueError(

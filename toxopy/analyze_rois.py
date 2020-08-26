@@ -16,7 +16,6 @@ import os
 
 def analyze_rois(file, room_layout, output_dir, trial_type, span=''):
 
-
     if output_dir.endswith('/') == False:
 
         raise ValueError(
@@ -102,7 +101,7 @@ def analyze_rois(file, room_layout, output_dir, trial_type, span=''):
 
             position = namedtuple('position', ['topleft', 'bottomright'])
 
-            #two points defining each roi: topleft(X,Y) and bottomright(X,Y).
+            # two points defining each roi: topleft(X,Y) and bottomright(X,Y).
 
             return {
                 'middle':
