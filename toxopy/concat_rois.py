@@ -5,13 +5,12 @@ from pathlib import Path
 
 def concat_rois(directory, output_dir, trial_type):
 
+
     if output_dir.endswith('/') == False:
 
         raise ValueError(
             'Output directory does not end with a trailing slash "/"!')
-
-    else:
-        pass
+    pass
 
     files = glob.glob(directory + '/*.csv')
 
