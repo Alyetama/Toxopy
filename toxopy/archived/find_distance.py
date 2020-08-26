@@ -30,7 +30,7 @@ def find_distance(cat, owner):
         df_cat[{'indx', 'x_cat', 'y_cat'}],
         df_owner[{'x_owner', 'y_owner', 'time', 'trial'}], ds
     ],
-                       axis=1)
+        axis=1)
 
     result = result[[
         'indx', 'time', 'trial', 'x_cat', 'y_cat', 'x_owner', 'y_owner',

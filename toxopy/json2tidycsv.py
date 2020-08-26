@@ -4,7 +4,7 @@ import json
 def json2tidycsv(json_file_loc, csv_output=False):
 
     # Converts dlc avgs data from JSON format to a tidy data in csv
-    #json_file_loc is the path to the json file with all individual avgs data
+    # json_file_loc is the path to the json file with all individual avgs data
 
     with open(json_file_loc) as json_file:
         data = json.load(json_file)

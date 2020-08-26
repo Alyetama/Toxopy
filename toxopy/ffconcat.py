@@ -56,11 +56,15 @@ def ffconcat(cats, tvp, trial_type):
 
         if trial_type == "cat_alone":
 
-            ffmpeg_command = "#!/bin/bash \n" + ffmpeg_container + "ffmpeg -f concat -safe 0 -i " + cat + ".txt -c copy -y " + tvp + cat + "_cat.mp4"
+            ffmpeg_command = "#!/bin/bash \n" + ffmpeg_container + \
+                "ffmpeg -f concat -safe 0 -i " + cat + \
+                ".txt -c copy -y " + tvp + cat + "_cat.mp4"
 
         elif trial_type == "with_owner":
 
-            ffmpeg_command = "#!/bin/bash \n" + ffmpeg_container + "ffmpeg -f concat -safe 0 -i " + cat + ".txt -c copy -y " + tvp + cat + "_owner.mp4"
+            ffmpeg_command = "#!/bin/bash \n" + ffmpeg_container + \
+                "ffmpeg -f concat -safe 0 -i " + cat + \
+                ".txt -c copy -y " + tvp + cat + "_owner.mp4"
 
         file_sh.write(ffmpeg_command)
         file_sh.close()
