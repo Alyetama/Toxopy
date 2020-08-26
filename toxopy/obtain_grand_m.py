@@ -42,7 +42,7 @@ def obtain_grand_m(json_file_loc):
 
         print('infection_status,variable,mean,median', file=f)
 
-        for g in dct.keys():
+        for g in dct:
 
             for q in ['positive', 'negative']:
 
