@@ -9,7 +9,7 @@ def ffconcat(cats, tvp, trial_type):
     # tvp: /path/to/trials/videos/
     # trial_type: either "cat_alone" or "owner"
 
-    if tvp.endswith('/') == False:
+    if tvp.endswith('/') is False:
 
         raise ValueError('Path does not end with a trailing slash "/"')
 

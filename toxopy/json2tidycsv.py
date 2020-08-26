@@ -29,7 +29,7 @@ def json2tidycsv(json_file_loc, csv_output=False):
 
                     for z in param:
 
-                        if csv_output == True:
+                        if csv_output is True:
 
                             print(c + ',positive,' + z + ',' + x + ',' +
                                   str(data[i][c][x][z]),
