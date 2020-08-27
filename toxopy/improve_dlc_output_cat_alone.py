@@ -62,7 +62,6 @@ def improve_dlc_output_cat_alone(cat, output_dir):
 
     improve_dlc_csv(cat)
     """Create dataframes for each file type."""
-    
 
     df_cat = pd.read_csv(cat[:-4] + '_init_improved.csv', sep=",")
     df_cat = pd.DataFrame(df_cat, columns=df_cat.columns)
