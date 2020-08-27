@@ -15,7 +15,6 @@ def calc_dlc_mw(csv_file, export=False):
 
     variables = ['vel', 'distance', 'cat_distance', 'acceleration', 'moving']
 
-
     for t in tls:
 
         with open(t, 'w') as f:
@@ -23,7 +22,7 @@ def calc_dlc_mw(csv_file, export=False):
             if export is False:
 
                 print('\nTrial:', t, '\n')
-                
+
                 remove(t)
 
             else:
@@ -31,9 +30,11 @@ def calc_dlc_mw(csv_file, export=False):
 
             for j in variables:
 
-                pv = df[(df['status'] == 'positive') & (df['trial'] == t) & (df['var'] == j)]['value']
+                pv = df[(df['status'] == 'positive') & (
+                    df['trial'] == t) & (df['var'] == j)]['value']
 
-                nv = df[(df['status'] == 'negative') & (df['trial'] == t) & (df['var'] == j)]['value']
+                nv = df[(df['status'] == 'negative') & (
+                    df['trial'] == t) & (df['var'] == j)]['value']
 
                 stat, p = mannwhitneyu(pv, nv)
 
@@ -53,12 +54,14 @@ def calc_dlc_mw(csv_file, export=False):
 
                     else:
 
-                            if p > alpha:
+                        if p > alpha:
 
-                                print(t + ',' + j + ',' + str(stat) + ',' + str(p), file=f)
+                            print(t + ',' + j + ',' +
+                                  str(stat) + ',' + str(p), file=f)
 
-                            elif p < alpha:
-                                print(t + ',' + j + ',' + str(stat) + ',' + str(p) + '*', file=f)
+                        elif p < alpha:
+                            print(t + ',' + j + ',' + str(stat) +
+                                  ',' + str(p) + '*', file=f)
 
         f.close()
 
@@ -67,8 +70,7 @@ def calc_dlc_mw(csv_file, export=False):
         combined_csv = pd.concat([pd.read_csv(f) for f in tls])
 
         combined_csv.to_csv("mannwhitneyu_stats_results.csv",
-                        index=False,
-                        encoding='utf-8-sig')
-
+                            index=False,
+                            encoding='utf-8-sig')
 
         [remove(f) for f in tls]

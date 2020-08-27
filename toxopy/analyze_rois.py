@@ -1,16 +1,16 @@
+import pandas as pd
+from pathlib import Path
+import numpy as np
+import json
+import matplotlib.pyplot as plt
+from dlcu import time_in_each_roi
+from collections import namedtuple
+import matplotlib.patches as patches
+import glob
+import os
 import warnings
 warnings.filterwarnings("ignore")
 
-import os
-import glob
-import matplotlib.patches as patches
-from collections import namedtuple
-from dlcu import time_in_each_roi
-import matplotlib.pyplot as plt
-import json
-import numpy as np
-from pathlib import Path
-import pandas as pd
 
 # %matplotlib inline
 
