@@ -5,7 +5,7 @@ import glob
 
 def csv2h5(directory=None, files=None):
 
-    if directory == None:
+    if directory is None:
 
         for file in tqdm(files):
 

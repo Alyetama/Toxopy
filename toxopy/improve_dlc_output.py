@@ -7,20 +7,20 @@ from tqdm import tqdm
 
 
 def improve_dlc_output(cat, owner):
-    def improve_dlc_csv(csv_file, type=None):
+    def improve_dlc_csv(csv_file, trial_type=None):
 
         df = pd.read_csv(csv_file)
         df = df.iloc[:, :3]
 
         n = len(df)
 
-        if type is None:
+        if trial_type is None:
             print("Please specify type!")
 
-        if type is 'owner':
+        if trial_type is 'owner':
             time = 1020
 
-        if type is 'cat':
+        if trial_type is 'cat':
             time = 600
 
         f = n / time
@@ -35,10 +35,10 @@ def improve_dlc_output(cat, owner):
 
         trials = []
 
-        if type is None:
+        if trial_type is None:
             print("Please specify type!")
 
-        elif type is "owner":
+        elif trial_type is "owner":
 
             for i in indx:
                 k = 300
@@ -54,7 +54,7 @@ def improve_dlc_output(cat, owner):
                 elif k + j * 3 < i <= k + j * 4:
                     trials.append('Second Urine')
 
-        elif type is "cat":
+        elif trial_type is "cat":
             t = 120
             for i in indx:
                 if i < t:
@@ -80,8 +80,8 @@ def improve_dlc_output(cat, owner):
                       sep=',',
                       encoding='utf-8')
 
-    improve_dlc_csv(cat, type='owner')
-    improve_dlc_csv(owner, type='owner')
+    improve_dlc_csv(cat, trial_type='owner')
+    improve_dlc_csv(owner, trial_type='owner')
     """Calculate distance between cat and owner."""
 
     cat_improved = cat.strip('.csv') + '_improved.csv'
