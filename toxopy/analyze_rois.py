@@ -1,3 +1,6 @@
+import warnings
+warnings.filterwarnings("ignore")
+
 import pandas as pd
 from pathlib import Path
 import numpy as np
@@ -8,8 +11,6 @@ from collections import namedtuple
 import matplotlib.patches as patches
 import glob
 import os
-import warnings
-warnings.filterwarnings("ignore")
 
 
 # %matplotlib inline
