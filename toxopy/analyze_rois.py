@@ -81,13 +81,13 @@ def analyze_rois(file, room_layout, output_dir, trial_type, span=''):
 
         # Calculate and plot rois
 
-        def rois_gen(i):
-            def getList(dict):
-                list = []
-                for key in dict.keys():
-                    list.append(key)
+        # def rois_gen(i):
+        #     def getList(dct):
+        #         lst = []
+        #         for key in dct.keys():
+        #             lst.append(key)
 
-                return list
+        #         return lst
 
             with open(room_layout) as json_file:
                 p = json.load(json_file)
@@ -120,7 +120,7 @@ def analyze_rois(file, room_layout, output_dir, trial_type, span=''):
 
         rois = rois_gen(cat)
 
-        # fig, ax = plt.subplots(1)
+        fig, ax = plt.subplots(1)
 
         plt.plot(x_cat, y_cat, '.-')
 
