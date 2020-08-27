@@ -13,5 +13,7 @@ from .roi_calc_mw import roi_calc_mw
 from .json2tidycsv import json2tidycsv
 from .obtain_grand_m import obtain_grand_m
 from .concat_csv import concat_csv
+from .calc_dlc_mw import calc_dlc_mw
+from .recycle import *
 
 from .version import __version__, VERSION

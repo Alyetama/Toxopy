@@ -1,3 +1,6 @@
+import warnings
+warnings.filterwarnings("ignore")
+
 import os
 import glob
 import matplotlib.patches as patches
@@ -8,8 +11,6 @@ import json
 import numpy as np
 from pathlib import Path
 import pandas as pd
-import warnings
-warnings.filterwarnings("ignore")
 
 # %matplotlib inline
 

@@ -10,7 +10,7 @@ def json2tidycsv(json_file_loc, csv_output=False):
         data = json.load(json_file)
 
     param = [
-        'distance', 'vel', 'cat_distance', 'vel', 'acceleration', 'moving'
+        'distance', 'vel', 'cat_distance', 'acceleration', 'moving'
     ]
 
     trials = [
