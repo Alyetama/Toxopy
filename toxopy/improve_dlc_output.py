@@ -17,10 +17,10 @@ def improve_dlc_output(cat, owner):
         if trial_type is None:
             print("Please specify type!")
 
-        if trial_type is 'owner':
+        if trial_type == 'owner':
             time = 1020
 
-        if trial_type is 'cat':
+        if trial_type == 'cat':
             time = 600
 
         f = n / time
@@ -38,7 +38,7 @@ def improve_dlc_output(cat, owner):
         if trial_type is None:
             print("Please specify type!")
 
-        elif trial_type is "owner":
+        elif trial_type == "owner":
 
             for i in indx:
                 k = 300
@@ -54,7 +54,7 @@ def improve_dlc_output(cat, owner):
                 elif k + j * 3 < i <= k + j * 4:
                     trials.append('Second Urine')
 
-        elif trial_type is "cat":
+        elif trial_type == "cat":
             t = 120
             for i in indx:
                 if i < t:
