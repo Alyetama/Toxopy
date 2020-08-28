@@ -43,7 +43,7 @@ output_dir: string
 ### Analyze ROIs
 
 ```python
-toxopy.analyze_rois(file, room_layout, output_dir, trial_type, span='10')
+toxopy.analyze_rois(file, room_layout, output_dir, trial_type, span=10)
 ```
 
 
@@ -60,8 +60,8 @@ output_dir: string
 trial_type: string
     The trial type in the .csv file.  This can take one of two arguments: "cat_alone" or "with_owner".
 
-span: string
-    The span value in the Loess smoothing variables.  The default is 0.10.  This can be changed to 0.50 by passing span='05'.
+span: int
+    The span value in the Loess smoothing variables.  The default is span=10 (0.10).  This can be changed to 0.50 or 0.25 by passing span=05 or span=025.
 ````
 
 
