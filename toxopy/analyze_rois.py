@@ -66,7 +66,7 @@ def analyze_rois(file, room_layout, output_dir, trial_type, span=10):
 
         # time = trial['time']
         span = str(span)
-        
+
         velocity = trial['velocity_loess' + span]
 
         if trial_type == 'with_owner':
