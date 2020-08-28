@@ -6,8 +6,6 @@ from os import remove
 
 def calc_dlc_mw(csv_file, export=False):
 
-    filterwarnings("ignore")
-
     df = pd.read_csv(csv_file)
 
     tls = trials()
