@@ -9,4 +9,4 @@ enabled = true
 
 [[transformers]]
 name = "autopep8"
-enabled = false
+enabled = true
