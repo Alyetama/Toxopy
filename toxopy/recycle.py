@@ -1,3 +1,6 @@
+import warnings
+
+
 def trials():
 
     return [
@@ -5,3 +8,8 @@ def trials():
         'first urine', 'cat alone (3)', 'second saline', 'cat alone (4)',
         'second urine', 'cat alone (5)'
     ]
+
+
+def fwarnings():
+
+	return warnings.filterwarnings("ignore")
