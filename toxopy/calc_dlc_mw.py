@@ -1,8 +1,7 @@
+from toxopy import trials, fwarnings
 import pandas as pd
 from scipy.stats import mannwhitneyu
-from warnings import filterwarnings
 from os import remove
-from toxopy.recycle import trials
 
 
 def calc_dlc_mw(csv_file, export=False):

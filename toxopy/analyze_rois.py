@@ -1,8 +1,6 @@
-import warnings
-warnings.filterwarnings("ignore")
-
 import os
 import glob
+from toxopy import fwarnings
 import matplotlib.patches as patches
 from collections import namedtuple
 from dlcu import time_in_each_roi
@@ -15,7 +13,7 @@ import pandas as pd
 # %matplotlib inline
 
 
-def analyze_rois(file, room_layout, output_dir, trial_type, span=''):
+def analyze_rois(file, room_layout, output_dir, trial_type, span=10):
 
     if output_dir.endswith('/') is False:
 
@@ -67,6 +65,8 @@ def analyze_rois(file, room_layout, output_dir, trial_type, span=''):
     for trial, trial_name in zip(trials, trials_names):
 
         # time = trial['time']
+        span = str(span)
+        
         velocity = trial['velocity_loess' + span]
 
         if trial_type == 'with_owner':
