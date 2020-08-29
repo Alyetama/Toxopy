@@ -13,7 +13,7 @@ def dlcboxplot(file, variable, ylab, jitter=False, colors=False, title=False, sa
 
     plt.figure(figsize=(13, 5), dpi=100)
 
-    if colors is True:
+    if colors is False:
         my_pal = {"Negative": "#00FFFF", "Positive": "#E60E3C"}
     else:
         my_pal = {"Negative": colors[0], "Positive": colors[1]}
