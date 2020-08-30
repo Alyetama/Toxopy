@@ -6,7 +6,6 @@ from os import remove
 
 def calc_dlc_mw(csv_file, export=False):
 
-
     df = pd.read_csv(csv_file)
 
     tls = trials_abv()
@@ -58,7 +57,6 @@ def calc_dlc_mw(csv_file, export=False):
 
                         elif p < alpha:
                             print(f'{t},{j},{stat},{p},*', file=f)
-                            
 
     if export is True:
 
