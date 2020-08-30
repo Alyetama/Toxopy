@@ -1,5 +1,9 @@
 import warnings
 
+def fwarnings():
+
+    return warnings.filterwarnings("ignore")
+
 
 def trials():
 
@@ -10,9 +14,5 @@ def trials():
     ]
 
 def trials_abv():
-	return ['FT', 'CA1', 'ST1', 'CA2', 'UT1', 'CA3', 'ST2', 'CA4', 'UT2', 'CA5']
-
-
-def fwarnings():
-
-    return warnings.filterwarnings("ignore")
+    
+    return ['FT', 'CA1', 'ST1', 'CA2', 'UT1', 'CA3', 'ST2', 'CA4', 'UT2', 'CA5']

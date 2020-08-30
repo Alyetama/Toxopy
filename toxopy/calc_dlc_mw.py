@@ -1,4 +1,4 @@
-from toxopy import trials_abv
+from toxopy import trials_abv, fwarnings
 import pandas as pd
 from scipy.stats import mannwhitneyu
 from os import remove
@@ -9,11 +9,11 @@ def calc_dlc_mw(csv_file, export=False):
 
     df = pd.read_csv(csv_file)
 
-    trials = trials_abv()
+    tls = trials_abv()
 
     variables = ['vel', 'distance', 'cat_distance', 'acceleration', 'moving']
 
-    for t in trials:
+    for t in tls:
 
         with open(t, 'w') as f:
 
@@ -28,10 +28,10 @@ def calc_dlc_mw(csv_file, export=False):
 
             for j in variables:
 
-                pv = df[(df['status'] == 'positive') & (
+                pv = df[(df['status'] == 'Positive') & (
                     df['trial'] == t) & (df['var'] == j)]['value']
 
-                nv = df[(df['status'] == 'negative') & (
+                nv = df[(df['status'] == 'Negative') & (
                     df['trial'] == t) & (df['var'] == j)]['value']
 
                 stat, p = mannwhitneyu(pv, nv)
@@ -69,5 +69,3 @@ def calc_dlc_mw(csv_file, export=False):
                             encoding='utf-8-sig')
 
         [remove(f) for f in tls]
-
-calc_dlc_mw("/Users/Felis.catus/Desktop/GitHub/bchaselab/DLC-Chaselab/Data/dlc_all_avgs_updated.csv", export=False)

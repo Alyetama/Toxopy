@@ -61,8 +61,8 @@ def dlcboxplot(file, variable, ylab, jitter=False, colors=False, title=False, sa
     if save is True:
         fig = ax.get_figure()
         if output_dir is not False:
-            fig.savefig(output_dir + '/' + variable + '.png',
+            fig.savefig(f'{output_dir}/{variable}.png',
                         bbox_inches="tight", dpi=100, pad_inches=0.1)
         else:
-            fig.savefig(variable + '.png', bbox_inches="tight",
+            fig.savefig(f'{variable}.png', bbox_inches="tight",
                         dpi=100, pad_inches=0.1)

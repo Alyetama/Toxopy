@@ -4,6 +4,8 @@ import pandas as pd
 
 def roi_calc_mw(data_file, voi):
 
+    filterwarnings("ignore")
+
     df = pd.read_csv(data_file)
 
     trial_names = [
