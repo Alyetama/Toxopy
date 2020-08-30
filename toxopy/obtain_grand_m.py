@@ -1,3 +1,4 @@
+from toxopy import trials
 import json
 from numpy import mean, median
 
@@ -12,11 +13,7 @@ def obtain_grand_m(json_file_loc):
 
     var = ['distance', 'cat_distance', 'vel', 'acceleration', 'moving']
 
-    trials = [
-        'no treatment', 'cat alone (1)', 'first saline', 'cat alone (2)',
-        'first urine', 'cat alone (3)', 'second saline', 'cat alone (4)',
-        'second urine', 'cat alone (5)'
-    ]
+    tls = trials()
 
     dct = {}
 
@@ -27,7 +24,7 @@ def obtain_grand_m(json_file_loc):
     for p, n in zip(list(data['positive'].keys()),
                     list(data['negative'].keys())):
 
-        for t in trials:
+        for t in tls:
 
             for v, o in zip(var, range(0, 5)):
 
@@ -48,7 +45,4 @@ def obtain_grand_m(json_file_loc):
 
                 if g.startswith(q[0]):
 
-                    print(q + ',' + g[1:] + ',' + str(mean(dct[g])) + ',' +
-                          str(median(dct[g])),
-                          file=f)
-    f.close()
+                    print(f'{q},{g[1:]},{mean(dct[g])},{median(dct[g])}', file=f)
