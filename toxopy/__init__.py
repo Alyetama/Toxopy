@@ -14,7 +14,7 @@ from .json2tidycsv import json2tidycsv
 from .obtain_grand_m import obtain_grand_m
 from .concat_csv import concat_csv
 from .calc_dlc_mw import calc_dlc_mw
-from .recycle import trials, fwarnings
+from .recycle import trials, trials_abv, fwarnings
 from .dlcboxplot import dlcboxplot
 
 from .version import __version__, VERSION
