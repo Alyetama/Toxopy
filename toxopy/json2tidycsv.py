@@ -1,4 +1,6 @@
 import json
+from toxopy import trials
+from os import remove
 
 
 def json2tidycsv(json_file_loc, csv_output=False):
@@ -13,11 +15,7 @@ def json2tidycsv(json_file_loc, csv_output=False):
         'distance', 'vel', 'cat_distance', 'acceleration', 'moving'
     ]
 
-    trials = [
-        'no treatment', 'cat alone (1)', 'first saline', 'cat alone (2)',
-        'first urine', 'cat alone (3)', 'second saline', 'cat alone (4)',
-        'second urine', 'cat alone (5)'
-    ]
+    tls = trials()
 
     with open('dlc_avgs_data_tidy.csv', 'w') as f:
 
@@ -25,19 +23,17 @@ def json2tidycsv(json_file_loc, csv_output=False):
 
             for c in list(data[i].keys()):
 
-                for x in trials:
+                for x in tls:
 
                     for z in param:
 
                         if csv_output is True:
 
-                            print(c + ',positive,' + z + ',' + x + ',' +
-                                  str(data[i][c][x][z]),
+                            print(f'{c},positive,{z},{x},{data[i][c][x][z]}',
                                   file=f)
 
                         else:
 
-                            print(c + ',positive,' + z + ',' + x + ',' +
-                                  str(data[i][c][x][z]))
+                            print(f'{c},positive,{z},{x},{data[i][c][x][z]}')
 
-    f.close()
+        remove('dlc_avgs_data_tidy.csv') if csv_output is False else None

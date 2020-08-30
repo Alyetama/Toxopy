@@ -1,4 +1,4 @@
-from toxopy import trials, fwarnings
+from toxopy import trials_abv
 import pandas as pd
 from scipy.stats import mannwhitneyu
 from os import remove
@@ -6,13 +6,14 @@ from os import remove
 
 def calc_dlc_mw(csv_file, export=False):
 
+
     df = pd.read_csv(csv_file)
 
-    tls = trials()
+    trials = trials_abv()
 
     variables = ['vel', 'distance', 'cat_distance', 'acceleration', 'moving']
 
-    for t in tls:
+    for t in trials:
 
         with open(t, 'w') as f:
 
@@ -53,14 +54,11 @@ def calc_dlc_mw(csv_file, export=False):
 
                         if p > alpha:
 
-                            print(t + ',' + j + ',' +
-                                  str(stat) + ',' + str(p), file=f)
+                            print(f'{t},{j},{stat},{p}', file=f)
 
                         elif p < alpha:
-                            print(t + ',' + j + ',' + str(stat) +
-                                  ',' + str(p) + '*', file=f)
-
-        f.close()
+                            print(f'{t},{j},{stat},{p},*', file=f)
+                            
 
     if export is True:
 
@@ -71,3 +69,5 @@ def calc_dlc_mw(csv_file, export=False):
                             encoding='utf-8-sig')
 
         [remove(f) for f in tls]
+
+calc_dlc_mw("/Users/Felis.catus/Desktop/GitHub/bchaselab/DLC-Chaselab/Data/dlc_all_avgs_updated.csv", export=False)
