@@ -1,4 +1,4 @@
-from toxopy import trials_abv, fwarnings
+from toxopy import trials, fwarnings
 import pandas as pd
 from scipy.stats import mannwhitneyu
 from os import remove
@@ -8,7 +8,7 @@ def calc_dlc_mw(csv_file, export=False):
 
     df = pd.read_csv(csv_file)
 
-    tls = trials_abv()
+    tls = trials()
 
     variables = ['vel', 'distance', 'cat_distance', 'acceleration', 'moving']
 

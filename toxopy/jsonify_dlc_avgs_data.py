@@ -1,6 +1,7 @@
 import pandas as pd
 from numpy import mean
 import json
+from toxopy import trials
 
 
 def jsonify_dlc_avgs(csv_file):
@@ -14,7 +15,7 @@ def jsonify_dlc_avgs(csv_file):
 
     cats = df.cat.unique()
 
-    trials = ['FT', 'CA1', 'ST1', 'CA2', 'UT1', 'CA3', 'ST2', 'CA4', 'UT2', 'CA5']
+    tls = trials()
 
     d = {}
 
@@ -23,7 +24,7 @@ def jsonify_dlc_avgs(csv_file):
         df2 = df.loc[(df['cat'] == cat)]
         d[cat] = {}
 
-        for t in trials:
+        for t in tls:
             df3 = df2.loc[(df['trial'] == t)]
             d[cat][t] = {}
             d[cat][t]['distance'] = mean(df3['distance_loess05'])

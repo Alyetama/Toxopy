@@ -6,7 +6,7 @@ def fwarnings():
     return warnings.filterwarnings("ignore")
 
 
-def trials():
+def trials_full():
 
     return [
         'no treatment', 'cat alone (1)', 'first saline', 'cat alone (2)',
@@ -15,6 +15,6 @@ def trials():
     ]
 
 
-def trials_abv():
+def trials():
 
     return ['FT', 'CA1', 'ST1', 'CA2', 'UT1', 'CA3', 'ST2', 'CA4', 'UT2', 'CA5']
