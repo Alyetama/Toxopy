@@ -8,7 +8,8 @@ def roi_calc_mw(data_file, voi):
 
     df = pd.read_csv(data_file)
 
-    trial_names = ['FT', 'CA1', 'ST1', 'CA2', 'UT1', 'CA3', 'ST2', 'CA4', 'UT2', 'CA5']
+    trial_names = ['FT', 'CA1', 'ST1', 'CA2',
+                   'UT1', 'CA3', 'ST2', 'CA4', 'UT2', 'CA5']
 
     for j in ['walls', 'middle']:
 
