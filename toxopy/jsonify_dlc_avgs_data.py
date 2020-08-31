@@ -14,7 +14,8 @@ def jsonify_dlc_avgs(csv_file):
 
     cats = df.cat.unique()
 
-    trials = ['FT', 'CA1', 'ST1', 'CA2', 'UT1', 'CA3', 'ST2', 'CA4', 'UT2', 'CA5']
+    trials = ['FT', 'CA1', 'ST1', 'CA2', 'UT1',
+              'CA3', 'ST2', 'CA4', 'UT2', 'CA5']
 
     d = {}
 
