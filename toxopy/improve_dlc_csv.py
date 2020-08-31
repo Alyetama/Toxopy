@@ -39,29 +39,29 @@ def improve_dlc_csv(csv_file, trial_type=None):
             k = 300
             j = 180
             if i < k:
-                trials.append('No treatment')
+                trials.append('FT')
             elif k < i < k + j:
-                trials.append('First Saline')
+                trials.append('ST1')
             elif k + j < i < k + j * 2:
-                trials.append('First Urine')
+                trials.append('UT1')
             elif k + j * 2 < i < k + j * 3:
-                trials.append('Second Saline')
+                trials.append('ST2')
             elif k + j * 3 < i <= k + j * 4:
-                trials.append('Second Urine')
+                trials.append('UT2')
 
     elif trial_type == "cat":
         t = 120
         for i in indx:
             if i < t:
-                trials.append('Cat alone (1)')
+                trials.append('CA1')
             elif t < i < t * 2:
-                trials.append('Cat alone (2)')
+                trials.append('CA2')
             elif t * 2 < i < t * 3:
-                trials.append('Cat alone (3)')
+                trials.append('CA3')
             elif t * 3 < i < t * 4:
-                trials.append('Cat alone (4)')
+                trials.append('CA4')
             elif t * 4 < i <= t * 5:
-                trials.append('Cat alone (5)')
+                trials.append('CA5')
 
     tl = pd.DataFrame(trials, columns=['trial'])
 
