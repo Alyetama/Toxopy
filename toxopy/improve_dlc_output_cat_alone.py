@@ -65,6 +65,7 @@ def improve_dlc_output_cat_alone(cat, output_dir):
 
     df_cat = pd.read_csv(cat[:-4] + '_init_improved.csv', sep=",")
     df_cat = pd.DataFrame(df_cat, columns=df_cat.columns)
+    df_cat.rename(columns={'x': 'x_cat', 'y': 'y_cat'}, inplace=True)
 
     tls = pd.DataFrame(df_cat, columns=['trial'])
     """Calculate cat traveled distance."""

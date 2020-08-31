@@ -28,36 +28,36 @@ def analyze_rois(file, room_layout, output_dir, trial_type, span=10):
 
     if trial_type == 'with_owner':
 
-        t1 = df.loc[df['trial'] == 'No treatment']
-        t3 = df.loc[df['trial'] == 'First Saline']
-        t5 = df.loc[df['trial'] == 'First Urine']
-        t7 = df.loc[df['trial'] == 'Second Saline']
-        t9 = df.loc[df['trial'] == 'Second Urine']
+        t1 = df.loc[df['trial'] == 'FT']
+        t3 = df.loc[df['trial'] == 'ST1']
+        t5 = df.loc[df['trial'] == 'UT1']
+        t7 = df.loc[df['trial'] == 'ST2']
+        t9 = df.loc[df['trial'] == 'UT2']
 
         cat = str(Path(file).stem)[:-11]
 
         trials = [t1, t3, t5, t7, t9]
 
         trials_names = [
-            'No treatment', 'First Saline', 'First Urine', 'Second Saline',
-            'Second Urine'
+            'FT', 'ST1', 'UT1', 'ST2',
+            'UT2'
         ]
 
     elif trial_type == 'cat_alone':
 
-        t2 = df.loc[df['trial'] == 'Cat alone (1)']
-        t4 = df.loc[df['trial'] == 'Cat alone (2)']
-        t6 = df.loc[df['trial'] == 'Cat alone (3)']
-        t8 = df.loc[df['trial'] == 'Cat alone (4)']
-        t10 = df.loc[df['trial'] == 'Cat alone (5)']
+        t2 = df.loc[df['trial'] == 'CA1']
+        t4 = df.loc[df['trial'] == 'CA2']
+        t6 = df.loc[df['trial'] == 'CA3']
+        t8 = df.loc[df['trial'] == 'CA4']
+        t10 = df.loc[df['trial'] == 'CA5']
 
         cat = str(Path(file).stem)[:-10]
 
         trials = [t2, t4, t6, t8, t10]
 
         trials_names = [
-            'Cat alone (1)', 'Cat alone (2)', 'Cat alone (3)', 'Cat alone (4)',
-            'Cat alone (5)'
+            'CA1', 'CA2', 'CA3', 'CA4',
+            'CA5'
         ]
 
     # Create variable names
@@ -201,21 +201,21 @@ def analyze_rois(file, room_layout, output_dir, trial_type, span=10):
     if trial_type == 'with_owner':
 
         sort_by_trial = {
-            'No treatment': 0,
-            'First Saline': 1,
-            'First Urine': 3,
-            'Second Saline': 4,
-            'Second Urine': 5
+            'FT': 0,
+            'ST1': 1,
+            'UT1': 3,
+            'ST2': 4,
+            'UT2': 5
         }
 
     elif trial_type == 'cat_alone':
 
         sort_by_trial = {
-            'Cat alone (1)': 0,
-            'Cat alone (2)': 1,
-            'Cat alone (3)': 3,
-            'Cat alone (4)': 4,
-            'Cat alone (5)': 5
+            'CA1': 0,
+            'CA2': 1,
+            'CA3': 3,
+            'CA4': 4,
+            'CA5': 5
         }
 
     combined_csv = combined_csv.iloc[combined_csv['trial'].map(
