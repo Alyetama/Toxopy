@@ -1,4 +1,4 @@
-from toxopy import trials, fwarnings
+from toxopy import fwarnings
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
