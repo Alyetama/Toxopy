@@ -9,13 +9,16 @@ def turning_points(array):
     Adapted from httpts://stackoverflow.com/a/48360671
     '''
     idx_max, idx_min = [[]] * 2
-    if (len(array) < 3): 
+    if (len(array) < 3):
         return idx_min, idx_max
 
     STATIONARY, MAXIMA, MINIMA = range(3)
+
     def get_state(i, j):
-        if i < j: return MAXIMA
-        if i > j: return MINIMA
+        if i < j:
+            return MAXIMA
+        if i > j:
+            return MINIMA
         return STATIONARY
 
     pts = get_state(array[0], array[1])
@@ -24,14 +27,13 @@ def turning_points(array):
         x = get_state(array[i - 1], array[i])
         if x != STATIONARY:
             if pts != STATIONARY and pts != x:
-                if x == MINIMA: 
+                if x == MINIMA:
                     idx_max.append((start + i - 1) // 2)
                 else:
                     idx_min.append((start + i - 1) // 2)
             start = i
             pts = x
     return idx_min, idx_max
-
 
 
 def tp_output(csv_file, variable):
