@@ -27,4 +27,5 @@ def lazytrim(select_cats, trial_times_json):
             start = trial_times[i][j][0]
             total = trial_times[i][j][1] - trial_times[i][j][0]
 
-            print(f'ffmpeg -ss {start} -i {i}.mp4 -t {total} -y {i}_{j}.mp4 &&')
+            print(
+                f'ffmpeg -ss {start} -i {i}.mp4 -t {total} -y {i}_{j}.mp4 &&')
