@@ -1,3 +1,9 @@
+"""
+Toxopy (https://github.com/bchaselab/Toxopy)
+© M. Alyetama, University of Nebraska at Omaha
+Licensed under the terms of the MIT license
+"""
+
 import json
 
 
@@ -13,14 +19,12 @@ def lazytrim(select_cats, trial_times_json):
 
     for i in select_cats:
 
-        d = '#' * 20
-        print(f'\n\n' {d}, '#' * len(i), d, '\n', d, i, d, '\n', d, '#' * len(i),
-              d, '\n')
+        d, b = '#' * 20, '#' * len(i)
+        print(f'\n\n {d} {b} {d} \n {d} {i} {d} \n {d} {b} {d} \n')
 
         for j in trials:
 
             start = trial_times[i][j][0]
             total = trial_times[i][j][1] - trial_times[i][j][0]
 
-            print(
-                f'ffmpeg -ss {start} -i {i}.mp4 -t {total} -y {i}_{j}.mp4 &&')
+            print(f'ffmpeg -ss {start} -i {i}.mp4 -t {total} -y {i}_{j}.mp4 &&')

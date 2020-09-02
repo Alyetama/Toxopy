@@ -1,3 +1,9 @@
+"""
+Toxopy (https://github.com/bchaselab/Toxopy)
+© M. Alyetama, University of Nebraska at Omaha
+Licensed under the terms of the MIT license
+"""
+
 from scipy.stats import mannwhitneyu
 import pandas as pd
 from toxopy import trials
