@@ -20,10 +20,12 @@ def ffconcat(cats, tvp, trial_type):
     for cat in cats:
         tc = tvp + cat
         if trial_type == "cat_alone":
-            vid_list = [tc + '_T2.mp4', tc + '_T4.mp4', tc + '_T6.mp4', tc + '_T8.mp4', tc + '_T10.mp4']
+            vid_list = [tc + '_T2.mp4', tc + '_T4.mp4', tc +
+                        '_T6.mp4', tc + '_T8.mp4', tc + '_T10.mp4']
 
         elif trial_type == "with_owner":
-            vid_list = [tc + '_T1.mp4', tc + '_T3.mp4', tc + '_T5.mp4', tc + '_T7.mp4', tc + '_T9.mp4']
+            vid_list = [tc + '_T1.mp4', tc + '_T3.mp4', tc +
+                        '_T5.mp4', tc + '_T7.mp4', tc + '_T9.mp4']
 
         else:
             raise ValueError(
@@ -48,7 +50,6 @@ def ffconcat(cats, tvp, trial_type):
             os.remove(cat_sh)
 
         file_sh = open(cat_sh, 'a')
-
 
         if trial_type == "cat_alone":
 
