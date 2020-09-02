@@ -16,5 +16,3 @@ from .concat_csv import concat_csv
 from .calc_dlc_mw import calc_dlc_mw
 from .dlcboxplot import dlcboxplot
 from .version import __version__, VERSION
-import warnings
-warnings.filterwarnings("ignore")
