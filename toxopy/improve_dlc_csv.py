@@ -7,7 +7,7 @@ Licensed under the terms of the MIT license
 import pandas as pd
 
 
-def improve_dlc_csv(csv_file, trial_type=None):
+def improve_dlc_csv(csv_file, trial_type):
 
     df = pd.read_csv(csv_file)
 
@@ -15,13 +15,10 @@ def improve_dlc_csv(csv_file, trial_type=None):
 
     n = len(df)
 
-    if trial_type is None:
-        print("Please specify type!")
-
     if trial_type == 'owner':
         time = 1020
 
-    if trial_type == 'cat':
+    elif trial_type == 'cat':
         time = 600
 
     f = n / time
