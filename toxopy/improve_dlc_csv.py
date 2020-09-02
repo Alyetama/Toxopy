@@ -5,6 +5,7 @@ Licensed under the terms of the MIT license
 """
 
 import pandas as pd
+from pathlib import Path
 
 
 def improve_dlc_csv(csv_file, trial_type):
@@ -23,7 +24,7 @@ def improve_dlc_csv(csv_file, trial_type):
 
     f = n / time
 
-    indx = []
+    indx, trials = [[]] * 2
 
     for i in range(0, n):
         i = i / f
@@ -31,12 +32,7 @@ def improve_dlc_csv(csv_file, trial_type):
 
     result = pd.DataFrame(indx, columns=['time'])
 
-    trials = []
-
-    if trial_type is None:
-        print("Please specify type!")
-
-    elif trial_type == "owner":
+    if trial_type == "owner":
 
         for i in indx:
             k = 300
@@ -74,7 +70,7 @@ def improve_dlc_csv(csv_file, trial_type):
 
     result.columns = ['indx', 'x', 'y', 'time', 'trial']
 
-    result.to_csv(csv_file.strip('.csv') + '_improved.csv',
+    result.to_csv(f'{Path(csv_file).stem}_improved.csv',
                   index=False,
                   sep=',',
                   encoding='utf-8')
