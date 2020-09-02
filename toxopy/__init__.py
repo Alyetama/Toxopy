@@ -1,4 +1,5 @@
 """Object-specific python package to run automated tasks in the Chase Lab."""
+import warnings; warnings.filterwarnings("ignore")
 from .version import __version__, VERSION
 from .dlcboxplot import dlcboxplot
 from .calc_dlc_mw import calc_dlc_mw
@@ -16,5 +17,3 @@ from .improve_dlc_output import improve_dlc_output
 from .lazytrim import lazytrim
 from .ffconcat import ffconcat
 from .ffsync import ffsync
-import warnings
-warnings.filterwarnings("ignore")
