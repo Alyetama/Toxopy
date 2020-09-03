@@ -4,10 +4,11 @@ Toxopy (https://github.com/bchaselab/Toxopy)
 Licensed under the terms of the MIT license
 """
 
-import warnings; warnings.filterwarnings("ignore")
-import pandas as pd
-import seaborn as sns
 import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+import warnings
+warnings.filterwarnings("ignore")
 
 
 def dlcboxplot(file, variable, ylab, jitter=False, colors=False, title=False, save=False, output_dir=False):
