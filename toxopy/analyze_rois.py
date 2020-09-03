@@ -4,9 +4,9 @@ Toxopy (https://github.com/bchaselab/Toxopy)
 Licensed under the terms of the MIT license
 """
 
+import warnings; warnings.filterwarnings("ignore")
 import os
 import glob
-from toxopy import fwarnings
 import matplotlib.patches as patches
 from collections import namedtuple
 from dlcu import time_in_each_roi

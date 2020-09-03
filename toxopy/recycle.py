@@ -4,14 +4,6 @@ Toxopy (https://github.com/bchaselab/Toxopy)
 Licensed under the terms of the MIT license
 """
 
-import warnings
-
-
-def fwarnings():
-
-    return warnings.filterwarnings("ignore")
-
-
 def trials_full():
 
     return [

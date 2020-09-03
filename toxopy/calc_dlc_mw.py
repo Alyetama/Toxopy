@@ -4,7 +4,8 @@ Toxopy (https://github.com/bchaselab/Toxopy)
 Licensed under the terms of the MIT license
 """
 
-from toxopy import trials, fwarnings
+import warnings; warnings.filterwarnings("ignore")
+from toxopy import trials
 import pandas as pd
 from scipy.stats import mannwhitneyu
 from os import remove

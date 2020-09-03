@@ -24,7 +24,7 @@ def improve_dlc_csv(csv_file, trial_type):
 
     f = n / time
 
-    indx, trials = [[]] * 2
+    indx, trials = [], []
 
     for i in range(0, n):
         i = i / f
