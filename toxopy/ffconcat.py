@@ -10,15 +10,11 @@ from subprocess import call
 
 def ffconcat(cats, tvp, trial_type):
     # cats is a list of strings ["cat--id"]
-    # tvp: /path/to/trials/videos/
+    # tvp: /path/to/trials/videos
     # trial_type: either "cat_alone" or "owner"
 
-    if tvp.endswith('/') is False:
-
-        raise ValueError('Path does not end with a trailing slash "/"')
-
     for cat in cats:
-        tc = tvp + cat
+        tc = f'{tvp}/{cat}'
         if trial_type == "cat_alone":
             vid_list = [tc + '_T2.mp4', tc + '_T4.mp4', tc +
                         '_T6.mp4', tc + '_T8.mp4', tc + '_T10.mp4']
@@ -53,11 +49,11 @@ def ffconcat(cats, tvp, trial_type):
 
         if trial_type == "cat_alone":
 
-            ffmpeg_command = f'#!/bin/bash\n ffmpeg -f concat -safe 0 -i {cat}.txt -c copy -y {tvp}{cat}_cat.mp4'
+            ffmpeg_command = f'#!/bin/bash\n ffmpeg -f concat -safe 0 -i {cat}.txt -c copy -y {tvp}/{cat}_cat.mp4'
 
         elif trial_type == "with_owner":
 
-            ffmpeg_command = f'#!/bin/bash\n ffmpeg -f concat -safe 0 -i {cat}.txt -c copy -y {tvp}{cat}_owner.mp4'
+            ffmpeg_command = f'#!/bin/bash\n ffmpeg -f concat -safe 0 -i {cat}.txt -c copy -y {tvp}/{cat}_owner.mp4'
 
         file_sh.write(ffmpeg_command)
         file_sh.close()
