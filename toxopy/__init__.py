@@ -20,6 +20,3 @@ from .improve_turnpoints import improve_turnpoints
 
 from .recycle import trials_full, trials
 from .fwarnings import fwarnings
-
-
-from .version import __version__, VERSION
