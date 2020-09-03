@@ -36,12 +36,12 @@ def turning_points(array):
     return idx_min, idx_max
 
 
-def tp_output(csv_file, variable):
+def turning_points_output(csv_file, variable):
 
-    df = pd.read_csv(csv_file)
+df = pd.read_csv(csv_file)
 
-    i = df[variable]
+i = df[variable]
 
-    i = i.to_numpy()
+i = i.to_numpy()
 
-    return sum(len(x) for x in turning_points(i)), turning_points(i)
+return sum(len(x) for x in turning_points(i)), turning_points(i)

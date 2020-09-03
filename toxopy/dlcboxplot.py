@@ -4,7 +4,7 @@ Toxopy (https://github.com/bchaselab/Toxopy)
 Licensed under the terms of the MIT license
 """
 
-from toxopy import fwarnings
+import warnings; warnings.filterwarnings("ignore")
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
