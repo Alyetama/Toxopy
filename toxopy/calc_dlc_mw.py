@@ -4,12 +4,10 @@ Toxopy (https://github.com/bchaselab/Toxopy)
 Licensed under the terms of the MIT license
 """
 
-from os import remove
-from scipy.stats import mannwhitneyu
+from toxopy import trials, fwarnings
 import pandas as pd
-from toxopy import trials
-import warnings
-warnings.filterwarnings("ignore")
+from scipy.stats import mannwhitneyu
+from os import remove
 
 
 def calc_dlc_mw(csv_file, export=False):
