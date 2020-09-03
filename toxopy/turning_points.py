@@ -38,6 +38,7 @@ def turning_points(array):
 
 def turning_points_output(csv_file, variable):
 
+
 df = pd.read_csv(csv_file)
 
 i = df[variable]
