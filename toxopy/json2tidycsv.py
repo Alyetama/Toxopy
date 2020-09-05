@@ -17,9 +17,7 @@ def json2tidycsv(json_file_loc, csv_output=False):
     with open(json_file_loc) as json_file:
         data = json.load(json_file)
 
-    param = [
-        'distance', 'vel', 'cat_distance', 'acceleration', 'moving'
-    ]
+    param = ['distance', 'vel', 'cat_distance', 'acceleration', 'moving']
 
     tls = trials()
 

@@ -33,11 +33,11 @@ def calc_dlc_mw(csv_file, export=False):
 
             for j in variables:
 
-                pv = df[(df['status'] == 'Positive') & (
-                    df['trial'] == t) & (df['var'] == j)]['value']
+                pv = df[(df['status'] == 'Positive') & (df['trial'] == t) &
+                        (df['var'] == j)]['value']
 
-                nv = df[(df['status'] == 'Negative') & (
-                    df['trial'] == t) & (df['var'] == j)]['value']
+                nv = df[(df['status'] == 'Negative') & (df['trial'] == t) &
+                        (df['var'] == j)]['value']
 
                 stat, p = mannwhitneyu(pv, nv)
 

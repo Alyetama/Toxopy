@@ -39,13 +39,15 @@ def correct_times(csv_dir, output_dir):
 
                     return df[df['trial'] == trial][variable]
 
-                t, v, a, r = subdf(
-                    'time') + ad, subdf('velocity_loess05'), subdf('acceleration_loess05'), subdf('trial')
+                t, v, a, r = subdf('time') + ad, subdf(
+                    'velocity_loess05'), subdf('acceleration_loess05'), subdf(
+                        'trial')
 
                 fdf = pd.DataFrame([t, v, a, r]).T
 
                 fdf.to_csv(f'{output_dir}/{cat}_{trial}.csv',
-                           index=False, encoding='utf-8-sig')
+                           index=False,
+                           encoding='utf-8-sig')
 
         fs = glob.glob(f'{output_dir}/{cat}_*.csv')
 
@@ -58,6 +60,7 @@ def correct_times(csv_dir, output_dir):
         ccsv = ccsv.sort_values(by=['time'])
 
         ccsv.to_csv(f'{output_dir}/{cat}.csv',
-                    index=False, encoding='utf-8-sig')
+                    index=False,
+                    encoding='utf-8-sig')
 
         [remove(i) for i in fs]

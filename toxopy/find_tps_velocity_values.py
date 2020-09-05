@@ -15,7 +15,6 @@ def find_tps_velocity_values(csv_dir, tp_dir, output_dir, trial_type):
     'tp_dir' is the directory with the improved turning points csv files
     'output_dir' is the directory where output files will be save
     """
-
     def tp_csv_file(cat):
         tp_files_dir = tp_dir + f'/{cat}*.csv'
         fs = glob.glob(tp_files_dir)

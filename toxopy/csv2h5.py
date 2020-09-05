@@ -11,7 +11,6 @@ from pathlib import Path
 
 
 def csv2h5(path, head=[1]):
-
     def toh5(file):
         df = pd.read_csv(file, header=head, index_col=[0])
 
