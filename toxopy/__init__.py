@@ -1,4 +1,6 @@
 """Object-specific python package to run automated tasks in the Chase Lab."""
+from .recycle import *
+
 from .ffsync import ffsync
 from .ffconcat import ffconcat
 from .lazytrim import lazytrim
@@ -19,8 +21,6 @@ from .improve_turnpoints import improve_turnpoints
 from .std_cols import std_cols
 from .turnpoints_time_diff import turnpoints_time_diff
 from .find_tps_velocity_values import find_tps_velocity_values
-
-from .recycle import trials_full, trials
 from .fwarnings import fwarnings
 
 from .version import __version__, VERSION
