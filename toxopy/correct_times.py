@@ -19,11 +19,6 @@ def correct_times(csv_dir, output_dir):
 	additions = [0, 300, 120, 480, 240, 660, 360, 840, 480, 1020]
 
 
-	def subdf(variable):
-
-		return df[df['trial'] == trial][variable]
-
-
 	for file in tqdm(files):
 
 		df = pd.read_csv(file, header=[0])
@@ -41,6 +36,10 @@ def correct_times(csv_dir, output_dir):
 				raise ValueError('Fails!', cat, trial, diff)
 
 			elif trial == trial and diff < ttime:
+
+				def subdf(variable):
+
+					return df[df['trial'] == trial][variable]
 
 				t, v, a, r = subdf('time') + ad, subdf('velocity_loess05'), subdf('acceleration_loess05'), subdf('trial')
 
