@@ -16,7 +16,11 @@ from .calc_dlc_mw import calc_dlc_mw
 from .dlcboxplot import dlcboxplot
 from .turning_points import turning_points_output
 from .improve_turnpoints import improve_turnpoints
-
+from .std_cols import std_cols
+from .turnpoints_time_diff import turnpoints_time_diff
+from .find_tps_velocity_values import find_tps_velocity_values
 
 from .recycle import trials_full, trials
 from .fwarnings import fwarnings
+
+from .version import __version__, VERSION
