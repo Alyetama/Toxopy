@@ -10,35 +10,35 @@ from scipy.stats import ks_2samp
 
 def turnpoints_time_diff(csv_file, cat):
 
-	#csv_file is typivally "all_turnpoints_with_owner_improved.csv"
-	#use the outpt of this function in ks_2samp(output1, output2)
+    # csv_file is typivally "all_turnpoints_with_owner_improved.csv"
+    # use the outpt of this function in ks_2samp(output1, output2)
 
-	df = pd.read_csv(csv_file)
+    df = pd.read_csv(csv_file)
 
-	df = df.loc[(df['cat'] == cat)]
+    df = df.loc[(df['cat'] == cat)]
 
-	df = df.reset_index()
+    df = df.reset_index()
 
-	def altElement(a):
+    def altElement(a):
 
-		firstispeak = str(df['firstispeak'][0])
+        firstispeak = str(df['firstispeak'][0])
 
-		if firstispeak == 'False':
-		    return a[::2]
+        if firstispeak == 'False':
+            return a[::2]
 
-		elif firstispeak == 'True':
-			return a[1::2]
+        elif firstispeak == 'True':
+            return a[1::2]
 
-	ls = df[df['cat'] == cat]['time'].tolist()
+    ls = df[df['cat'] == cat]['time'].tolist()
 
-	n = len(altElement(ls))
+    n = len(altElement(ls))
 
-	time_diff = []
+    time_diff = []
 
-	for i in range(0, n):
-		if i == n-1:
-			break
-		else:
-			time_diff.append(altElement(ls)[i+1] - altElement(ls)[i])
+    for i in range(0, n):
+        if i == n-1:
+            break
+        else:
+            time_diff.append(altElement(ls)[i+1] - altElement(ls)[i])
 
-	return [round(x, 4) for x in time_diff]
+    return [round(x, 4) for x in time_diff]
