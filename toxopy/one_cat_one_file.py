@@ -5,7 +5,7 @@ from pathlib import Path
 
 def one_cat_one_file(dir1, dir2, output_dir):
     """'dir1' is the dir with cat_alone_improved csv files
-	'dir2' is the dir with with_owner_improved csv files"""
+        'dir2' is the dir with with_owner_improved csv files"""
 
     cat_alone, with_owner = glob(dir1 + '/*.csv'), glob(dir2 + '/*.csv')
 
