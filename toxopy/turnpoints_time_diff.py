@@ -36,9 +36,9 @@ def turnpoints_time_diff(csv_file, cat):
     time_diff = []
 
     for i in range(0, n):
-        if i == n-1:
+        if i == n - 1:
             break
         else:
-            time_diff.append(altElement(ls)[i+1] - altElement(ls)[i])
+            time_diff.append(altElement(ls)[i + 1] - altElement(ls)[i])
 
     return [round(x, 4) for x in time_diff]

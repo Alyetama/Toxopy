@@ -51,5 +51,5 @@ def obtain_grand_m(json_file_loc):
 
                 if g.startswith(q[0]):
 
-                    print(
-                        f'{q},{g[1:]},{mean(dct[g])},{median(dct[g])}', file=f)
+                    print(f'{q},{g[1:]},{mean(dct[g])},{median(dct[g])}',
+                          file=f)

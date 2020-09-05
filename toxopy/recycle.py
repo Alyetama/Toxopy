@@ -16,9 +16,15 @@ def trials_full():
 
 def trials_cap():
 
-	return ['No treatment', 'Cat alone (1)', 'First Saline', 'Cat alone (2)', 'First Urine', 'Cat alone (3)', 'Second Saline', 'Cat alone (4)', 'Second Urine', 'Cat alone (5)']
+    return [
+        'No treatment', 'Cat alone (1)', 'First Saline', 'Cat alone (2)',
+        'First Urine', 'Cat alone (3)', 'Second Saline', 'Cat alone (4)',
+        'Second Urine', 'Cat alone (5)'
+    ]
 
 
 def trials():
 
-    return ['FT', 'CA1', 'ST1', 'CA2', 'UT1', 'CA3', 'ST2', 'CA4', 'UT2', 'CA5']
+    return [
+        'FT', 'CA1', 'ST1', 'CA2', 'UT1', 'CA3', 'ST2', 'CA4', 'UT2', 'CA5'
+    ]

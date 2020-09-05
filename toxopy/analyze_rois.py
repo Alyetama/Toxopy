@@ -44,10 +44,7 @@ def analyze_rois(file, room_layout, output_dir, trial_type, span=10):
 
         trials = [t1, t3, t5, t7, t9]
 
-        trials_names = [
-            'FT', 'ST1', 'UT1', 'ST2',
-            'UT2'
-        ]
+        trials_names = ['FT', 'ST1', 'UT1', 'ST2', 'UT2']
 
     elif trial_type == 'cat_alone':
 
@@ -61,10 +58,7 @@ def analyze_rois(file, room_layout, output_dir, trial_type, span=10):
 
         trials = [t2, t4, t6, t8, t10]
 
-        trials_names = [
-            'CA1', 'CA2', 'CA3', 'CA4',
-            'CA5'
-        ]
+        trials_names = ['CA1', 'CA2', 'CA3', 'CA4', 'CA5']
 
     # Create variable names
 
@@ -85,15 +79,15 @@ def analyze_rois(file, room_layout, output_dir, trial_type, span=10):
             x_cat = trial['x_loess' + span]
             y_cat = trial['y_loess' + span]
 
-        # Calculate and plot rois
+            # Calculate and plot rois
 
-        # def rois_gen(i):
-        #     def getList(dct):
-        #         lst = []
-        #         for key in dct.keys():
-        #             lst.append(key)
+            # def rois_gen(i):
+            #     def getList(dct):
+            #         lst = []
+            #         for key in dct.keys():
+            #             lst.append(key)
 
-        #         return lst
+            #         return lst
 
             with open(room_layout) as json_file:
                 p = json.load(json_file)
@@ -206,23 +200,11 @@ def analyze_rois(file, room_layout, output_dir, trial_type, span=10):
 
     if trial_type == 'with_owner':
 
-        sort_by_trial = {
-            'FT': 0,
-            'ST1': 1,
-            'UT1': 3,
-            'ST2': 4,
-            'UT2': 5
-        }
+        sort_by_trial = {'FT': 0, 'ST1': 1, 'UT1': 3, 'ST2': 4, 'UT2': 5}
 
     elif trial_type == 'cat_alone':
 
-        sort_by_trial = {
-            'CA1': 0,
-            'CA2': 1,
-            'CA3': 3,
-            'CA4': 4,
-            'CA5': 5
-        }
+        sort_by_trial = {'CA1': 0, 'CA2': 1, 'CA3': 3, 'CA4': 4, 'CA5': 5}
 
     combined_csv = combined_csv.iloc[combined_csv['trial'].map(
         sort_by_trial).argsort()]
