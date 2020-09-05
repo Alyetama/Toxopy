@@ -3,7 +3,6 @@ from .recycle import *
 
 from .ffsync import ffsync
 from .ffconcat import ffconcat
-from .lazytrim import lazytrim
 from .improve_dlc_output import improve_dlc_output
 from .improve_dlc_csv import improve_dlc_csv
 from .improve_dlc_output_cat_alone import improve_dlc_output_cat_alone
@@ -22,5 +21,7 @@ from .std_cols import std_cols
 from .turnpoints_time_diff import turnpoints_time_diff
 from .find_tps_velocity_values import find_tps_velocity_values
 from .fwarnings import fwarnings
+from .one_cat_one_file import one_cat_one_file
+from .correct_times import correct_times
 
 from .version import __version__, VERSION
