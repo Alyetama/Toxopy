@@ -10,7 +10,6 @@ import glob
 
 
 def improve_turnpoints(csv_dir, output_dir):
-
     """csv_dir is the initial turnpoints csv files dir"""
 
     tt = [300, 420, 600, 720, 900, 1020, 1200, 1320, 1500, 1620]
