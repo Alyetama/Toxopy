@@ -9,31 +9,27 @@ from pathlib import Path
 import glob
 
 
-def find_tps_velocity_values(csv_dir, tp_dir, output_dir, trial_type):
+def find_tps_velocity_values(csv_dir, tp_dir, output_dir):
     """
     'csv_dir' is the directory with the 'improved_dlc' files
     'tp_dir' is the directory with the improved turning points csv files
     'output_dir' is the directory where output files will be save
     """
     def tp_csv_file(cat):
-        tp_files_dir = tp_dir + f'/{cat}*.csv'
-        fs = glob.glob(tp_files_dir)
+
+        fs = glob.glob(f'{tp_dir}/{cat}_turnpoints_improved.csv')
+
         for f in fs:
             return pd.read_csv(f)
 
-    csv_files_dir = csv_dir + '/*.csv'
 
-    files = glob.glob(csv_files_dir)
+    files = glob.glob(f'{csv_dir}/*.csv')
 
     for file in files:
 
         df = pd.read_csv(file)
 
-        if trial_type == 'cat_alone':
-            cat = Path(file).stem[:-10]
-
-        elif trial_type == 'with_owner':
-            cat = Path(file).stem[:-11]
+        cat = Path(file).stem
 
         df3 = tp_csv_file(cat)
 

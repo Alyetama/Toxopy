@@ -28,3 +28,14 @@ def trials():
     return [
         'FT', 'CA1', 'ST1', 'CA2', 'UT1', 'CA3', 'ST2', 'CA4', 'UT2', 'CA5'
     ]
+
+
+def set_status(df):
+
+    if cat in ['daisy', 'mila', 'marmalade', 'washburne', 'lavoisier']:
+
+        df['infection_status'] = 'Positive'
+
+    else:
+
+        df['infection_status'] = 'Negative'

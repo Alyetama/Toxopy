@@ -6,52 +6,57 @@ Licensed under the terms of the MIT license
 
 import pandas as pd
 from pathlib import Path
+import glob
 
 
-def improve_turnpoints(csv_file, trial_type, output_dir):
+def improve_turnpoints(csv_dir, output_dir):
 
-    df = pd.read_csv(csv_file)
+    """csv_dir is the initial turnpoints csv files dir"""
 
-    tls, times, proba = [], [], []
+    tt = [300, 420, 600, 720, 900, 1020, 1200, 1320, 1500, 1620]
 
-    for x in df['tppos']:
-        times.append(round(x / 30, 4))
-    for y in df['proba']:
-        proba.append(format(y, '.8f'))
+    files = glob.glob(f'{csv_dir}/*.csv')
 
-    df = df.drop(columns=['proba'])
+    for file in files:
 
-    k, j, t = 300, 180, 120
+        df = pd.read_csv(file)
 
-    if trial_type == "with_owner":
+        tls, times, proba = [], [], []
+
+        for x in df['tppos']:
+            times.append(round(x / 30, 4))
+        for y in df['proba']:
+            proba.append(format(y, '.8f'))
+
+        df = df.drop(columns=['proba'])
+
+        k, j, t = 300, 180, 120
+
         for i in times:
-            if i < k:
+            if i < tt[0]:
                 tls.append('FT')
-            elif k < i < k + j:
-                tls.append('ST1')
-            elif k + j < i < k + j * 2:
-                tls.append('UT1')
-            elif k + j * 2 < i < k + j * 3:
-                tls.append('ST2')
-            elif k + j * 3 < i <= k + j * 4:
-                tls.append('UT2')
-
-    elif trial_type == "cat_alone":
-        for i in times:
-            if i < t:
+            elif tt[0] < i < tt[1]:
                 tls.append('CA1')
-            elif t < i < t * 2:
-                tls.append('CA2')
-            elif t * 2 < i < t * 3:
+            elif tt[1] < i < tt[2]:
+                tls.append('ST1')
+            elif tt[2] < i < tt[3]:
+                tls.append('CA1')
+            elif tt[3] < i < tt[4]:
+                tls.append('UT1')
+            elif tt[4] < i < tt[5]:
                 tls.append('CA3')
-            elif t * 3 < i < t * 4:
+            elif tt[5] < i < tt[6]:
+                tls.append('ST2')
+            elif tt[6] < i < tt[7]:
                 tls.append('CA4')
-            elif t * 4 < i <= t * 5:
+            elif tt[7] < i < tt[8]:
+                tls.append('UT2')
+            elif tt[8] < i < tt[9]:
                 tls.append('CA5')
 
-    df['proba'], df['trial'], df['time'] = proba, tls, times
+        df['proba'], df['trial'], df['time'] = proba, tls, times
 
-    df.to_csv(f'{output_dir}/{Path(csv_file).stem}_improved.csv',
-              index=False,
-              sep=',',
-              encoding='utf-8')
+        df.to_csv(f'{output_dir}/{Path(file).stem}_improved.csv',
+                  index=False,
+                  sep=',',
+                  encoding='utf-8')
