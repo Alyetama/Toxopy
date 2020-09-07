@@ -22,5 +22,6 @@ from .find_tps_velocity_values import find_tps_velocity_values
 from .fwarnings import fwarnings
 from .one_cat_one_file import one_cat_one_file
 from .correct_times import correct_times
+from .create_time_diff_data import create_time_diff_data
 
 from .version import __version__, VERSION
