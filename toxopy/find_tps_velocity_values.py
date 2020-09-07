@@ -22,7 +22,6 @@ def find_tps_velocity_values(csv_dir, tp_dir, output_dir):
         for f in fs:
             return pd.read_csv(f)
 
-
     files = glob.glob(f'{csv_dir}/*.csv')
 
     for file in files:
