@@ -23,5 +23,6 @@ from .fwarnings import fwarnings
 from .one_cat_one_file import one_cat_one_file
 from .correct_times import correct_times
 from .create_time_diff_data import create_time_diff_data
+from .super_diff import super_diff
 
 from .version import __version__, VERSION
