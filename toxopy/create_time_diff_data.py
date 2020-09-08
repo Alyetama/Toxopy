@@ -31,7 +31,7 @@ def create_time_diff_data(csv_file, csv_dir, output_dir):
         for i in range(0, len(cats)):
 
             cats_list.append([])
-            
+
         return cats_list
 
     cats_lists = return_cats_lists()
