@@ -30,7 +30,7 @@ def trials():
     ]
 
 
-def set_status(df):
+def set_status(cat, df):
 
     if cat in ['daisy', 'mila', 'marmalade', 'washburne', 'lavoisier']:
 

@@ -10,7 +10,7 @@ from scipy.stats import ks_2samp
 
 def turnpoints_time_diff(csv_file, cat):
 
-    # csv_file is typivally "all_turnpoints_with_owner_improved.csv"
+    # csv_file is typivally "turnpoints_super_improved.csv"
     # use the output of this function in ks_2samp(output1, output2)
 
     df = pd.read_csv(csv_file)
