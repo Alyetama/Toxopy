@@ -6,7 +6,7 @@ Object-specific python package to run automated tasks in the Chase Lab
 $ pip install toxopy
 ```
 
-## Functions details
+## Functions details [**INCOMPLETE**]
 
 ### Improve DLC Output –– With Owner Trials
 
