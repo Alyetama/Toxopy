@@ -10,10 +10,12 @@ import glob
 from pathlib import Path
 
 
-def super_diff(csv_dir, variable, output_dir):
+def find_turnpoints_diff(csv_dir, variable, output_dir):
+
     """
     'csv_dir' is 'turnpoints_super_improved' dir
-    'variable' can either take 'time_diff' or 'velocity_value'
+    'variable' can either take 'time' or 'velocity_value'
+    'output_dir' is the directory in which the output files will be saved
     """
 
     files = glob.glob(f'{csv_dir}/*.csv')
@@ -24,7 +26,7 @@ def super_diff(csv_dir, variable, output_dir):
 
         df = pd.read_csv(file)
 
-        if variable == 'time_diff':
+        if variable == 'time':
             firstispeak = str(df['firstispeak'][0])
 
         cat = Path(file).stem[:-13]
@@ -38,9 +40,9 @@ def super_diff(csv_dir, variable, output_dir):
 
         ls = df[variable].tolist()
 
-        diff, trial, diff_calc = [], [], []
+        diff, trial, diff_calc  = [], [], []
 
-        if variable == 'time_diff':
+        if variable == 'time':
             n = len(altE(ls))
 
         elif variable == 'velocity_value':
@@ -52,7 +54,7 @@ def super_diff(csv_dir, variable, output_dir):
                 break
 
             else:
-                if variable == 'time_diff':
+                if variable == 'time':
                     diff.append(altE(ls)[i + 1] - altE(ls)[i])
                     trial.append(altE(df['trial'].tolist()))
                     diff_calc.append(f'({altE(ls)[i + 1]}) - ({altE(ls)[i]})')
@@ -61,14 +63,13 @@ def super_diff(csv_dir, variable, output_dir):
                     diff.append(ls[1::2][i] - ls[::2][i])
                     tl = df['trial'].tolist()
                     trial.append(tl[::2])
-                    diff_calc.append(
-                        f'({round(ls[1::2][i], 4)}) - ({round(ls[::2][i], 4)})')
+                    diff_calc.append(f'({round(ls[1::2][i], 4)}) - ({round(ls[::2][i], 4)})')
 
         diff = [round(x, 4) for x in diff]
 
         df = pd.DataFrame()
 
-        if variable == 'time_diff':
+        if variable == 'time':
             df['time_diff'] = diff
             df['time_diff'] = df['time_diff'].abs()
 
@@ -76,7 +77,7 @@ def super_diff(csv_dir, variable, output_dir):
             df['vel_diff'] = diff
             df['vel_diff'] = df['vel_diff'].abs()
 
-        df['cat'] = ca
+        df['cat'] = cat
         set_status(cat, df)
         df['trial'] = trial[0][0:len(diff)]
         df['diff_calc'] = diff_calc
@@ -89,8 +90,9 @@ def super_diff(csv_dir, variable, output_dir):
 
         df.to_csv(f'{output_dir}/{cat}.csv', index=False, encoding='utf-8-sig')
 
-    if variable == 'velocity_value':
-        concat_csv(output_dir, "all_vel_super_diff")
 
-    elif variable == 'time_diff':
-        concat_csv(output_dir, "all_time_super_diff")
+    if variable == 'velocity_value':
+        concat_csv(output_dir, "all_vel_diff")
+
+    elif variable == 'time':
+        concat_csv(output_dir, "all_time_diff")

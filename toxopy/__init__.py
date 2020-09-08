@@ -17,12 +17,10 @@ from .calc_dlc_mw import calc_dlc_mw
 from .dlcboxplot import dlcboxplot
 from .turning_points import turning_points_output
 from .improve_turnpoints import improve_turnpoints
-from .turnpoints_time_diff import turnpoints_time_diff
 from .find_tps_velocity_values import find_tps_velocity_values
 from .fwarnings import fwarnings
 from .one_cat_one_file import one_cat_one_file
 from .correct_times import correct_times
-from .create_time_diff_data import create_time_diff_data
-from .super_diff import super_diff
+from .find_turnpoints_diff import find_turnpoints_diff
 
 from .version import __version__, VERSION
