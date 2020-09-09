@@ -98,7 +98,8 @@ def improve_dlc_output(cat, owner):
 
     ds = []
 
-    console.print("\nCALCULATING THE DISTANCE BETWEEN CAT AND OWNER", style="bold green")
+    console.print(
+        "\nCALCULATING THE DISTANCE BETWEEN CAT AND OWNER", style="bold green")
 
     for i, j in tqdm(zip(df_cat['indx'], df_owner['indx'])):
 
@@ -142,7 +143,8 @@ def improve_dlc_output(cat, owner):
 
     i = 0
 
-    console.print("\nCALCULATING THE CAT'S TRAVELED DISTANCE", style="bold green")
+    console.print("\nCALCULATING THE CAT'S TRAVELED DISTANCE",
+                  style="bold green")
 
     for i in tqdm(range(0, n)):
 
