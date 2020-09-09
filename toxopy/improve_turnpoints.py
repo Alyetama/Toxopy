@@ -7,6 +7,7 @@ Licensed under the terms of the MIT license
 import pandas as pd
 from pathlib import Path
 import glob
+from toxopy import trials
 
 
 def improve_turnpoints(csv_dir, output_dir):
@@ -21,6 +22,8 @@ def improve_turnpoints(csv_dir, output_dir):
         df = pd.read_csv(file)
 
         tls, times, proba = [], [], []
+        
+        trls = trials()
 
         for x in df['tppos']:
             times.append(round(x / 30, 4))
@@ -34,24 +37,10 @@ def improve_turnpoints(csv_dir, output_dir):
         for i in times:
             if i < tt[0]:
                 tls.append('FT')
-            elif tt[0] < i < tt[1]:
-                tls.append('CA1')
-            elif tt[1] < i < tt[2]:
-                tls.append('ST1')
-            elif tt[2] < i < tt[3]:
-                tls.append('CA1')
-            elif tt[3] < i < tt[4]:
-                tls.append('UT1')
-            elif tt[4] < i < tt[5]:
-                tls.append('CA3')
-            elif tt[5] < i < tt[6]:
-                tls.append('ST2')
-            elif tt[6] < i < tt[7]:
-                tls.append('CA4')
-            elif tt[7] < i < tt[8]:
-                tls.append('UT2')
-            elif tt[8] < i < tt[9]:
-                tls.append('CA5')
+            else:
+                for q, p in zip(range(0, 10), trls[1:]):
+                    if tt[q] < i < tt[q+1]:
+                        tls.append(p)
 
         df['proba'], df['trial'], df['time'] = proba, tls, times
 
