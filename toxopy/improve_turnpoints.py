@@ -22,7 +22,7 @@ def improve_turnpoints(csv_dir, output_dir):
         df = pd.read_csv(file)
 
         tls, times, proba = [], [], []
-        
+
         trls = trials()
 
         for x in df['tppos']:
