@@ -9,24 +9,25 @@ from math import sqrt
 from numpy import nan
 from os import remove
 from tqdm import tqdm
-"""Add time and trial type."""
+from rich.console import Console
 
 
 def improve_dlc_output(cat, owner):
-    def improve_dlc_csv(csv_file, trial_type=None):
+
+    console = Console()
+
+    def improve_dlc_csv(csv_file, trial_type):
+        """Add time and trial type."""
 
         df = pd.read_csv(csv_file)
         df = df.iloc[:, :3]
 
         n = len(df)
 
-        if trial_type is None:
-            print("Please specify type!")
-
         if trial_type == 'owner':
             time = 1020
 
-        if trial_type == 'cat':
+        elif trial_type == 'cat':
             time = 600
 
         f = n / time
@@ -41,10 +42,7 @@ def improve_dlc_output(cat, owner):
 
         trials = []
 
-        if trial_type is None:
-            print("Please specify type!")
-
-        elif trial_type == "owner":
+        if trial_type == "owner":
 
             for i in indx:
                 k = 300
@@ -100,7 +98,7 @@ def improve_dlc_output(cat, owner):
 
     ds = []
 
-    print("\nCALCULATING THE DISTANCE BETWEEN CAT AND OWNER")
+    console.print("\nCALCULATING THE DISTANCE BETWEEN CAT AND OWNER", style="bold green")
 
     for i, j in tqdm(zip(df_cat['indx'], df_owner['indx'])):
 
@@ -144,7 +142,7 @@ def improve_dlc_output(cat, owner):
 
     i = 0
 
-    print("\nCALCULATING THE CAT'S TRAVELED DISTANCE")
+    console.print("\nCALCULATING THE CAT'S TRAVELED DISTANCE", style="bold green")
 
     for i in tqdm(range(0, n)):
 
@@ -165,7 +163,7 @@ def improve_dlc_output(cat, owner):
 
     velocity_ls = []
 
-    print("\nCALCULATING THE CAT'S VELOCITY")
+    console.print("\nCALCULATING THE CAT'S VELOCITY", style="bold green")
 
     for j in tqdm(range(0, n)):
 
@@ -185,7 +183,7 @@ def improve_dlc_output(cat, owner):
     moving = []
     notMoving = []
 
-    print("\nESTIMATING THE CAT'S MOVEMENT STATE")
+    console.print("\nESTIMATING THE CAT'S MOVEMENT STATE", style="bold green")
 
     for z in tqdm(cat_dst['cat_distance']):
 
@@ -208,7 +206,7 @@ def improve_dlc_output(cat, owner):
 
     acc = []
 
-    print("\nCALCULATING THE CAT'S ACCELERATION")
+    console.print("\nCALCULATING THE CAT'S ACCELERATION", style="bold green")
 
     for q in tqdm(range(0, n)):
 
@@ -231,7 +229,7 @@ def improve_dlc_output(cat, owner):
 
     idx = df.index[df['indx']].tolist()
 
-    print("\nCLEANING OUTPUT")
+    console.print("\nCLEANING OUTPUT", style="bold green")
 
     for s, w in tqdm(zip(df['velocity'], idx)):
         if s == 0:
@@ -248,4 +246,4 @@ def improve_dlc_output(cat, owner):
               sep=',',
               encoding='utf-8')
 
-    print("\nDONE!")
+    console.print("\nDONE!", style="bold green")

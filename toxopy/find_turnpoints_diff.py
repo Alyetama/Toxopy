@@ -11,6 +11,7 @@ from pathlib import Path
 
 
 def find_turnpoints_diff(csv_dir, variable, output_dir):
+
     """
     'csv_dir' is 'turnpoints_super_improved' dir
     'variable' can either take 'time' or 'velocity_value'
@@ -39,7 +40,7 @@ def find_turnpoints_diff(csv_dir, variable, output_dir):
 
         ls = df[variable].tolist()
 
-        diff, trial, diff_calc = [], [], []
+        diff, trial, diff_calc  = [], [], []
 
         if variable == 'time':
             n = len(altE(ls))
@@ -62,8 +63,7 @@ def find_turnpoints_diff(csv_dir, variable, output_dir):
                     diff.append(ls[1::2][i] - ls[::2][i])
                     tl = df['trial'].tolist()
                     trial.append(tl[::2])
-                    diff_calc.append(
-                        f'({round(ls[1::2][i], 4)}) - ({round(ls[::2][i], 4)})')
+                    diff_calc.append(f'({round(ls[1::2][i], 4)}) - ({round(ls[::2][i], 4)})')
 
         diff = [round(x, 4) for x in diff]
 
@@ -89,6 +89,7 @@ def find_turnpoints_diff(csv_dir, variable, output_dir):
                 df.drop(z, inplace=True)
 
         df.to_csv(f'{output_dir}/{cat}.csv', index=False, encoding='utf-8-sig')
+
 
     if variable == 'velocity_value':
         concat_csv(output_dir, "all_vel_diff")
