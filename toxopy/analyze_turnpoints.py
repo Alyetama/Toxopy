@@ -103,7 +103,7 @@ def analyze_turnpoints(improved_dlc_dir, init_tp_dir, output_dir):
 
     diff_output_dir = f'{output_dir}/diff'
 
-    def find_turnpoints_diff(output_dir_super, output_dir_diff):
+    def find_turnpoints_diff(output_dir_super, diff_output_dir):
         """
         'output_dir_super' is 'turnpoints_super_improved' dir
         'output_dir_diff' is the directory in which the output files will be saved
