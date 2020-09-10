@@ -22,5 +22,6 @@ from .fwarnings import fwarnings
 from .one_cat_one_file import one_cat_one_file
 from .correct_times import correct_times
 from .find_turnpoints_diff import find_turnpoints_diff
+from .return_sem import return_sem
 
 from .version import __version__, VERSION
