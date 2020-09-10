@@ -80,16 +80,15 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
             df.columns = ['indx', 'x', 'y', 'time', 'trial']
 
             df.to_csv(file_name,
-                          index=False,
-                          sep=',',
-                          encoding='utf-8')
-
+                      index=False,
+                      sep=',',
+                      encoding='utf-8')
 
         for i, j in zip([cat_head, owner_hand, cat_alone],
-            ['owner', 'owner', 'cat']):
-            
-            improve_dlc_csv(i, trial_type=j, file_name=f'{output_dir}/{Path(i).stem}_improved.csv')
+                        ['owner', 'owner', 'cat']):
 
+            improve_dlc_csv(
+                i, trial_type=j, file_name=f'{output_dir}/{Path(i).stem}_improved.csv')
 
         if only_improve_csv is True:
             return None
@@ -103,7 +102,6 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
 
         df_cat, df_owner, df_CA = dt(cat_head), dt(owner_hand), dt(cat_alone)
         df_CA.rename(columns={'x': 'x_cat', 'y': 'y_cat'}, inplace=True)
-
 
         tls = df_CA['trial']
 
@@ -181,7 +179,8 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
 
             velocity_ls = []
 
-            console.print("\nCALCULATING THE CAT'S VELOCITY", style="bold green")
+            console.print("\nCALCULATING THE CAT'S VELOCITY",
+                          style="bold green")
 
             for j in tqdm(range(0, len(df_alt))):
 
@@ -198,7 +197,8 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
 
             moving, notMoving = [], []
 
-            console.print("\nESTIMATING THE CAT'S MOVEMENT STATE", style="bold green")
+            console.print("\nESTIMATING THE CAT'S MOVEMENT STATE",
+                          style="bold green")
 
             for z in tqdm(cat_dst['cat_distance']):
 
@@ -222,7 +222,8 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
 
             acc = []
 
-            console.print("\nCALCULATING THE CAT'S ACCELERATION", style="bold green")
+            console.print("\nCALCULATING THE CAT'S ACCELERATION",
+                          style="bold green")
 
             for q in tqdm(range(0, len(df_alt))):
 
@@ -239,11 +240,12 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
             """Clean zero values in relevant data,
             then append data to one csv file."""
 
-
             if name == 'WO':
-                df = pd.concat([result, cat_dst, velocity, moving, notMoving, acc], axis=1)
+                df = pd.concat([result, cat_dst, velocity,
+                                moving, notMoving, acc], axis=1)
             elif name == 'CA':
-                df = pd.concat([df_CA, tls, cat_dst, velocity, moving, notMoving, acc], axis=1)
+                df = pd.concat([df_CA, tls, cat_dst, velocity,
+                                moving, notMoving, acc], axis=1)
 
             cols = ['cat_distance', 'velocity', 'acceleration']
 

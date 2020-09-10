@@ -20,7 +20,8 @@ def combine_dlc_improved(ca_dir, wo_dir, output_dir):
         'wo_dir' is the dir with with_owner_improved csv files
         """
 
-        cat_alone, with_owner = glob(ca_dir + '/*.csv'), glob(wo_dir + '/*.csv')
+        cat_alone, with_owner = glob(
+            ca_dir + '/*.csv'), glob(wo_dir + '/*.csv')
 
         for f1, f2 in tqdm(zip(sorted(cat_alone), sorted(with_owner))):
 
@@ -47,9 +48,7 @@ def combine_dlc_improved(ca_dir, wo_dir, output_dir):
                                 index=False,
                                 encoding='utf-8-sig')
 
-
     one_cat_one_file(ca_dir, wo_dir, output_dir)
-
 
     def correct_times(output_dir, f_output_dir):
         """'csv_dir' is the path to the folder containing the combined csv files"""
@@ -109,6 +108,5 @@ def combine_dlc_improved(ca_dir, wo_dir, output_dir):
                         encoding='utf-8-sig')
 
             [remove(i) for i in fs]
-
 
     correct_times(output_dir, output_dir)
