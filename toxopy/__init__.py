@@ -4,7 +4,7 @@ from .recycle import *
 from .ffsync import ffsync
 from .ffconcat import ffconcat
 from .improve_dlc_output import improve_dlc_output
-from .csv2h5 import csv2h5
+from .csv_util import concat_csv, csv2h5
 from .analyze_rois import analyze_rois
 from .concat_rois import concat_rois
 from .roi_calc_mw import roi_calc_mw
