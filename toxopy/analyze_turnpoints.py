@@ -18,7 +18,6 @@ def analyze_turnpoints(improved_dlc_dir, init_tp_dir, output_dir):
     'output_dir' is the dir in which the output files will be saved
     """
 
-
     def improve_turnpoints(init_tp_dir, output_dir):
         """
         'init_tp_dir' is the initial turnpoints csv files dir
@@ -61,9 +60,7 @@ def analyze_turnpoints(improved_dlc_dir, init_tp_dir, output_dir):
                       sep=',',
                       encoding='utf-8')
 
-
     improve_turnpoints(init_tp_dir, output_dir)
-
 
     def find_tps_velocity_values(improved_dlc_dir, output_dir, super_output_dir):
         """
@@ -99,15 +96,12 @@ def analyze_turnpoints(improved_dlc_dir, init_tp_dir, output_dir):
                        index=False,
                        encoding='utf-8-sig')
 
-
     find_tps_velocity_values(improved_dlc_dir, output_dir, output_dir)
-
 
     if not os.path.exists(f'{output_dir}/diff'):
         os.makedirs(f'{output_dir}/diff')
 
     diff_output_dir = f'{output_dir}/diff'
-
 
     def find_turnpoints_diff(output_dir_super, output_dir_diff):
         """
@@ -156,7 +150,8 @@ def analyze_turnpoints(improved_dlc_dir, init_tp_dir, output_dir):
                         if variable == 'time':
                             diff.append(altE(ls)[i + 1] - altE(ls)[i])
                             trial.append(altE(df['trial'].tolist()))
-                            diff_calc.append(f'({altE(ls)[i + 1]}) - ({altE(ls)[i]})')
+                            diff_calc.append(
+                                f'({altE(ls)[i + 1]}) - ({altE(ls)[i]})')
 
                         elif variable == 'velocity_value':
                             diff.append(ls[1::2][i] - ls[::2][i])
@@ -188,13 +183,13 @@ def analyze_turnpoints(improved_dlc_dir, init_tp_dir, output_dir):
                     if i != j:
                         df.drop(z, inplace=True)
 
-                df.to_csv(f'{diff_output_dir}/{cat}.csv', index=False, encoding='utf-8-sig')
+                df.to_csv(f'{diff_output_dir}/{cat}.csv',
+                          index=False, encoding='utf-8-sig')
 
             if variable == 'velocity_value':
                 concat_csv(diff_output_dir, "all_vel_diff")
 
             elif variable == 'time':
                 concat_csv(diff_output_dir, "all_time_diff")
-
 
     find_turnpoints_diff(output_dir, diff_output_dir)
