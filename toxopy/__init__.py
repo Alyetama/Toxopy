@@ -15,13 +15,10 @@ from .obtain_grand_m import obtain_grand_m
 from .concat_csv import concat_csv
 from .calc_dlc_mw import calc_dlc_mw
 from .dlcboxplot import dlcboxplot
-from .turning_points import turning_points_output
-from .improve_turnpoints import improve_turnpoints
-from .find_tps_velocity_values import find_tps_velocity_values
 from .fwarnings import fwarnings
 from .one_cat_one_file import one_cat_one_file
 from .correct_times import correct_times
-from .find_turnpoints_diff import find_turnpoints_diff
+from .analyze_turnpoints import analyze_turnpoints
 from .return_sem import return_sem
 
 from .version import __version__, VERSION
