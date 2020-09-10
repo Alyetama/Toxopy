@@ -88,7 +88,7 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
                         ['owner', 'owner', 'cat']):
             file_name = f'{output_dir}/{Path(i).stem}_improved.csv'
             improve_dlc_csv(
-                i, trial_type=j, file_name=filename)
+                i, trial_type=j, file_name=file_name)
 
         if only_improve_csv is True:
             return None
