@@ -55,7 +55,8 @@ def combine_dlc_improved(ca_dir, wo_dir, output_dir):
 
         files = glob(f'{output_dir}/*.csv')
 
-        tls = trials_cap()
+        # tls = trials_cap()
+        tls = trials()
 
         trials_times = [300, 420, 600, 720, 900, 1020, 1200, 1320, 1500, 1620]
 
@@ -97,9 +98,9 @@ def combine_dlc_improved(ca_dir, wo_dir, output_dir):
 
             ccsv = pd.concat([pd.read_csv(i) for i in fs])
 
-            old_names, new_names = trials_cap(), trials()
+            # old_names, new_names = trials_cap(), trials()
 
-            ccsv['trial'] = ccsv['trial'].replace(old_names, new_names)
+            # ccsv['trial'] = ccsv['trial'].replace(old_names, new_names)
 
             ccsv = ccsv.sort_values(by=['time'])
 
