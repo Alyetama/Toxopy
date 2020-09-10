@@ -25,7 +25,8 @@ def jsonify_dlc_avgs(csv_file):
     d = {}
 
     vars1 = ['distance', 'cat_distance', 'vel', 'acceleration']
-    vars2 = ['distance_loess05', 'cat_distance_loess05', 'velocity_loess05', 'acceleration_loess05']
+    vars2 = ['distance_loess05', 'cat_distance_loess05',
+             'velocity_loess05', 'acceleration_loess05']
 
     for cat in cats:
 
@@ -38,7 +39,6 @@ def jsonify_dlc_avgs(csv_file):
             for i, j in zip(vars1, vars2):
                 d[cat][t][i] = mean(df3[j])
             d[cat][t]['moving'] = percentage(sum(df3['moving']), len(df2))
-
 
     with open('dlc_avgs.json', 'w') as outfile:
         json.dump(d, outfile)
