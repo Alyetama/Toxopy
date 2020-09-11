@@ -14,14 +14,11 @@ def csv2h5(path, head=[1]):
     def toh5(file):
         df = pd.read_csv(file, header=head, index_col=[0])
 
-        return df.to_hdf(Path(file).stem + '.h5',
-                         'data',
-                         mode='w',
-                         format='table')
+        return df.to_hdf(Path(file).stem + ".h5", "data", mode="w", format="table")
 
     if isinstance(path, str):
 
-        csv_files_dir = path + '/*.csv'
+        csv_files_dir = path + "/*.csv"
 
         files = glob.glob(csv_files_dir)
 
@@ -38,10 +35,10 @@ def csv2h5(path, head=[1]):
 
 def concat_csv(directory, output_file_name):
 
-    files = glob.glob(directory + '/*.csv')
+    files = glob.glob(directory + "/*.csv")
 
     combined_csv = pd.concat([pd.read_csv(f) for f in files])
 
-    combined_csv.to_csv(directory + '/' + output_file_name + '.csv',
-                        index=False,
-                        encoding='utf-8-sig')
+    combined_csv.to_csv(
+        directory + "/" + output_file_name + ".csv", index=False, encoding="utf-8-sig"
+    )
