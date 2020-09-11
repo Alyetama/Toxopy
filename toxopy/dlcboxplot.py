@@ -86,7 +86,7 @@ def dlcboxplot(file,
     plt.show()
 
     fig = ax.get_figure()
-    
+
     if save is True:
         if output_dir is not False:
             fig.savefig(f'{output_dir}/{variable}.png',
