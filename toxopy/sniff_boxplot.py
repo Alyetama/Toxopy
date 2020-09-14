@@ -2,8 +2,8 @@ from toxopy import fwarnings, trials
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-import numpy as np
-import itertools
+from numpy import repeat
+from itertools import chain
 
 
 def sniff_boxplot(csv_file, colors=False, jitter=False, title=False, save=False, output_dir=False):
@@ -35,10 +35,10 @@ def sniff_boxplot(csv_file, colors=False, jitter=False, title=False, save=False,
             s[i] = df[df['infection_status'] == r][cols[j]]
 
     def itrchain(ls):
-        return list(itertools.chain.from_iterable(ls))
+        return list(chain.from_iterable(ls))
 
     def achain(ls, x):
-        return ls.append(list(np.repeat(x, len(i[j]))))
+        return ls.append(list(repeat(x, len(i[j]))))
 
     df2 = pd.DataFrame()
 
