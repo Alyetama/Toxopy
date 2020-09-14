@@ -12,11 +12,13 @@ from tqdm import tqdm
 from rich.console import Console
 from pathlib import Path
 from glob import glob
+from toxopy import trials
 
 
 def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
 
     console = Console()
+    trls = trials()
 
     def gg(i):
         return sorted(glob(input_dir + f'/*_{i}.csv'))
@@ -41,42 +43,33 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
 
             f = len(df) / time
 
-            time, trials = [], []
+            time, tls = [], []
 
             for i in range(0, len(df)):
                 time.append(i / f)
 
-            if trial_type == "owner":
+            tt = [180, 480, 660, 840, 1020]
 
+            if trial_type == "owner":
                 for i in time:
-                    k = 300
-                    j = 180
-                    if i < k:
-                        trials.append('FT')
-                    elif k < i < k + j:
-                        trials.append('ST1')
-                    elif k + j < i < k + j * 2:
-                        trials.append('UT1')
-                    elif k + j * 2 < i < k + j * 3:
-                        trials.append('ST2')
-                    elif k + j * 3 < i <= k + j * 4:
-                        trials.append('UT2')
+                    if i < 300:
+                        tls.append('FT')
+                    else:
+                        for q, p in zip(range(0, 4), trls[2:][::2]):
+                            if tt[q] < i < tt[q+1]:
+                                tls.append(p)
 
             elif trial_type == "cat":
                 t = 120
                 for i in time:
                     if i < t:
-                        trials.append('CA1')
-                    elif t < i < t * 2:
-                        trials.append('CA2')
-                    elif t * 2 < i < t * 3:
-                        trials.append('CA3')
-                    elif t * 3 < i < t * 4:
-                        trials.append('CA4')
-                    elif t * 4 < i <= t * 5:
-                        trials.append('CA5')
+                        tls.append('CA1')
+                    else:
+                        for q, p in zip(range(2, 6), trls[2:][1::2]):
+                            if t * (q - 1) < i < t * q:
+                                tls.append(p)
 
-            df['time'], df['trial'] = time, trials
+            df['time'], df['trial'] = time, tls
             df.columns = ['indx', 'x', 'y', 'time', 'trial']
 
             df.to_csv(file_name,
@@ -119,7 +112,8 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
 
             ds.append(distance)
 
-        ds = pd.DataFrame(ds, columns=['distance'])
+        df_owner['distance'] = ds
+        # ds = pd.DataFrame(ds, columns=['distance'])
 
         def renameCols(i, j):
             i.rename(columns={'x': f'x_{j}', 'y': f'y_{j}'}, inplace=True)
@@ -128,7 +122,7 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
 
         result = pd.concat([
             df_cat[{'indx', 'x_cat', 'y_cat'}],
-            df_owner[{'x_owner', 'y_owner', 'time', 'trial'}], ds
+            df_owner[{'x_owner', 'y_owner', 'time', 'trial', 'distance'}]
         ],
             axis=1)
 
@@ -160,18 +154,21 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
             console.print("\nCALCULATING THE CAT'S TRAVELED DISTANCE",
                           style="bold green")
 
+            def p(k, e):
+                return df_alt.iloc[i - k][e]
+
             for i in tqdm(range(0, len(df_alt))):
 
-                x1 = df_alt.iloc[i]['x_cat']
-                x2 = df_alt.iloc[i - 1]['x_cat']
-                y1 = df_alt.iloc[i]['y_cat']
-                y2 = df_alt.iloc[i - 1]['y_cat']
+                x1, x2 = p(0, 'x_cat'), p(1, 'x_cat')
+                y1, y2 = p(0, 'y_cat'), p(1, 'y_cat')
 
                 cat_dst.append(float(calculateDistance(x1, y1, x2, y2)))
 
             cat_dst[0] = nan
 
-            cat_dst = pd.DataFrame(cat_dst, columns=['cat_distance'])
+            fdf = pd.DataFrame(cat_dst, columns=['cat_distance'])
+
+            # cat_dst = pd.DataFrame(cat_dst, columns=['cat_distance'])
             """Calculate cat velocity."""
 
             def calculateVelocity(dist, time):
@@ -188,11 +185,11 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
                     velocity_ls.append(nan)
                     continue
 
-                d = cat_dst.iloc[j]['cat_distance']
+                d = cat_dst[j]
 
                 velocity_ls.append(float(calculateVelocity(d, 0.033)))
 
-            velocity = pd.DataFrame(velocity_ls, columns=['velocity'])
+            fdf['velocity'] = velocity_ls
             """Calculate cat movement state."""
 
             moving, notMoving = [], []
@@ -200,7 +197,7 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
             console.print("\nESTIMATING THE CAT'S MOVEMENT STATE",
                           style="bold green")
 
-            for z in tqdm(cat_dst['cat_distance']):
+            for z in tqdm(cat_dst):
 
                 if str(z) == 'nan':
                     moving.append(nan)
@@ -212,8 +209,7 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
                     moving.append(0)
                     notMoving.append(1)
 
-            moving = pd.DataFrame(moving, columns=['moving'])
-            notMoving = pd.DataFrame(notMoving, columns=['not_moving'])
+            fdf['moving'], fdf['not_moving'] = moving, notMoving
 
             """Calculate cat acceleration."""
 
@@ -225,27 +221,24 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
             console.print("\nCALCULATING THE CAT'S ACCELERATION",
                           style="bold green")
 
+            def a(u, v, d):
+                return d.iloc[q - u][v].astype('float')
+
             for q in tqdm(range(0, len(df_alt))):
 
-                velocity['velocity'].astype('float')
-
-                vi = velocity.iloc[q]['velocity'].astype('float')
-                vf = velocity.iloc[q - 1]['velocity'].astype('float')
-                ti = df_alt.iloc[q]['time']
-                tf = df_alt.iloc[q - 1]['time']
+                vi, vf = a(0, 'velocity', fdf), a(1, 'velocity', fdf)
+                ti, tf = a(0, 'time', df_alt), a(1, 'time', df_alt)
 
                 acc.append(float(calculateAcc(vi, vf, ti, tf)))
 
-            acc = pd.DataFrame(acc, columns=['acceleration'])
+            fdf['acceleration'] = acc
             """Clean zero values in relevant data,
             then append data to one csv file."""
 
             if name == 'WO':
-                df = pd.concat([result, cat_dst, velocity,
-                                moving, notMoving, acc], axis=1)
+                df = pd.concat([result, fdf], axis=1)
             elif name == 'CA':
-                df = pd.concat([df_CA, tls, cat_dst, velocity,
-                                moving, notMoving, acc], axis=1)
+                df = pd.concat([df_CA, tls, fdf], axis=1)
 
             cols = ['cat_distance', 'velocity', 'acceleration']
 
