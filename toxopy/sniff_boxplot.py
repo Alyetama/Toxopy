@@ -8,12 +8,15 @@ import itertools
 
 def sniff_boxplot(csv_file, colors=False, jitter=False, title=False, save=False, output_dir=False):
     """
-    'csv_file' is the files with the vial sniff data (here: 'bin_data_all_behaviors____frequency.csv').
+    'csv_file' is the files with the vial sniff data,
+        (here: 'bin_data_all_behaviors____frequency.csv').
     'colors' is a list of two colors in the order: [negative, positive].
     'jitter' is a boolean variable to display jitter or not, default is False.
     'title' is the title of the plot, default is False.
-    'save' is a boolean variable to save thhe figure (True) or just show it (False: default).
-    'output_dir' is the path to the location of the saved plot (default is False: the plot will be saved in the current working dir).
+    'save' is a boolean variable to save thhe figure (True),
+        or just show it (False: default).
+    'output_dir' is the path to the location of the saved plot
+        (default is False: the plot will be saved in the current working dir).
     """
 
     df0 = pd.read_csv(csv_file)
