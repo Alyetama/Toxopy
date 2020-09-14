@@ -28,8 +28,8 @@ def sniff_boxplot(csv_file, colors=False, jitter=False, title=False, save=False,
     dcts, strs = [Negative, Positive], ['Negative', 'Positive']
 
     for s, r in zip(dcts, strs):
-          for i, j, in zip(tls[2::2], range(2, 6)):
-              s[i] = df[df['infection_status'] == r][cols[j]]
+        for i, j, in zip(tls[2::2], range(2, 6)):
+            s[i] = df[df['infection_status'] == r][cols[j]]
 
     def itrchain(ls):
         return list(itertools.chain.from_iterable(ls))
