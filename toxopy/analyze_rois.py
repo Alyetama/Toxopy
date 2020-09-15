@@ -32,13 +32,12 @@ def analyze_rois(file, room_layout, output_dir, trial_type, span=10):
     df = pd.read_csv(file)
     df = df.dropna()
 
+    def t(trial):
+        return df.loc[df['trial'] == trial]
+
     if trial_type == 'with_owner':
 
-        t1 = df.loc[df['trial'] == 'FT']
-        t3 = df.loc[df['trial'] == 'ST1']
-        t5 = df.loc[df['trial'] == 'UT1']
-        t7 = df.loc[df['trial'] == 'ST2']
-        t9 = df.loc[df['trial'] == 'UT2']
+        t1, t3, t5, t7, t9 = t('FT'), t('ST1'), t('UT1'), t('ST2'), t('UT2')
 
         cat = str(Path(file).stem)[:-11]
 
@@ -48,11 +47,7 @@ def analyze_rois(file, room_layout, output_dir, trial_type, span=10):
 
     elif trial_type == 'cat_alone':
 
-        t2 = df.loc[df['trial'] == 'CA1']
-        t4 = df.loc[df['trial'] == 'CA2']
-        t6 = df.loc[df['trial'] == 'CA3']
-        t8 = df.loc[df['trial'] == 'CA4']
-        t10 = df.loc[df['trial'] == 'CA5']
+        t2, t4, t6, t8, t10 = t('CA1'), t('CA2'), t('CA3'), t('CA4'), t('CA5')
 
         cat = str(Path(file).stem)[:-10]
 

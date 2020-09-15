@@ -7,12 +7,13 @@ Licensed under the terms of the MIT license
 import pandas as pd
 from math import sqrt
 from numpy import nan
-from os import remove
 from tqdm import tqdm
 from rich.console import Console
 from pathlib import Path
 from glob import glob
 from toxopy import trials
+import os
+import shutil
 
 
 def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
@@ -113,7 +114,6 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
             ds.append(distance)
 
         df_owner['distance'] = ds
-        # ds = pd.DataFrame(ds, columns=['distance'])
 
         def renameCols(i, j):
             i.rename(columns={'x': f'x_{j}', 'y': f'y_{j}'}, inplace=True)
@@ -168,7 +168,6 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
 
             fdf = pd.DataFrame(cat_dst, columns=['cat_distance'])
 
-            # cat_dst = pd.DataFrame(cat_dst, columns=['cat_distance'])
             """Calculate cat velocity."""
 
             def calculateVelocity(dist, time):
@@ -265,4 +264,11 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
 
         for i in ['ch', 'oh', 'chwo']:
             tbrm = glob(f'{output_dir}/*_{i}_improved.csv')
-            [remove(x) for x in tbrm]
+            [os.remove(x) for x in tbrm]
+
+    for x in ['CA', 'WO']:
+        op = f'{output_dir}/{x}'
+        if not os.path.exists(op):
+            os.makedirs(op)
+        for file in glob(f'{output_dir}/*_{x}_*.csv'):
+            shutil.move(file, op)
