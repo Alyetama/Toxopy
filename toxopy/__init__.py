@@ -18,5 +18,6 @@ from .analyze_turnpoints import analyze_turnpoints
 from .return_sem import return_sem
 from .sniff_boxplot import sniff_boxplot
 from .time_budget_mw import time_budget_mw
+from .latency_mw import latency_mw
 
 from .version import __version__, VERSION
