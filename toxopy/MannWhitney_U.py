@@ -10,7 +10,7 @@ def MannWhitney_U(csv_file, test, drop_non_dlc=True, only_sig=False):
     excluded_cats = nadlc()
 
     trls = trials()
-    
+
     if drop_non_dlc is True:
         for c in excluded_cats:
             df.drop(df[df.cat == c].index, inplace=True)
@@ -27,16 +27,16 @@ def MannWhitney_U(csv_file, test, drop_non_dlc=True, only_sig=False):
             result = 'reject H0'
         return result
 
-
     if test == 'time_budget':
         def time_budget_mw(csv_file, only_sig):
 
             df = pd.read_csv(csv_file)
-            
+
             excluded_cats = nadlc()
-            
-            behaviors = ['Exploration/locomotion', 'Fear', 'Calm', 'Affiliative']
-            
+
+            behaviors = ['Exploration/locomotion',
+                         'Fear', 'Calm', 'Affiliative']
+
             def calc_mw(t, b):
                 def slct(s, t, b):
                     return list(df.loc[(df['infection_status'] == s)
@@ -68,10 +68,9 @@ def MannWhitney_U(csv_file, test, drop_non_dlc=True, only_sig=False):
 
         time_budget_mw(csv_file, only_sig)
 
-
     elif test == 'latency':
         def latency_mw(csv_file):
-                    
+
             def slct(status):
                 return list(df.loc[(df['infection_status'] == status)]['t1_latency_to_exit_carrier'])
 
@@ -85,13 +84,13 @@ def MannWhitney_U(csv_file, test, drop_non_dlc=True, only_sig=False):
 
         latency_mw(csv_file)
 
-
     elif test == 'roi':
         def roi_calc_mw(csv_file, drop_non_dlc=False):
 
             df = pd.read_csv(csv_file)
 
-            vois = ["cumulative_time_in_roi_sec", "avg_time_in_roi_sec", "avg_vel_in_roi"]
+            vois = ["cumulative_time_in_roi_sec",
+                    "avg_time_in_roi_sec", "avg_vel_in_roi"]
 
             def slct(i, s, j):
                 return df.loc[(df['trial'] == i) & (df['infection_status'] == s) & (df['ROI_name'] == j)]
