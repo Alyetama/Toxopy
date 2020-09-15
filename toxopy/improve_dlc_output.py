@@ -30,6 +30,8 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
 
         cat = Path(cat_head).stem[:-5]
 
+        console.print(f'Cat ==> {cat} :cat2:', style='bold red')
+
         def improve_dlc_csv(csv_file, trial_type, file_name):
             """Add time and trial type."""
 
@@ -270,5 +272,7 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
         op = f'{output_dir}/{x}'
         if not os.path.exists(op):
             os.makedirs(op)
+        else:
+            pass
         for file in glob(f'{output_dir}/*_{x}_*.csv'):
             shutil.move(file, op)

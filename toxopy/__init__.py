@@ -17,5 +17,6 @@ from .combine_dlc_improved import combine_dlc_improved
 from .analyze_turnpoints import analyze_turnpoints
 from .return_sem import return_sem
 from .sniff_boxplot import sniff_boxplot
+from .time_budget_mw import time_budget_mw
 
 from .version import __version__, VERSION
