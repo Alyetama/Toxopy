@@ -69,7 +69,7 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
                         for q, p in zip(range(2, 6), trls[2:][1::2]):
                             if t * (q - 1) <= i < t * q:
                                 tls.append(p)
-            print(len(df), len(time), len(tls))
+
             df['time'], df['trial'] = time, tls
             df.columns = ['indx', 'x', 'y', 'time', 'trial']
 
