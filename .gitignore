@@ -3,6 +3,7 @@ OLD_README.md
 test_files.zip
 test_files/
 merged_functions/
+toxopy/r_smooth_loop.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

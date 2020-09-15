@@ -39,3 +39,7 @@ def set_status(cat, df):
     else:
 
         df['infection_status'] = 'Negative'
+
+
+def nadlc():
+    return ['angel', 'becky', 'ellis', 'lil-spot', 'olive', 'rue', 'snowball', 'stripe', 'teja', 'zelda', 'zenon', 'zoltan']
