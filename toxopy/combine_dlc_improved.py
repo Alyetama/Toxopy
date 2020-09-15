@@ -39,7 +39,7 @@ def combine_dlc_improved(ca_dir, wo_dir, output_dir):
             combined_csv = pd.concat([
                 pd.read_csv(f,
                             usecols=[
-                                'time', 'velocity_loess05', 'acceleration_loess05',
+                                'time', 'x_cat_loess05', 'y_cat_loess05', 'velocity_loess05', 'acceleration_loess05',
                                 'trial'
                             ]) for f in files
             ])
@@ -97,10 +97,6 @@ def combine_dlc_improved(ca_dir, wo_dir, output_dir):
             fs = glob(f'{f_output_dir}/{cat}_*.csv')
 
             ccsv = pd.concat([pd.read_csv(i) for i in fs])
-
-            # old_names, new_names = trials_cap(), trials()
-
-            # ccsv['trial'] = ccsv['trial'].replace(old_names, new_names)
 
             ccsv = ccsv.sort_values(by=['time'])
 
