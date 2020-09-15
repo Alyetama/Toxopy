@@ -6,15 +6,17 @@ from toxopy import trials, nadlc
 def time_budget_mw(csv_file, only_sig=False, drop_non_dlc=True):
 
     df = pd.read_csv(csv_file)
-
+    
     excluded_cats = nadlc()
-
+        
     if drop_non_dlc == True:
         for c in excluded_cats:
             df.drop(df[df.cat == c].index, inplace=True)
+    
 
     behaviors = ['Exploration/locomotion', 'Fear', 'Calm', 'Affiliative']
     trls = trials()
+    
 
     def mw(t, b):
         def slct(s, t, b):
