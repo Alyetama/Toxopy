@@ -149,7 +149,8 @@ def MannWhitney_U(csv_file, test, drop_non_dlc=True, only_sig=False):
 
             df = pd.read_csv(csv_file)
 
-            behaviors = ['t3_sniffsaline', 't5_sniffurine', 't7_sniffsaline', 't9_sniffurine']
+            behaviors = ['t3_sniffsaline', 't5_sniffurine',
+                         't7_sniffsaline', 't9_sniffurine']
 
             def slct(s, i):
                 return list(df.loc[(df['infection_status'] == s)][i])
