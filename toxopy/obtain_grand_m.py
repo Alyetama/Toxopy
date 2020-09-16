@@ -9,7 +9,7 @@ import json
 from numpy import mean, median
 
 
-def obtain_grand_m(json_file_loc):
+def obtain_grand_m(json_file_loc, output_dir):
 
     # json_file_loc is the path to the json file with all individual avgs data
     # output_dir is where you want to dump the .csv file to (optional)
@@ -41,7 +41,12 @@ def obtain_grand_m(json_file_loc):
     for y in ['pdistance', 'ndistance']:
         dct[y] = [i for i in dct[y] if i != "NaN"]
 
-    with open('grand_avgs_mds.csv', 'w') as f:
+    if output_dir is not None:
+        output = f'{output_dir}/grand_avgs_mds.csv'
+    else:
+        output = 'grand_avgs_mds.csv'
+
+    with open(output, 'w') as f:
 
         print('infection_status,variable,mean,median', file=f)
 
