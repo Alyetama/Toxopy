@@ -12,16 +12,10 @@ import shlex
 
 def ffsync(sync_csv, videos_dir):
 
-    df = pd.read_csv(sync_csv, sep=",")
+    df = pd.read_csv(sync_csv)
 
-    names = df.columns
-    df = pd.DataFrame(df, columns=names)
-
-    camera_1 = df.iloc[0][0]
-    camera_2 = df.iloc[1][0]
-
-    offset_1 = df.iloc[0][1]
-    offset_2 = df.iloc[1][1]
+    camera_1, camera_2 = df.iloc[0][0], df.iloc[1][0]
+    offset_1, offset_2 = df.iloc[0][1], df.iloc[1][1]
 
     offset = []
 
@@ -38,7 +32,7 @@ def ffsync(sync_csv, videos_dir):
         offset.append(offset_2 * -1)
         offset.append(camera_2)
 
-    ffprobe_command = 'ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 ' + videos_dir + '/'
+    ffprobe_command = f'ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 {videos_dir}/'
 
     ffprobe_1 = ffprobe_command + offset[0]
     ffprobe_2 = ffprobe_command + offset[2]
@@ -53,9 +47,6 @@ def ffsync(sync_csv, videos_dir):
 
     end_time = min(duration_values)
 
-    ffmpeg_run = shlex.split('ffmpeg -ss ' + str(offset[1]) + ' -i ' +
-                             videos_dir + '/' + str(offset[0]) + ' -t ' +
-                             end_time + ' -y ' + videos_dir + '/synced_' +
-                             str(offset[0]))
+    ffmpeg_run = shlex.split(f'ffmpeg -ss {str(offset[1])} -i {videos_dir}/{str(offset[0])} -t {end_time} -y {videos_dir}/synced_{str(offset[0])}')
 
     run(ffmpeg_run, check=True)
