@@ -47,6 +47,7 @@ def ffsync(sync_csv, videos_dir):
 
     end_time = min(duration_values)
 
-    ffmpeg_run = shlex.split(f'ffmpeg -ss {str(offset[1])} -i {videos_dir}/{str(offset[0])} -t {end_time} -y {videos_dir}/synced_{str(offset[0])}')
+    ffmpeg_run = shlex.split(
+        f'ffmpeg -ss {str(offset[1])} -i {videos_dir}/{str(offset[0])} -t {end_time} -y {videos_dir}/synced_{str(offset[0])}')
 
     run(ffmpeg_run, check=True)
