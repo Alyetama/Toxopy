@@ -11,24 +11,16 @@ from pathlib import Path
 
 def concat_rois(directory, output_dir, trial_type):
 
-    if output_dir.endswith('/') is False:
-
-        raise ValueError(
-            'Output directory does not end with a trailing slash "/"!')
-    pass
-
-    files = glob.glob(directory + '/*.csv')
+    files = glob.glob(f'{directory}/*.csv')
 
     for file in files:
 
         cat = Path(file).stem
 
         if trial_type == 'with_owner':
-
             cat = cat[:-16]
 
         elif trial_type == 'cat_alone':
-
             cat = cat[:-15]
 
         df = pd.read_csv(file)
@@ -46,13 +38,11 @@ def concat_rois(directory, output_dir, trial_type):
     combined_csv = pd.concat([pd.read_csv(f) for f in files])
 
     if trial_type == 'with_owner':
-
-        combined_csv.to_csv(output_dir + "with_owner_combined_rois.csv",
+        combined_csv.to_csv(f'{output_dir}/with_owner_combined_rois.csv',
                             index=False,
                             encoding='utf-8-sig')
 
     elif trial_type == 'cat_alone':
-
-        combined_csv.to_csv(output_dir + "cat_alone_combined_rois.csv",
+        combined_csv.to_csv(f'{output_dir}/cat_alone_combined_rois.csv',
                             index=False,
                             encoding='utf-8-sig')
