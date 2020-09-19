@@ -33,7 +33,6 @@ def MannWhitney_U(csv_file, test, drop_non_dlc=True, only_sig=False):
             result = 'reject H0'
         return result
 
-
     if test == 'time_budget':
 
         def time_budget_mw(csv_file, only_sig):
@@ -81,7 +80,6 @@ def MannWhitney_U(csv_file, test, drop_non_dlc=True, only_sig=False):
 
         time_budget_mw(csv_file, only_sig)
 
-
     elif test == 'latency':
 
         def latency_mw(csv_file):
@@ -105,7 +103,6 @@ def MannWhitney_U(csv_file, test, drop_non_dlc=True, only_sig=False):
             print(f'Latency to exit the carrier ==> {stat_values}, {result}')
 
         latency_mw(csv_file)
-
 
     elif test == 'roi':
 
@@ -137,7 +134,6 @@ def MannWhitney_U(csv_file, test, drop_non_dlc=True, only_sig=False):
                         print(f'{voi} ==> {statVal(stat, p)}, {alphaTest(p)}')
 
         roi_mw(csv_file)
-
 
     elif test == 'sniffing_vial':
 
