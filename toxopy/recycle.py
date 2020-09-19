@@ -43,3 +43,7 @@ def set_status(cat, df):
 
 def nadlc():
     return ['angel', 'becky', 'ellis', 'lil-spot', 'olive', 'rue', 'snowball', 'stripe', 'teja', 'zelda', 'zenon', 'zoltan']
+
+
+def roi_behaviors():
+    return ['cumulative_time_in_roi_sec', 'avg_time_in_roi_sec', 'avg_vel_in_roi']

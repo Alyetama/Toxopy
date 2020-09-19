@@ -7,7 +7,6 @@ from .improve_dlc_output import improve_dlc_output
 from .csv_utils import concat_csv, csv2h5
 from .analyze_rois import analyze_rois
 from .concat_rois import concat_rois
-from .roi_calc_mw import roi_calc_mw
 from .json2tidycsv import json2tidycsv
 from .obtain_grand_m import obtain_grand_m
 from .dlcboxplot import dlcboxplot
