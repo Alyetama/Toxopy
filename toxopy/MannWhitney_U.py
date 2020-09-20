@@ -108,8 +108,8 @@ class MannWhitney_U:
                 print(f'\n{i}')
                 for voi in vois:
                     stat, p = mannwhitneyu(neg[voi], pos[voi])
-                    print(
-                        f'{voi} ==> {MannWhitney_U.statVal(stat, p)}, {MannWhitney_U.alphaTest(p)}')
+                    print(f'{voi} ==> {MannWhitney_U.statVal(stat, p)}, '
+                        + f'{MannWhitney_U.alphaTest(p)}')
 
     def sniff_mw(csv_file, drop_non_dlc):
         """
