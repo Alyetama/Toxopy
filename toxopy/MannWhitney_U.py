@@ -32,7 +32,6 @@ class MannWhitney_U:
         res = 'Statistics=%.3f, p=%.3f' % (stat, p)
         return res
 
-
     def time_budget_mw(csv_file, only_sig=False):
         """
         << TIME BUDGET >>
@@ -71,7 +70,6 @@ class MannWhitney_U:
                 if mw_res is not None:
                     print(res)
 
-
     def latency_mw(csv_file, drop_non_dlc):
         """
         << The Latency Test >>
@@ -89,7 +87,6 @@ class MannWhitney_U:
         result = MannWhitney_U.alphaTest(p)
 
         print(f'Latency to exit the carrier ==> {stat_values}, {result}')
-
 
     def roi_mw(csv_file):
         """
@@ -111,8 +108,8 @@ class MannWhitney_U:
                 print(f'\n{i}')
                 for voi in vois:
                     stat, p = mannwhitneyu(neg[voi], pos[voi])
-                    print(f'{voi} ==> {MannWhitney_U.statVal(stat, p)}, {MannWhitney_U.alphaTest(p)}')
-
+                    print(
+                        f'{voi} ==> {MannWhitney_U.statVal(stat, p)}, {MannWhitney_U.alphaTest(p)}')
 
     def sniff_mw(csv_file, drop_non_dlc):
         """
@@ -133,7 +130,6 @@ class MannWhitney_U:
             result = MannWhitney_U.alphaTest(p)
             print(f'{i} ==> {stat_values}, {result}')
 
-
     def roi_diff_Btrials_Wgroup(csv_file, comparison, trial_type=None, export_csv=False):
         """
         << Time Spent in ROIs – Within-group >>
@@ -144,8 +140,8 @@ class MannWhitney_U:
         def slct(tr):
             if comparison == 'all':
                 return df.loc[(df['ROI_name'] == 'walls')
-                          & (df['infection_status'] == k) &
-                          (df['trial'] == tr)][b]
+                              & (df['infection_status'] == k) &
+                              (df['trial'] == tr)][b]
             elif comparison == 'split':
                 return df.loc[(df['ROI_name'] == 'walls') & (df['infection_status'] == k) & df.trial.isin(tr)][b]
 
