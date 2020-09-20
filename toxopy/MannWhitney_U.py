@@ -146,7 +146,3 @@ def roi_diff_Btrials_Wgroup_mw(csv_file, comparison, trial_type=None, export_csv
 
     if export_csv is True:
         f.close()
-
-
-boris_mw("/Users/Felis.catus/Desktop/GitHub/bchaselab/Toxohub/BORIS/Ethogram All/Binary_Data_Output/Datasets/csv/bin_data_all_behaviors____frequency____tidy.csv",
-         include_ns=False, drop_non_dlc=True)
