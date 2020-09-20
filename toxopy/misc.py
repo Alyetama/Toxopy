@@ -15,6 +15,7 @@ import pandas as pd
 var = ['distance', 'vel', 'cat_distance', 'acceleration', 'moving']
 tls = trials()
 
+
 def json2tidycsv(json_file_loc, csv_output=False):
     """
     Converts dlc avgs data from JSON format to a tidy data in csv
