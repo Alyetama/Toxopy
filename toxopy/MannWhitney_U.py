@@ -163,7 +163,7 @@ class MannWhitney_U:
             raise ValueError('"split" cannot take a "trial_type" argument')
 
         if trial_type == 'treatment':
-            ombs, r = ttype(trls[::2][1:]), range(0, 6)
+            combs, r = ttype(trls[::2][1:]), range(0, 6)
         elif trial_type == 'CA':
             combs, r = ttype(trls[1::2]), range(0, 10)
         else:
