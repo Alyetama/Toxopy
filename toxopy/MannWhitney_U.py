@@ -28,7 +28,8 @@ class MannWhitney_U:
             result = 'reject H0'
         return result
 
-<<<<<<< Updated upstream
+
+<< << << < Updated upstream
     if test == 'time_budget':
 
         def time_budget_mw(csv_file, only_sig):
@@ -36,7 +37,7 @@ class MannWhitney_U:
             << TIME BUDGET >>
             The time budget of a cat for a trial was determined by summing the times
             it spent on the individual behaviors assigned to each behavioral category
-            (Affiliative, Calm, Exploration/Locomotion, and Fear). 
+            (Affiliative, Calm, Exploration/Locomotion, and Fear).
             """
 
             df = pd.read_csv(csv_file)
@@ -77,21 +78,20 @@ class MannWhitney_U:
         time_budget_mw(csv_file, only_sig)
 
     elif test == 'latency':
-=======
+== == == =
     def statVal(stat, p):
         res = 'Statistics=%.3f, p=%.3f' % (stat, p)
         return res
-
 
     def time_budget_mw(csv_file, only_sig=False):
         """
         << TIME BUDGET >>
         The time budget of a cat for a trial was determined by summing the times it spent on the individual behaviors assigned to each
         behavioral category (Affiliative, Calm, Exploration/Locomotion,
-        and Fear). 
+        and Fear).
         """
         df = MannWhitney_U.read(csv_file, drop_non_dlc)
->>>>>>> Stashed changes
+>>>>>> > Stashed changes
 
         behaviors = ['Exploration/locomotion',
                      'Fear', 'Calm', 'Affiliative']
@@ -104,7 +104,7 @@ class MannWhitney_U:
 
             neg, pos = slct('Negative', t, b), slct('Positive', t, b)
             stat, p = mannwhitneyu(neg, pos)
-<<<<<<< Updated upstream
+<< << << < Updated upstream
             stat_values = statVal(stat, p)
             result = alphaTest(p)
 
