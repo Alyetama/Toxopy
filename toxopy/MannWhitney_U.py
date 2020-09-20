@@ -12,6 +12,7 @@ from itertools import combinations
 
 excluded_cats, trls, vois = nadlc(), trials(), roi_behaviors()
 
+
 def alphaTest(p):
     alpha = 0.05
     if p > alpha:
@@ -20,9 +21,11 @@ def alphaTest(p):
         result = 'reject H0'
     return result
 
+
 def statVal(stat, p):
     res = 'Statistics=%.3f, p=%.3f' % (stat, p)
     return res
+
 
 def boris_mw(csv_file, include_ns=True, drop_non_dlc=False):
     """
@@ -144,4 +147,6 @@ def roi_diff_Btrials_Wgroup_mw(csv_file, comparison, trial_type=None, export_csv
     if export_csv is True:
         f.close()
 
-boris_mw("/Users/Felis.catus/Desktop/GitHub/bchaselab/Toxohub/BORIS/Ethogram All/Binary_Data_Output/Datasets/csv/bin_data_all_behaviors____frequency____tidy.csv", include_ns=False, drop_non_dlc=True)
+
+boris_mw("/Users/Felis.catus/Desktop/GitHub/bchaselab/Toxohub/BORIS/Ethogram All/Binary_Data_Output/Datasets/csv/bin_data_all_behaviors____frequency____tidy.csv",
+         include_ns=False, drop_non_dlc=True)
