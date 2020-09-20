@@ -47,3 +47,7 @@ def nadlc():
 
 def roi_behaviors():
     return ['cumulative_time_in_roi_sec', 'avg_time_in_roi_sec', 'avg_vel_in_roi']
+
+
+def sniff_instances():
+    return ['t3_sniffsaline', 't5_sniffurine', 't7_sniffsaline', 't9_sniffurine']
