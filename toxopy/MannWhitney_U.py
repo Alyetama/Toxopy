@@ -28,56 +28,6 @@ class MannWhitney_U:
             result = 'reject H0'
         return result
 
-<<<<<<< Updated upstream
-    if test == 'time_budget':
-
-        def time_budget_mw(csv_file, only_sig):
-            """
-            << TIME BUDGET >>
-            The time budget of a cat for a trial was determined by summing the times
-            it spent on the individual behaviors assigned to each behavioral category
-            (Affiliative, Calm, Exploration/Locomotion, and Fear). 
-            """
-
-            df = pd.read_csv(csv_file)
-
-            excluded_cats = nadlc()
-
-            behaviors = ['Exploration/locomotion',
-                         'Fear', 'Calm', 'Affiliative']
-
-            def calc_mw(t, b):
-                def slct(s, t, b):
-                    return list(df.loc[(df['infection_status'] == s)
-                                       & (df['trial'] == t) &
-                                       ((df['Behavior'] == b))]['value'])
-
-                neg, pos = slct('Negative', t, b), slct('Positive', t, b)
-                stat, p = mannwhitneyu(neg, pos)
-                stat_values = statVal(stat, p)
-
-                if only_sig is False:
-                    result = alphaTest(p)
-                    return stat_values, result
-
-                if only_sig is True:
-                    if p < alpha:
-                        result = 'reject H0'
-                        return stat_values, result
-
-            for t in trls:
-                print(f'{"-" * 60}\n{t}')
-
-                for b in behaviors:
-                    mw_res = calc_mw(t, b)
-                    res = f'{b} ==> {mw_res}'
-                    if mw_res is not None:
-                        print(res)
-
-        time_budget_mw(csv_file, only_sig)
-
-    elif test == 'latency':
-=======
     def statVal(stat, p):
         res = 'Statistics=%.3f, p=%.3f' % (stat, p)
         return res
@@ -91,7 +41,6 @@ class MannWhitney_U:
         and Fear). 
         """
         df = MannWhitney_U.read(csv_file, drop_non_dlc)
->>>>>>> Stashed changes
 
         behaviors = ['Exploration/locomotion',
                      'Fear', 'Calm', 'Affiliative']
@@ -104,16 +53,6 @@ class MannWhitney_U:
 
             neg, pos = slct('Negative', t, b), slct('Positive', t, b)
             stat, p = mannwhitneyu(neg, pos)
-<<<<<<< Updated upstream
-            stat_values = statVal(stat, p)
-            result = alphaTest(p)
-
-            print(f'Latency to exit the carrier ==> {stat_values}, {result}')
-
-        latency_mw(csv_file)
-
-    elif test == 'roi':
-=======
             stat_values = MannWhitney_U.statVal(stat, p)
 
             if only_sig is False:
@@ -131,7 +70,6 @@ class MannWhitney_U:
                 res = f'{b} ==> {mw_res}'
                 if mw_res is not None:
                     print(res)
->>>>>>> Stashed changes
 
 
     def latency_mw(csv_file, drop_non_dlc):
@@ -163,9 +101,6 @@ class MannWhitney_U:
 
         vois = roi_behaviors()
 
-<<<<<<< Updated upstream
-    elif test == 'sniffing_vial':
-=======
         def slct(i, s, j):
             return df.loc[(df['trial'] == i) & (df['infection_status'] == s) & (df['ROI_name'] == j)]
 
@@ -177,7 +112,6 @@ class MannWhitney_U:
                 for voi in vois:
                     stat, p = mannwhitneyu(neg[voi], pos[voi])
                     print(f'{voi} ==> {MannWhitney_U.statVal(stat, p)}, {MannWhitney_U.alphaTest(p)}')
->>>>>>> Stashed changes
 
 
     def sniff_mw(csv_file, drop_non_dlc):
