@@ -96,7 +96,7 @@ def jsonify_dlc_avgs(csv_file):
     d = {}
 
     bhvss2 = ['distance_loess05', 'cat_distance_loess05',
-             'velocity_loess05', 'acceleration_loess05']
+              'velocity_loess05', 'acceleration_loess05']
 
     for cat in cats:
         df2 = df.loc[(df['cat'] == cat)]
