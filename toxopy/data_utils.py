@@ -12,7 +12,7 @@ import pandas as pd
 
 
 # Global variables
-var = ['distance', 'vel', 'cat_distance', 'acceleration', 'moving']
+bhvs = ['distance', 'vel', 'cat_distance', 'acceleration', 'moving']
 tls = trials()
 
 
@@ -30,7 +30,7 @@ def json2tidycsv(json_file_loc, csv_output=False):
         for i in ['positive', 'negative']:
             for c in list(data[i].keys()):
                 for x in tls:
-                    for z in behaviors:
+                    for z in bhvs:
                         if csv_output is True:
                             print(f'{c},positive,{z},{x},{data[i][c][x][z]}',
                                   file=f)
@@ -51,7 +51,7 @@ def obtain_grand_m(json_file_loc, output_dir):
 
     dct = {}
 
-    for i in var:
+    for i in bhvs:
         dct['p%s' % i] = []
         dct['n%s' % i] = []
 
@@ -59,10 +59,10 @@ def obtain_grand_m(json_file_loc, output_dir):
                     list(data['negative'].keys())):
 
         for t in tls:
-            for v, o in zip(var, range(0, 5)):
-                if v == var[o]:
-                    dct['p' + var[o]].append(data['positive'][p][t][v])
-                    dct['n' + var[o]].append(data['negative'][n][t][v])
+            for v, o in zip(bhvs, range(0, 5)):
+                if v == bhvs[o]:
+                    dct['p' + bhvs[o]].append(data['positive'][p][t][v])
+                    dct['n' + bhvs[o]].append(data['negative'][n][t][v])
 
     for y in ['pdistance', 'ndistance']:
         dct[y] = [i for i in dct[y] if i != "NaN"]
@@ -74,7 +74,7 @@ def obtain_grand_m(json_file_loc, output_dir):
 
     with open(output, 'w') as f:
 
-        print('infection_status,variable,mean,median', file=f)
+        print('infection_status,variables,mean,median', file=f)
 
         for g in dct:
             for q in ['positive', 'negative']:
@@ -95,7 +95,7 @@ def jsonify_dlc_avgs(csv_file):
 
     d = {}
 
-    vars2 = ['distance_loess05', 'cat_distance_loess05',
+    bhvss2 = ['distance_loess05', 'cat_distance_loess05',
              'velocity_loess05', 'acceleration_loess05']
 
     for cat in cats:
@@ -105,7 +105,7 @@ def jsonify_dlc_avgs(csv_file):
         for t in tls:
             d[cat][t] = {}
             df3 = df2.loc[(df['trial'] == t)]
-            for i, j in zip(var, vars2):
+            for i, j in zip(bhvs, bhvss2):
                 d[cat][t][i] = mean(df3[j])
             d[cat][t]['moving'] = percentage(sum(df3['moving']), len(df2))
 
