@@ -95,7 +95,7 @@ def jsonify_dlc_avgs(csv_file):
 
     d = {}
 
-    bhvss2 = ['distance_loess05', 'cat_distance_loess05',
+    bhvs2 = ['distance_loess05', 'cat_distance_loess05',
              'velocity_loess05', 'acceleration_loess05']
 
     for cat in cats:
@@ -105,7 +105,7 @@ def jsonify_dlc_avgs(csv_file):
         for t in tls:
             d[cat][t] = {}
             df3 = df2.loc[(df['trial'] == t)]
-            for i, j in zip(bhvs, bhvss2):
+            for i, j in zip(bhvs, bhvs2):
                 d[cat][t][i] = mean(df3[j])
             d[cat][t]['moving'] = percentage(sum(df3['moving']), len(df2))
 
