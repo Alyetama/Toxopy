@@ -55,7 +55,6 @@ def combine_dlc_improved(ca_dir, wo_dir, output_dir):
 
         files = glob(f'{output_dir}/*.csv')
 
-        # tls = trials_cap()
         tls = trials()
 
         trials_times = [300, 420, 600, 720, 900, 1020, 1200, 1320, 1500, 1620]
@@ -80,17 +79,17 @@ def combine_dlc_improved(ca_dir, wo_dir, output_dir):
 
                 elif trial == trial and diff < ttime:
 
-                    def subdf(variable):
+                    # def subdf(variable):
 
-                        return df[df['trial'] == trial][variable]
+                    #     return df[df['trial'] == trial][variable]
 
-                    t, v, a, r = subdf('time') + ad, subdf(
-                        'velocity_loess05'), subdf('acceleration_loess05'), subdf(
-                            'trial')
+                    # t, v, a, r = subdf('time') + ad, subdf(
+                    #     'velocity_loess05'), subdf('acceleration_loess05'), subdf(
+                    #         'trial')
 
-                    fdf = pd.DataFrame([t, v, a, r]).T
+                    # fdf = pd.DataFrame([t, v, a, r]).T
 
-                    fdf.to_csv(f'{f_output_dir}/{cat}_{trial}.csv',
+                    df.to_csv(f'{f_output_dir}/{cat}_{trial}.csv',
                                index=False,
                                encoding='utf-8-sig')
 
