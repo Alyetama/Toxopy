@@ -4,6 +4,7 @@ Toxopy (https://github.com/bchaselab/Toxopy)
 Licensed under the terms of the MIT license
 """
 
+import os
 import pandas as pd
 from math import sqrt
 from numpy import nan
@@ -12,8 +13,7 @@ from rich.console import Console
 from pathlib import Path
 from glob import glob
 from toxopy import trials
-import os
-import shutil
+from shutil import move
 
 
 def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
@@ -30,7 +30,7 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
 
         cat = Path(cat_head).stem[:-5]
 
-        console.print(f'Cat ==> {cat} :cat2:', style='bold red')
+        console.print(f'\nCAT ==> {cat.upper()} :cat2:', style='bold red')
 
         def improve_dlc_csv(csv_file, trial_type, file_name):
             """Add time and trial type."""
@@ -59,6 +59,12 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
                         tls.append('FT')
                     else:
                         for q, p in zip(range(0, 4), trls[2:][::2]):
+                            # try:
+                            #     if tt[q] < i < tt[q+1]:
+                            #         tls.append(p)
+                            # except:
+                            #     if tt[q] <= i < tt[q+1]:
+                            #         tls.append(p)
                             if tt[q] < i < tt[q+1]:
                                 tls.append(p)
 
@@ -89,7 +95,7 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
         if only_improve_csv is True:
             return None
 
-        """Calculate distance between cat and owner."""
+        """Calculate the distance between cat and owner."""
 
         def dt(file_name):
             improved = f'{output_dir}/{Path(file_name).stem}_improved.csv'
@@ -141,7 +147,12 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
 
         for df_alt, name in zip(dfs, dfs_names):
 
-            """Calculate cat traveled distance."""
+            if name == 'WO':
+                console.print("\nW/ OWNER TRIALS", style="bold blue")
+            elif name == 'CA':
+                console.print("\nCAT ALONE TRIALS", style="bold blue")
+
+            """Calculate the cat's traveled distance."""
 
             def calculateDistance(x1, y1, x2, y2):
                 dist = sqrt((x2 - x1)**2 + (y2 - y1)**2)
@@ -191,7 +202,8 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
                 velocity_ls.append(float(calculateVelocity(d, 0.033)))
 
             fdf['velocity'] = velocity_ls
-            """Calculate cat movement state."""
+
+            """Calculate the cat's movement state."""
 
             moving, notMoving = [], []
 
@@ -248,9 +260,7 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
             console.print("\nCLEANING OUTPUT", style="bold green")
 
             for s, w in tqdm(zip(df['velocity'], idx)):
-                if s == 0:
-                    df = df.drop(w)
-                elif s > 100:
+                if s > 100:
                     df = df.drop(w)
 
             df[cols] = df[cols].replace({0: nan})
@@ -262,7 +272,7 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
                       sep=',',
                       encoding='utf-8')
 
-            console.print("\nDONE!", style="bold green")
+            console.print("\nDONE!\n", style="bold green")
 
         for i in ['ch', 'oh', 'chwo']:
             tbrm = glob(f'{output_dir}/*_{i}_improved.csv')
@@ -275,4 +285,6 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
         else:
             pass
         for file in glob(f'{output_dir}/*_{x}_*.csv'):
-            shutil.move(file, op)
+            move(file, op)
+
+improve_dlc_output(input_dir="/Users/Felis.catus/Desktop/not_done", output_dir="/Users/Felis.catus/Desktop/not_done", only_improve_csv=False)
