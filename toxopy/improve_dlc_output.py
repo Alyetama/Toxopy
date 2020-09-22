@@ -286,5 +286,3 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
             pass
         for file in glob(f'{output_dir}/*_{x}_*.csv'):
             move(file, op)
-
-improve_dlc_output(input_dir="/Users/Felis.catus/Desktop/not_done", output_dir="/Users/Felis.catus/Desktop/not_done", only_improve_csv=False)
