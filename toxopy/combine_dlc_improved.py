@@ -90,8 +90,8 @@ def combine_dlc_improved(ca_dir, wo_dir, output_dir):
                     # fdf = pd.DataFrame([t, v, a, r]).T
 
                     df.to_csv(f'{f_output_dir}/{cat}_{trial}.csv',
-                               index=False,
-                               encoding='utf-8-sig')
+                              index=False,
+                              encoding='utf-8-sig')
 
             fs = glob(f'{f_output_dir}/{cat}_*.csv')
 
