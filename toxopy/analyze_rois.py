@@ -94,7 +94,7 @@ def analyze_rois(input_dir, room_layout, output_dir, show_plot=False):
                        index=False,
                        encoding='utf-8')
 
-        files = glob(f'{output_dir}/.*_deleteme.csv')
+        files = glob(f'{output_dir}/.*_del.csv')
 
         for file in files:
 
