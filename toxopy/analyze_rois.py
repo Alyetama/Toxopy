@@ -77,7 +77,8 @@ def analyze_rois(input_dir, room_layout, output_dir, show_plot=False):
             def rT(p):
                 return (res['ROI_name'] == p)
 
-            walls = res.loc[rT('right') | rT('left') | rT('top') | rT('bottom')]
+            walls = res.loc[rT('right') | rT('left') |
+                            rT('top') | rT('bottom')]
             middle = res.loc[res['ROI_name'] == 'middle']
 
             def sumUP(rpos, name):
@@ -90,8 +91,8 @@ def analyze_rois(input_dir, room_layout, output_dir, show_plot=False):
             dfF = pd.concat([dfW, dfM], axis=1, sort=False).T
 
             dfF.to_csv(f'{output_dir}/.{cat}_{trial}_del.csv',
-                            index=False,
-                            encoding='utf-8')
+                       index=False,
+                       encoding='utf-8')
 
         files = glob(f'{output_dir}/.*_deleteme.csv')
 
@@ -107,6 +108,7 @@ def analyze_rois(input_dir, room_layout, output_dir, show_plot=False):
             df2.to_csv(file, index=False)
 
         combined_csv = pd.concat([pd.read_csv(f) for f in files])
-        combined_csv.to_csv(f'{output_dir}/{cat}.csv', index=False, encoding='utf-8-sig')
+        combined_csv.to_csv(f'{output_dir}/{cat}.csv',
+                            index=False, encoding='utf-8-sig')
 
         [os.remove(f) for f in files]
