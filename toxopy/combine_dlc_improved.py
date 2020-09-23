@@ -40,9 +40,11 @@ def combine_dlc_improved(ca_dir, wo_dir, output_dir):
             else:
                 raise ValueError('Something is wrong!')
 
-            cols = ['time', 'x_cat_loess05', 'y_cat_loess05', 'velocity_loess05', 'acceleration_loess05', 'trial']
+            cols = ['time', 'x_cat_loess05', 'y_cat_loess05',
+                    'velocity_loess05', 'acceleration_loess05', 'trial']
 
-            combined_csv = pd.concat([pd.read_csv(f, usecols=cols) for f in files])
+            combined_csv = pd.concat(
+                [pd.read_csv(f, usecols=cols) for f in files])
 
             combined_csv.to_csv(f'{output_dir}/{cat1}.csv',
                                 index=False,
@@ -92,8 +94,8 @@ def combine_dlc_improved(ca_dir, wo_dir, output_dir):
                     fdf = pd.DataFrame([t, v, a, r, x, y]).T
 
                     fdf.to_csv(f'{f_output_dir}/{cat}_{trial}.csv',
-                              index=False,
-                              encoding='utf-8-sig')
+                               index=False,
+                               encoding='utf-8-sig')
 
             fs = glob(f'{f_output_dir}/{cat}_*.csv')
 
