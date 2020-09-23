@@ -3,27 +3,36 @@ import json
 import numpy as np
 from glob import glob
 import pandas as pd
-from toxopy import fwarnings, trials
+from toxopy import fwarnings, trials, concat_csv
 import matplotlib.patches as patches
 from collections import namedtuple
-from dlcu import time_in_each_roi
+from dlcu.time_in_each_roi import get_timeinrois_stats as gts
 import matplotlib.pyplot as plt
 from pathlib import Path
+from rich.console import Console
+from tqdm import tqdm
+from shutil import move
 
 
-def analyze_rois(input_dir, room_layout, output_dir, show_plot=False):
+def analyze_rois(input_dir, room_layout, output_dir, plot=False):
+
+    console = Console()
 
     files = glob(f'{input_dir}/*.csv')
 
-    for file in files:
+    for file, it in zip(tqdm(files), range(0, len(files))):
 
         cat = Path(file).stem
+
+        if it != 0:
+            tqdm.status_printer(console.print(f'{" " * it * 2}{cat.upper()} :cat2:', style='bold blue'))
 
         for trial in trials():
 
             df = pd.read_csv(file)
             df = df.dropna()
             df = df[(df['trial'] == trial)]
+            infection_status = df.reset_index()['infection_status'][0]
 
             with open(room_layout) as json_file:
                 p = json.load(json_file)
@@ -43,9 +52,9 @@ def analyze_rois(input_dir, room_layout, output_dir, show_plot=False):
 
             rois = posi(cat)
 
-            bp_tracking = np.array((x_cat, y_cat, velocity))
+            bpT = np.array((x_cat, y_cat, velocity))
 
-            if show_plot is True:
+            if plot is True:
                 fig, ax = plt.subplots(1)
 
                 plt.plot(x_cat, y_cat, '.-')
@@ -66,11 +75,7 @@ def analyze_rois(input_dir, room_layout, output_dir, show_plot=False):
                 plt.ylim(-100, 600)
                 plt.show()
 
-            res = time_in_each_roi.get_timeinrois_stats(bp_tracking.T,
-                                                        rois,
-                                                        fps=30,
-                                                        returndf=True,
-                                                        check_inroi=True)
+            res = gts(bpT.T, rois, fps=30, returndf=True, check_inroi=True)
 
             res['trial'] = trial
 
@@ -84,6 +89,7 @@ def analyze_rois(input_dir, room_layout, output_dir, show_plot=False):
             def sumUP(rpos, name):
                 dfx = rpos.sum(axis=0)
                 dfx['ROI_name'], dfx['trial'] = name, trial
+                dfx['cat'], dfx['infection_status'] = cat, infection_status
                 return dfx.T
 
             dfW, dfM = sumUP(walls, 'walls'), sumUP(middle, 'middle')
@@ -112,3 +118,16 @@ def analyze_rois(input_dir, room_layout, output_dir, show_plot=False):
                             index=False, encoding='utf-8-sig')
 
         [os.remove(f) for f in files]
+
+    concat_csv(output_dir, 'rois_all')
+
+    sF = f'{output_dir}/single_files'
+    if not os.path.exists(sF):
+        os.makedirs(sF)
+    else:
+        pass
+    for file in glob(f'{output_dir}/*.csv'):
+        if 'all' not in file:
+            move(file, sF)
+
+    console.print(f'\nDone!', style='bold green')
