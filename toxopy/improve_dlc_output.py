@@ -59,13 +59,7 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
                         tls.append('FT')
                     else:
                         for q, p in zip(range(0, 4), trls[2:][::2]):
-                            # try:
-                            #     if tt[q] < i < tt[q+1]:
-                            #         tls.append(p)
-                            # except:
-                            #     if tt[q] <= i < tt[q+1]:
-                            #         tls.append(p)
-                            if tt[q] < i < tt[q+1]:
+                            if tt[q] <= i < tt[q+1]:
                                 tls.append(p)
 
             elif trial_type == "cat":
@@ -121,7 +115,7 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
 
             ds.append(distance)
 
-        df_owner['distance'] = ds
+        df_cat['distance'] = ds
 
         def renameCols(i, j):
             i.rename(columns={'x': f'x_{j}', 'y': f'y_{j}'}, inplace=True)
@@ -129,8 +123,8 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
         renameCols(df_cat, 'cat'), renameCols(df_owner, 'owner')
 
         result = pd.concat([
-            df_cat[{'indx', 'x_cat', 'y_cat'}],
-            df_owner[{'x_owner', 'y_owner', 'time', 'trial', 'distance'}]
+            df_cat[{'indx', 'x_cat', 'y_cat', 'distance'}],
+            df_owner[{'x_owner', 'y_owner', 'time', 'trial'}]
         ],
             axis=1)
 
@@ -255,7 +249,7 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
 
             cols = ['cat_distance', 'velocity', 'acceleration']
 
-            idx = df.index[df['indx']].tolist()
+            idx = df['indx'].tolist()
 
             console.print("\nCLEANING OUTPUT", style="bold green")
 
@@ -263,9 +257,9 @@ def improve_dlc_output(input_dir, output_dir, only_improve_csv=False):
                 if s > 100:
                     df = df.drop(w)
 
-            df[cols] = df[cols].replace({0: nan})
-
             df['cat'] = cat
+
+            df = df.dropna()
 
             df.to_csv(f'{output_dir}/{cat}_{name}_improved.csv',
                       index=False,

@@ -10,9 +10,12 @@ from pathlib import Path
 from toxopy import trials_cap, trials
 from os import remove
 from tqdm import tqdm
+from rich.console import Console
 
 
 def combine_dlc_improved(ca_dir, wo_dir, output_dir):
+
+    console = Console()
 
     def one_cat_one_file(ca_dir, wo_dir, output_dir):
         """
@@ -23,26 +26,23 @@ def combine_dlc_improved(ca_dir, wo_dir, output_dir):
         cat_alone, with_owner = glob(
             ca_dir + '/*.csv'), glob(wo_dir + '/*.csv')
 
+        console.print('\nCONCATENATING FILES...', style='bold blue')
+
         for f1, f2 in tqdm(zip(sorted(cat_alone), sorted(with_owner))):
 
-            cat1, cat2 = Path(f1).stem[:-10], Path(f2).stem[:-11]
+            cat1, cat2 = Path(f1).stem[:-12], Path(f2).stem[:-12]
 
             files = []
 
             if cat1 == cat2:
                 files.append(f1)
                 files.append(f2)
-
             else:
                 raise ValueError('Something is wrong!')
 
-            combined_csv = pd.concat([
-                pd.read_csv(f,
-                            usecols=[
-                                'time', 'x_cat_loess05', 'y_cat_loess05', 'velocity_loess05', 'acceleration_loess05',
-                                'trial'
-                            ]) for f in files
-            ])
+            cols = ['time', 'x_cat_loess05', 'y_cat_loess05', 'velocity_loess05', 'acceleration_loess05', 'trial']
+
+            combined_csv = pd.concat([pd.read_csv(f, usecols=cols) for f in files])
 
             combined_csv.to_csv(f'{output_dir}/{cat1}.csv',
                                 index=False,
@@ -60,6 +60,8 @@ def combine_dlc_improved(ca_dir, wo_dir, output_dir):
         trials_times = [300, 420, 600, 720, 900, 1020, 1200, 1320, 1500, 1620]
 
         additions = [0, 300, 120, 480, 240, 660, 360, 840, 480, 1020]
+
+        console.print('\nCORRECTING TRIALS TIME...', style='bold blue')
 
         for file in tqdm(files):
 
@@ -79,17 +81,17 @@ def combine_dlc_improved(ca_dir, wo_dir, output_dir):
 
                 elif trial == trial and diff < ttime:
 
-                    # def subdf(variable):
+                    def subdf(variable):
 
-                    #     return df[df['trial'] == trial][variable]
+                        return df[df['trial'] == trial][variable]
 
-                    # t, v, a, r = subdf('time') + ad, subdf(
-                    #     'velocity_loess05'), subdf('acceleration_loess05'), subdf(
-                    #         'trial')
+                    t, v, a, r, x, y = subdf('time') + ad, subdf(
+                        'velocity_loess05'), subdf('acceleration_loess05'), subdf(
+                            'trial'), subdf('x_cat_loess05'), subdf('y_cat_loess05')
 
-                    # fdf = pd.DataFrame([t, v, a, r]).T
+                    fdf = pd.DataFrame([t, v, a, r, x, y]).T
 
-                    df.to_csv(f'{f_output_dir}/{cat}_{trial}.csv',
+                    fdf.to_csv(f'{f_output_dir}/{cat}_{trial}.csv',
                               index=False,
                               encoding='utf-8-sig')
 
@@ -106,3 +108,5 @@ def combine_dlc_improved(ca_dir, wo_dir, output_dir):
             [remove(i) for i in fs]
 
     correct_times(output_dir, output_dir)
+
+    console.print('\nDONE!', style='bold green')
