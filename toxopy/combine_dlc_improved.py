@@ -79,7 +79,7 @@ def combine_dlc_improved(ca_dir, wo_dir, output_dir):
 
                 if trial == trial and diff > ttime:
 
-                    raise ValueError('Fails!', cat, trial, diff)
+                    raise ValueError('Failed!', cat, trial, diff)
 
                 elif trial == trial and diff < ttime:
 
