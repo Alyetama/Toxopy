@@ -32,7 +32,7 @@ def calc_dlc_mw(csv_file, export=False):
 
                 def slct(status):
                     return df[(df['status'] == 'Positive') & (df['trial'] == t) &
-                        (df['var'] == j)]['value']
+                              (df['var'] == j)]['value']
 
                 pv, nv = slct('Positive'), slct('Negative')
 
