@@ -26,7 +26,8 @@ def analyze_rois(input_dir, room_layout, output_dir, plot=False):
         cat = Path(file).stem
 
         if it != 0:
-            tqdm.status_printer(console.print(f'{" " * it * 2}{cat.upper()} :cat2:', style='bold blue'))
+            tqdm.status_printer(console.print(
+                f'{" " * it * 2}{cat.upper()} :cat2:', style='bold blue'))
 
         for trial in trials():
 
