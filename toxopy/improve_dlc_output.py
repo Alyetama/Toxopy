@@ -20,6 +20,7 @@ from platform import platform
 
 
 def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
+
     """
     inDIR is the directory with the original csv files
     outDIR is the output directory
@@ -48,13 +49,12 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
 
             if trial_type == 'owner':
                 time = 1020
-
             elif trial_type == 'cat':
                 time = 600
 
             f = len(df) / time
 
-            time, tls = [], []
+            time, trls = [], []
 
             for i in range(0, len(df)):
                 time.append(i / f)
@@ -64,23 +64,23 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
             if trial_type == "owner":
                 for i in time:
                     if i < 300:
-                        tls.append('FT')
+                        trls.append('FT')
                     else:
                         for q, p in zip(range(0, 4), trls[2:][::2]):
                             if tt[q] <= i < tt[q+1]:
-                                tls.append(p)
+                                trls.append(p)
 
             elif trial_type == "cat":
                 t = 120
                 for i in time:
                     if i < t:
-                        tls.append('CA1')
+                        trls.append('CA1')
                     else:
                         for q, p in zip(range(2, 6), trls[2:][1::2]):
                             if t * (q - 1) <= i < t * q:
-                                tls.append(p)
+                                trls.append(p)
 
-            df['time'], df['trial'] = time, tls
+            df['time'], df['trial'] = time, trls
 
             df.columns = ['indx', 'x', 'y', 'time', 'trial']
 
@@ -106,7 +106,7 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
 
         df_CA.rename(columns={'x': 'x_cat', 'y': 'y_cat'}, inplace=True)
 
-        tls = df_CA['trial']
+        trls = df_CA['trial']
 
         ds = []
 
@@ -217,11 +217,9 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
                 if str(z) == 'nan':
                     moving.append(nan)
                     notMoving.append(nan)
-
                 elif z >= 0.07:
                     moving.append(1)
                     notMoving.append(0)
-
                 else:
                     moving.append(0)
                     notMoving.append(1)
@@ -256,7 +254,7 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
                 df = pd.concat([result, fdf], axis=1)
 
             elif name == 'CA':
-                df = pd.concat([df_CA, tls, fdf], axis=1)
+                df = pd.concat([df_CA, trls, fdf], axis=1)
 
             cols = ['cat_distance', 'velocity', 'acceleration']
 
@@ -293,12 +291,12 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
         for file in glob(f'{outDIR}/*_{x}_*.csv'):
             move(file, op)
 
-    ca_dir, wo_dir = f'{outDIR}/CA', f'{outDIR}/WO'
+    ca_dir, wo_dir  = f'{outDIR}/CA', f'{outDIR}/WO'
 
     smooth(ca_dir, wo_dir, outDIR)
 
     while True:
-
+        
         if 'Darwin' in platform():
             p = Popen(['open', f'{outDIR}/smooth.r'])
             returncode = p.wait()
@@ -306,15 +304,14 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
             pass
 
         ans = input('Done smoothing? (y) ')
-
         if ans.lower() == "y":
             break
         else:
             continue
 
     for x in ['/*', '/.*']:
-        [os.remove(x)
-         for x in glob(f'{outDIR}/{x}') if os.path.isfile(x) is True]
+        [os.remove(x) for x in glob(f'{outDIR}/{x}') if os.path.isfile(x) is True]
+
 
     def one_cat_one_file(ca_dir, wo_dir, outDIR):
         """
@@ -330,12 +327,9 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
         for f1, f2 in tqdm(zip(sorted(cat_alone), sorted(with_owner))):
 
             cat1, cat2 = Path(f1).stem[:-12], Path(f2).stem[:-12]
-
             files = []
-
             if cat1 == cat2:
                 files.append(f1), files.append(f2)
-
             else:
                 raise ValueError('Something is wrong!')
 
@@ -356,10 +350,7 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
 
         files = glob(f'{outDIR}/*.csv')
 
-        tls = trials()
-
         trials_times = [300, 420, 600, 720, 900, 1020, 1200, 1320, 1500, 1620]
-
         additions = [0, 300, 120, 480, 240, 660, 360, 840, 480, 1020]
 
         console.print('\nCORRECTING TRIALS TIME...', style='bold blue')
@@ -370,7 +361,7 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
 
             cat = Path(file).stem
 
-            for trial, ttime, ad in zip(tls, trials_times, additions):
+            for trial, ttime, ad in zip(trls, trials_times, additions):
 
                 time = df.loc[(df['trial'] == trial)]['time']
 
@@ -409,10 +400,8 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
     correct_times(outDIR)
 
     cp = f'{outDIR}/combined'
-
     if not os.path.exists(cp):
         os.makedirs(cp)
-
     for fi in glob(f'{outDIR}/*.csv'):
         move(fi, cp)
 
