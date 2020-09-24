@@ -53,7 +53,7 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
 
             f = len(df) / time
 
-            time, trls = [], []
+            time, tls = [], []
 
             for i in range(0, len(df)):
                 time.append(i / f)
@@ -63,23 +63,23 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
             if trial_type == "owner":
                 for i in time:
                     if i < 300:
-                        trls.append('FT')
+                        tls.append('FT')
                     else:
                         for q, p in zip(range(0, 4), trls[2:][::2]):
                             if tt[q] <= i < tt[q+1]:
-                                trls.append(p)
+                                tls.append(p)
 
             elif trial_type == "cat":
                 t = 120
                 for i in time:
                     if i < t:
-                        trls.append('CA1')
+                        tls.append('CA1')
                     else:
                         for q, p in zip(range(2, 6), trls[2:][1::2]):
                             if t * (q - 1) <= i < t * q:
-                                trls.append(p)
+                                tls.append(p)
 
-            df['time'], df['trial'] = time, trls
+            df['time'], df['trial'] = time, tls
 
             df.columns = ['indx', 'x', 'y', 'time', 'trial']
 
@@ -105,7 +105,7 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
 
         df_CA.rename(columns={'x': 'x_cat', 'y': 'y_cat'}, inplace=True)
 
-        trls = df_CA['trial']
+        tls = df_CA['trial']
 
         ds = []
 
@@ -246,14 +246,14 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
                 acc.append(float(calculateAcc(vi, vf, ti, tf)))
 
             fdf['acceleration'] = acc
-            """Clean zero values in relevant data,
-            then append data to one csv file."""
+
+            """Clean data."""
 
             if name == 'WO':
                 df = pd.concat([result, fdf], axis=1)
 
             elif name == 'CA':
-                df = pd.concat([df_CA, trls, fdf], axis=1)
+                df = pd.concat([df_CA, tls, fdf], axis=1)
 
             cols = ['cat_distance', 'velocity', 'acceleration']
 
