@@ -12,6 +12,7 @@ from pathlib import Path
 from rich.console import Console
 from tqdm import tqdm
 from shutil import move
+# %matplotlib inline
 
 
 def analyze_rois(input_dir, room_layout, output_dir, plot=False):
@@ -25,8 +26,7 @@ def analyze_rois(input_dir, room_layout, output_dir, plot=False):
         cat = Path(file).stem
 
         if it != 0:
-            tqdm.status_printer(console.print(
-                f'{" " * it * 2}{cat.upper()} :cat2:', style='bold blue'))
+            tqdm.status_printer(console.print(f'{" " * it * 2}{cat.upper()} :cat2:', style='bold blue'))
 
         for trial in trials():
 
@@ -109,7 +109,7 @@ def analyze_rois(input_dir, room_layout, output_dir, plot=False):
 
             df2 = df2[[
                 'ROI_name', 'transitions_per_roi', 'cumulative_time_in_roi_sec',
-                'avg_time_in_roi_sec', 'avg_vel_in_roi', 'trial'
+                'avg_time_in_roi_sec', 'avg_vel_in_roi', 'trial', 'cat', 'infection_status'
             ]]
 
             df2.to_csv(file, index=False)
