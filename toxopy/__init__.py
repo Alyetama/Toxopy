@@ -9,7 +9,6 @@ from .analyze_rois import analyze_rois
 from .concat_rois import concat_rois
 from .dlcboxplot import dlcboxplot
 from .fwarnings import fwarnings
-from .combine_dlc_improved import combine_dlc_improved
 from .analyze_turnpoints import analyze_turnpoints
 from .return_sem import return_sem
 from .sniff_boxplot import sniff_boxplot
