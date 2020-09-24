@@ -23,51 +23,39 @@ def calc_dlc_mw(csv_file, export=False):
         with open(t, 'w') as f:
 
             if export is False:
-
                 print('\nTrial:', t, '\n')
-
                 remove(t)
-
             else:
                 print('trial, var, statistics, p', file=f)
 
             for j in variables:
 
-                pv = df[(df['status'] == 'Positive') & (df['trial'] == t) &
+                def slct(status):
+                    return df[(df['status'] == 'Positive') & (df['trial'] == t) &
                         (df['var'] == j)]['value']
 
-                nv = df[(df['status'] == 'Negative') & (df['trial'] == t) &
-                        (df['var'] == j)]['value']
+                pv, nv = slct('Positive'), slct('Negative')
 
                 stat, p = mannwhitneyu(pv, nv)
 
+                alpha = 0.05
+
                 if stat != 0:
-
-                    alpha = 0.05
-
                     if export is False:
-
                         print(j, '\nStatistics=%.3f, p=%.3f' % (stat, p))
 
                         if p > alpha:
-
                             print('Same distribution (fail to reject H0)\n')
                         elif p < alpha:
                             print('Different distribution (reject H0)\n')
-
                     else:
-
                         if p > alpha:
-
                             print(f'{t},{j},{stat},{p}', file=f)
-
                         elif p < alpha:
                             print(f'{t},{j},{stat},{p},*', file=f)
 
     if export is True:
-
         combined_csv = pd.concat([pd.read_csv(f) for f in tls])
-
         combined_csv.to_csv("mannwhitneyu_stats_results.csv",
                             index=False,
                             encoding='utf-8-sig')
