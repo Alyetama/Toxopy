@@ -20,7 +20,6 @@ from platform import platform
 
 
 def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
-
     """
     inDIR is the directory with the original csv files
     outDIR is the output directory
@@ -291,12 +290,12 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
         for file in glob(f'{outDIR}/*_{x}_*.csv'):
             move(file, op)
 
-    ca_dir, wo_dir  = f'{outDIR}/CA', f'{outDIR}/WO'
+    ca_dir, wo_dir = f'{outDIR}/CA', f'{outDIR}/WO'
 
     smooth(ca_dir, wo_dir, outDIR)
 
     while True:
-        
+
         if 'Darwin' in platform():
             p = Popen(['open', f'{outDIR}/smooth.r'])
             returncode = p.wait()
@@ -310,8 +309,8 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
             continue
 
     for x in ['/*', '/.*']:
-        [os.remove(x) for x in glob(f'{outDIR}/{x}') if os.path.isfile(x) is True]
-
+        [os.remove(x)
+         for x in glob(f'{outDIR}/{x}') if os.path.isfile(x) is True]
 
     def one_cat_one_file(ca_dir, wo_dir, outDIR):
         """
