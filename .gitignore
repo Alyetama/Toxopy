@@ -140,3 +140,7 @@ dmypy.json
 .DS_Store
 .DS_Store?
 .ini
+*._
+.Rhistory
+Icon?
+?Icon
