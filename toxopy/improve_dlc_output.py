@@ -33,6 +33,9 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
 
     chwo, oh, ch = gg('chwo'), gg('oh'), gg('ch')
 
+    if len(chwo) != len(oh) != len(ch):
+        raise ValueError('Some data are missing!')
+
     for cat_head, owner_hand, cat_alone in zip(chwo, oh, ch):
 
         cat = Path(cat_head).stem[:-5]
@@ -296,7 +299,6 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
 
         if 'Darwin' in platform():
             p = Popen(['open', f'{outDIR}/smooth.r'])
-            returncode = p.wait()
         else:
             pass
 
@@ -316,8 +318,7 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
         'wo_dir' is the dir with with_owner_improved csv files
         """
 
-        cat_alone, with_owner = glob(
-            ca_dir + '/*.csv'), glob(wo_dir + '/*.csv')
+        cat_alone, with_owner = glob(f'{ca_dir}/*.csv'), glob(f'{wo_dir}/*.csv')
 
         console.print('\nCONCATENATING FILES...', style='bold blue')
 
@@ -328,7 +329,7 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
             if cat1 == cat2:
                 files.append(f1), files.append(f2)
             else:
-                raise ValueError('Something is wrong!')
+                raise ValueError(f'Cannot find all required files for {cat1}!')
 
             combined_csv = pd.concat(
                 [pd.read_csv(f) for f in files])
@@ -362,7 +363,7 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
                 diff = max(time) - min(time)
 
                 if trial == trial and diff > ttime:
-                    raise ValueError('Failed!', cat, trial, diff)
+                    raise ValueError('Cannot correct time! Check {cat1} data in {trial} (diff value: {diff})')
 
                 elif trial == trial and diff < ttime:
 
@@ -375,11 +376,11 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
                     fdf = fdf[C]
                     fdf['time'] = df[df['trial'] == trial]['time'] + ad
 
-                    fdf.to_csv(f'{outDIR}/{cat}_{trial}.csv',
+                    fdf.to_csv(f'{outDIR}/.{cat}_{trial}.csv',
                                index=False,
                                encoding='utf-8-sig')
 
-            fs = glob(f'{outDIR}/{cat}_*.csv')
+            fs = glob(f'{outDIR}/.{cat}_*.csv')
 
             ccsv = pd.concat([pd.read_csv(i) for i in fs])
 
