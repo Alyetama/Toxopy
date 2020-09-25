@@ -318,7 +318,8 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
         'wo_dir' is the dir with with_owner_improved csv files
         """
 
-        cat_alone, with_owner = glob(f'{ca_dir}/*.csv'), glob(f'{wo_dir}/*.csv')
+        cat_alone, with_owner = glob(
+            f'{ca_dir}/*.csv'), glob(f'{wo_dir}/*.csv')
 
         console.print('\nCONCATENATING FILES...', style='bold blue')
 
@@ -363,7 +364,8 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
                 diff = max(time) - min(time)
 
                 if trial == trial and diff > ttime:
-                    raise ValueError('Cannot correct time! Check {cat1} data in {trial} (diff value: {diff})')
+                    raise ValueError(
+                        'Cannot correct time! Check {cat1} data in {trial} (diff value: {diff})')
 
                 elif trial == trial and diff < ttime:
 
