@@ -6,7 +6,6 @@ from .ffconcat import ffconcat
 from .improve_dlc_output import improve_dlc_output
 from .csv_utils import concat_csv, csv2h5
 from .analyze_rois import analyze_rois
-from .concat_rois import concat_rois
 from .dlcboxplot import dlcboxplot
 from .fwarnings import fwarnings
 from .analyze_turnpoints import analyze_turnpoints

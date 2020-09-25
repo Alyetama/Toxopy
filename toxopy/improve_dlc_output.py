@@ -273,8 +273,6 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
                       index=False,
                       encoding='utf-8')
 
-            console.print(f"\n{cat.upper()} IS DONE!\n", style="bold blue")
-
         for i in ['ch', 'oh', 'chwo']:
             tbrm = glob(f'{outDIR}/*_{i}_improved.csv')
             [os.remove(x) for x in tbrm]
@@ -332,11 +330,8 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
             else:
                 raise ValueError('Something is wrong!')
 
-            cols = ['time', 'x_cat_loess05', 'y_cat_loess05',
-                    'velocity_loess05', 'acceleration_loess05', 'trial']
-
             combined_csv = pd.concat(
-                [pd.read_csv(f, usecols=cols) for f in files])
+                [pd.read_csv(f) for f in files])
 
             combined_csv.to_csv(f'{outDIR}/{cat1}.csv',
                                 index=False,
@@ -371,14 +366,13 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
 
                 elif trial == trial and diff < ttime:
 
-                    def subdf(variable):
-                        return df[df['trial'] == trial][variable]
+                    fdf = pd.DataFrame(df[df['trial'] == trial])
 
-                    t, v, a, r, x, y = subdf('time') + ad, subdf(
-                        'velocity_loess05'), subdf('acceleration_loess05'), subdf(
-                            'trial'), subdf('x_cat_loess05'), subdf('y_cat_loess05')
+                    C = list(df.columns)
+                    C = [x for x in C if not 'owner' in x and not x.startswith('d') and not x.endswith('1')]
 
-                    fdf = pd.DataFrame([t, v, a, r, x, y]).T
+                    fdf = fdf[C]
+                    fdf['time'] = df[df['trial'] == trial]['time'] + ad
 
                     fdf.to_csv(f'{outDIR}/{cat}_{trial}.csv',
                                index=False,
