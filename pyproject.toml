@@ -13,4 +13,4 @@ classifiers = [
 ]
 
 requires-python = ">=3.6"
-requires = ["pandas", "dlcu", "numpy", "matplotlib", "tqdm", "scipy", "seaborn", "rich"]
+requires = ["pandas", "dlcu", "numpy", "matplotlib", "tqdm", "scipy", "seaborn", "rich", "dirtyR"]
