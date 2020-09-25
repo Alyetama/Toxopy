@@ -369,7 +369,8 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
                     fdf = pd.DataFrame(df[df['trial'] == trial])
 
                     C = list(df.columns)
-                    C = [x for x in C if not 'owner' in x and not x.startswith('d') and not x.endswith('1')]
+                    C = [x for x in C if not 'owner' in x and not x.startswith(
+                        'd') and not x.endswith('1')]
 
                     fdf = fdf[C]
                     fdf['time'] = df[df['trial'] == trial]['time'] + ad
