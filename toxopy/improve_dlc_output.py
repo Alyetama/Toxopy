@@ -5,6 +5,7 @@ Licensed under the terms of the MIT license
 """
 
 import os
+import toxopy
 import pandas as pd
 from math import sqrt
 from numpy import nan
@@ -12,7 +13,6 @@ from tqdm import tqdm
 from rich.console import Console
 from pathlib import Path
 from glob import glob
-from toxopy import trials
 from dirtyR import smooth
 from shutil import move
 from subprocess import Popen
@@ -26,7 +26,7 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
     """
 
     console = Console()
-    trls = trials()
+    trls = toxopy.trials()
 
     def gg(i):
         return sorted(glob(inDIR + f'/*_{i}.csv'))
@@ -238,10 +238,10 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
             console.print("\nCALCULATING THE CAT'S ACCELERATION",
                           style="bold green")
 
-            def a(u, v, d):
-                return d.iloc[q - u][v].astype('float')
-
             for q in tqdm(range(0, len(df_alt))):
+
+                def a(u, v, d):
+                    return d.iloc[q - u][v].astype('float')
 
                 vi, vf = a(0, 'velocity', fdf), a(1, 'velocity', fdf)
                 ti, tf = a(0, 'time', df_alt), a(1, 'time', df_alt)
@@ -371,11 +371,6 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
 
                     fdf = pd.DataFrame(df[df['trial'] == trial])
 
-                    C = list(df.columns)
-                    C = [x for x in C if not 'owner' in x and not x.startswith(
-                        'd') and not x.endswith('1')]
-
-                    fdf = fdf[C]
                     fdf['time'] = df[df['trial'] == trial]['time'] + ad
 
                     fdf.to_csv(f'{outDIR}/.{cat}_{trial}.csv',
@@ -385,8 +380,10 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
             fs = glob(f'{outDIR}/.{cat}_*.csv')
 
             ccsv = pd.concat([pd.read_csv(i) for i in fs])
-
             ccsv = ccsv.sort_values(by=['time'])
+
+            toxopy.set_status(cat, ccsv)
+            ccsv = ccsv[toxopy.combined_behaviors()]
 
             ccsv.to_csv(f'{outDIR}/{cat}.csv',
                         index=False,
