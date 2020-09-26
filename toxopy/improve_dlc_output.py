@@ -133,7 +133,7 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
             df_cat[{'indx', 'x_cat', 'y_cat', 'distance'}],
             df_owner[{'x_owner', 'y_owner', 'time', 'trial'}]
         ],
-                           axis=1)
+            axis=1)
 
         result = result[[
             'indx', 'time', 'trial', 'x_cat', 'y_cat', 'x_owner', 'y_owner',
@@ -355,7 +355,7 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
 
                 if diff > ttime:
                     raise ValueError(
-                        f'Cannot correct time! Check {cat1} data ' \
+                        f'Cannot correct time! Check {cat1} data '
                         f'in {trial} (diff value: {diff})'
                     )
 
