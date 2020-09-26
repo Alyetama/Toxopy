@@ -51,3 +51,6 @@ def roi_behaviors():
 
 def sniff_instances():
     return ['t3_sniffsaline', 't5_sniffurine', 't7_sniffsaline', 't9_sniffurine']
+
+def combined_behaviors():
+    return ['cat', 'infection_status', 'time', 'trial', 'x_cat', 'y_cat', 'cat_distance', 'velocity', 'acceleration', 'moving', 'not_moving', 'x_cat_loess05', 'y_cat_loess05', 'cat_distance_loess05', 'velocity_loess05', 'acceleration_loess05']

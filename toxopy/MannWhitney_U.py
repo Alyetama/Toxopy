@@ -65,7 +65,7 @@ def boris_mw(csv_file, include_ns=True, drop_non_dlc=False):
 
 def roi_mw(csv_file):
     """
-    << Time Spent in Regions of Interest (ROIs) >>
+    Time Spent in Regions of Interest (ROIs)
     Video pixel coordinates for the DeepLabCut-generated labels were
     used to calculate the average time a cat spent near the walls (as opposed to being in the center) in the experimental room. 
     """
@@ -87,7 +87,7 @@ def roi_mw(csv_file):
 
 def roi_diff_Btrials_Wgroup_mw(csv_file, comparison, trial_type=None, export_csv=False):
     """
-    << Time Spent in ROIs – Within-group >>
+    Time Spent in ROIs – Within-group
     Similar to 'roi'. Except it compares time spent in ROI *within* group between trials.
     """
     df = pd.read_csv(csv_file)
