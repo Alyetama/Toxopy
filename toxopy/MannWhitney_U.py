@@ -40,10 +40,6 @@ def boris_mw(csv_file, include_ns=True, drop_non_dlc=False):
 
     behaviors = list(df.Behavior.unique())
 
-    def statVal(stat, p):
-        res = 'Statistics=%.3f, p=%.3f' % (stat, p)
-        return res
-
     def slct(status, trial, behavior):
         return df[(df['infection_status'] == status) & (df['trial'] == trial) & (df['Behavior'] == behavior)]['value']
 
@@ -67,7 +63,8 @@ def roi_mw(csv_file):
     """
     Time Spent in Regions of Interest (ROIs)
     Video pixel coordinates for the DeepLabCut-generated labels were
-    used to calculate the average time a cat spent near the walls (as opposed to being in the center) in the experimental room. 
+    used to calculate the average time a cat spent near the walls
+    (as opposed to being in the center) in the experimental room. 
     """
     df = pd.read_csv(csv_file)
 
@@ -88,7 +85,8 @@ def roi_mw(csv_file):
 def roi_diff_Btrials_Wgroup_mw(csv_file, comparison, trial_type=None, export_csv=False):
     """
     Time Spent in ROIs – Within-group
-    Similar to 'roi'. Except it compares time spent in ROI *within* group between trials.
+    Similar to 'roi'. Except it compares time spent in
+    ROI *within* group between trials.
     """
     df = pd.read_csv(csv_file)
 
@@ -97,8 +95,10 @@ def roi_diff_Btrials_Wgroup_mw(csv_file, comparison, trial_type=None, export_csv
             return df.loc[(df['ROI_name'] == 'walls')
                           & (df['infection_status'] == k) &
                           (df['trial'] == tr)][b]
-        elif comparison == 'split':
+        if comparison == 'split':
             return df.loc[(df['ROI_name'] == 'walls') & (df['infection_status'] == k) & df.trial.isin(tr)][b]
+        else:
+            return None
 
     def res(s):
         if comparison == 'all':
