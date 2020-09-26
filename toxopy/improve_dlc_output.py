@@ -355,8 +355,8 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
 
                 if diff > ttime:
                     raise ValueError(
-                        f'Cannot correct time! Check {cat1} data ' \
-                        f'in {trial} (diff value: {diff})'
+                        f'Cannot correct time! Check {cat} data'
+                        f' in {trial} (diff value: {diff})'
                     )
 
                 if diff < ttime:
