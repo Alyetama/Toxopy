@@ -166,8 +166,6 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
 
             cat_dst = []
 
-            n = len(df_alt)
-
             console.print("\nCALCULATING THE CAT'S TRAVELED DISTANCE",
                           style="bold green")
 
@@ -298,15 +296,14 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
     while True:
 
         if 'Darwin' in platform():
-            p = Popen(['open', f'{outDIR}/smooth.r'])
+            p = Popen([f'open {outDIR}/smooth.r'],  shell=True)
         else:
             pass
 
         ans = input('Done smoothing? (y) ')
         if ans.lower() == "y":
             break
-        else:
-            continue
+        continue
 
     for x in ['/*', '/.*']:
         [os.remove(x)
@@ -363,11 +360,11 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
 
                 diff = max(time) - min(time)
 
-                if trial == trial and diff > ttime:
+                if diff > ttime:
                     raise ValueError(
                         'Cannot correct time! Check {cat1} data in {trial} (diff value: {diff})')
 
-                elif trial == trial and diff < ttime:
+                if diff < ttime:
 
                     fdf = pd.DataFrame(df[df['trial'] == trial])
 
