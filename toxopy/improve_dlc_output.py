@@ -288,7 +288,7 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
     while True:
 
         if 'Darwin' in platform():
-            p = Popen([f'open {outDIR}/smooth.r'], shell=True)
+            p = Popen(['open', f'{outDIR}/smooth.r'])
         else:
             pass
 
@@ -355,7 +355,8 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
 
                 if diff > ttime:
                     raise ValueError(
-                        'Cannot correct time! Check {cat1} data in {trial} (diff value: {diff})'
+                        f'Cannot correct time! Check {cat1} data ' \
+                        f'in {trial} (diff value: {diff})'
                     )
 
                 if diff < ttime:
