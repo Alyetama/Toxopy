@@ -69,7 +69,7 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
                         tls.append('FT')
                     else:
                         for q, p in zip(range(0, 4), trls[2:][::2]):
-                            if tt[q] <= i < tt[q+1]:
+                            if tt[q] <= i < tt[q + 1]:
                                 tls.append(p)
 
             elif trial_type == "cat":
@@ -91,12 +91,10 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
         for i, j in zip([cat_head, owner_hand, cat_alone],
                         ['owner', 'owner', 'cat']):
             file_name = f'{outDIR}/{Path(i).stem}_improved.csv'
-            improve_dlc_csv(
-                i, trial_type=j, file_name=file_name)
+            improve_dlc_csv(i, trial_type=j, file_name=file_name)
 
         if only_improve_csv is True:
             return None
-
         """Calculate the distance between cat and owner."""
 
         def dt(file_name):
@@ -112,8 +110,8 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
 
         ds = []
 
-        console.print(
-            "\nCALCULATING THE DISTANCE BETWEEN CAT AND OWNER", style="bold green")
+        console.print("\nCALCULATING THE DISTANCE BETWEEN CAT AND OWNER",
+                      style="bold green")
 
         for i, j in tqdm(zip(df_cat['indx'], df_owner['indx'])):
 
@@ -135,7 +133,7 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
             df_cat[{'indx', 'x_cat', 'y_cat', 'distance'}],
             df_owner[{'x_owner', 'y_owner', 'time', 'trial'}]
         ],
-            axis=1)
+                           axis=1)
 
         result = result[[
             'indx', 'time', 'trial', 'x_cat', 'y_cat', 'x_owner', 'y_owner',
@@ -155,9 +153,7 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
 
             elif name == 'CA':
                 console.print("\nCAT ALONE TRIALS", style="bold blue")
-
             """Calculate the cat's traveled distance."""
-
             def calculateDistance(x1, y1, x2, y2):
                 dist = sqrt((x2 - x1)**2 + (y2 - y1)**2)
                 return dist
@@ -182,7 +178,6 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
             cat_dst[0] = nan
 
             fdf = pd.DataFrame(cat_dst, columns=['cat_distance'])
-
             """Calculate cat velocity."""
 
             def calculateVelocity(dist, time):
@@ -204,7 +199,6 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
                 velocity_ls.append(float(calculateVelocity(d, 0.033)))
 
             fdf['velocity'] = velocity_ls
-
             """Calculate the cat's movement state."""
 
             moving, notMoving = [], []
@@ -225,7 +219,6 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
                     notMoving.append(1)
 
             fdf['moving'], fdf['not_moving'] = moving, notMoving
-
             """Calculate cat acceleration."""
 
             def calculateAcc(vi, vf, ti, tf):
@@ -247,7 +240,6 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
                 acc.append(float(calculateAcc(vi, vf, ti, tf)))
 
             fdf['acceleration'] = acc
-
             """Clean data."""
 
             if name == 'WO':
@@ -296,7 +288,7 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
     while True:
 
         if 'Darwin' in platform():
-            p = Popen([f'open {outDIR}/smooth.r'],  shell=True)
+            p = Popen([f'open {outDIR}/smooth.r'], shell=True)
         else:
             pass
 
@@ -306,8 +298,10 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
         continue
 
     for x in ['/*', '/.*']:
-        [os.remove(x)
-         for x in glob(f'{outDIR}/{x}') if os.path.isfile(x) is True]
+        [
+            os.remove(x) for x in glob(f'{outDIR}/{x}')
+            if os.path.isfile(x) is True
+        ]
 
     def one_cat_one_file(ca_dir, wo_dir, outDIR):
         """
@@ -315,8 +309,8 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
         'wo_dir' is the dir with with_owner_improved csv files
         """
 
-        cat_alone, with_owner = glob(
-            f'{ca_dir}/*.csv'), glob(f'{wo_dir}/*.csv')
+        cat_alone, with_owner = glob(f'{ca_dir}/*.csv'), glob(
+            f'{wo_dir}/*.csv')
 
         console.print('\nCONCATENATING FILES...', style='bold blue')
 
@@ -329,8 +323,7 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
             else:
                 raise ValueError(f'Cannot find all required files for {cat1}!')
 
-            combined_csv = pd.concat(
-                [pd.read_csv(f) for f in files])
+            combined_csv = pd.concat([pd.read_csv(f) for f in files])
 
             combined_csv.to_csv(f'{outDIR}/{cat1}.csv',
                                 index=False,
@@ -362,7 +355,8 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
 
                 if diff > ttime:
                     raise ValueError(
-                        'Cannot correct time! Check {cat1} data in {trial} (diff value: {diff})')
+                        'Cannot correct time! Check {cat1} data in {trial} (diff value: {diff})'
+                    )
 
                 if diff < ttime:
 

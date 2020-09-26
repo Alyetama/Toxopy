@@ -9,7 +9,6 @@ import pandas as pd
 from toxopy import trials, nadlc, roi_behaviors
 from itertools import combinations
 
-
 excluded_cats, trls, vois = nadlc(), trials(), roi_behaviors()
 
 
@@ -41,7 +40,8 @@ def boris_mw(csv_file, include_ns=True, drop_non_dlc=False):
     behaviors = list(df.Behavior.unique())
 
     def slct(status, trial, behavior):
-        return df[(df['infection_status'] == status) & (df['trial'] == trial) & (df['Behavior'] == behavior)]['value']
+        return df[(df['infection_status'] == status) & (df['trial'] == trial) &
+                  (df['Behavior'] == behavior)]['value']
 
     for t in trls:
         print(f'\n{"-" * 60}\n{t}\n')
@@ -64,12 +64,13 @@ def roi_mw(csv_file):
     Time Spent in Regions of Interest (ROIs)
     Video pixel coordinates for the DeepLabCut-generated labels were
     used to calculate the average time a cat spent near the walls
-    (as opposed to being in the center) in the experimental room. 
+    (as opposed to being in the center) in the experimental room.
     """
     df = pd.read_csv(csv_file)
 
     def slct(i, s, j):
-        return df.loc[(df['trial'] == i) & (df['infection_status'] == s) & (df['ROI_name'] == j)]
+        return df.loc[(df['trial'] == i) & (df['infection_status'] == s) &
+                      (df['ROI_name'] == j)]
 
     for j in ['walls', 'middle']:
         print(f'\n{j}')
@@ -78,11 +79,13 @@ def roi_mw(csv_file):
             print(f'\n{i}')
             for voi in vois:
                 stat, p = mannwhitneyu(neg[voi], pos[voi])
-                print(f'{voi} ==> {statVal(stat, p)}, '
-                      + f'{alphaTest(p)}')
+                print(f'{voi} ==> {statVal(stat, p)}, ' + f'{alphaTest(p)}')
 
 
-def roi_diff_Btrials_Wgroup_mw(csv_file, comparison, trial_type=None, export_csv=False):
+def roi_diff_Btrials_Wgroup_mw(csv_file,
+                               comparison,
+                               trial_type=None,
+                               export_csv=False):
     """
     Time Spent in ROIs – Within-group
     Similar to 'roi'. Except it compares time spent in
@@ -96,9 +99,9 @@ def roi_diff_Btrials_Wgroup_mw(csv_file, comparison, trial_type=None, export_csv
                           & (df['infection_status'] == k) &
                           (df['trial'] == tr)][b]
         if comparison == 'split':
-            return df.loc[(df['ROI_name'] == 'walls') & (df['infection_status'] == k) & df.trial.isin(tr)][b]
-        else:
-            return None
+            return df.loc[(df['ROI_name'] == 'walls')
+                          & (df['infection_status'] == k)
+                          & df.trial.isin(tr)][b]
 
     def res(s):
         if comparison == 'all':
