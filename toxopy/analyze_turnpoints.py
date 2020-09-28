@@ -52,10 +52,8 @@ def analyze_turnpoints(improved_dlc_dir, output_dir):
             if os.path.isfile(x) is True
         ]
 
-
     for plot in glob(f'{output_dir}/*.png'):
         move(plot, mkD('plots'))
-
 
     def improve_turnpoints(output_dir):
         """
