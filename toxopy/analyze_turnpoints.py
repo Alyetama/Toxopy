@@ -6,29 +6,70 @@ Licensed under the terms of the MIT license
 
 import pandas as pd
 from pathlib import Path
-import glob
+from glob import glob
 import os
+import dirtyR
 from toxopy import trials, concat_csv, set_status
+from platform import platform
+from subprocess import Popen
+from tqdm import tqdm
+from rich.console import Console
+from shutil import move
 
 
-def analyze_turnpoints(improved_dlc_dir, init_tp_dir, output_dir):
+def analyze_turnpoints(improved_dlc_dir, output_dir):
     """
     'improved_dlc_dir' the path to improved_dlc files (timed & combined)
-    'init_tp_dir' is the initial turnpoints csv files dir (R output)
     'output_dir' is the dir in which the output files will be saved
     """
 
-    def improve_turnpoints(init_tp_dir, output_dir):
+    console = Console()
+
+    def mkD(name):
+        return f'{output_dir}/{name}'
+
+    for x in [mkD('plots'), mkD('diff'), mkD('single_files')]:
+        if not os.path.exists(x):
+            os.makedirs(x)
+
+    dirtyR.turnpoints(improved_dlc_dir, 'velocity_loess05', output_dir)
+
+    while True:
+
+        if 'Darwin' in platform():
+            p = Popen(['open', f'{output_dir}/plot_turnpoints.r'])
+        else:
+            pass
+
+        ans = input('Done? (y) ')
+        if ans.lower() == "y":
+            break
+        continue
+
+    for x in ['/*.r', '/.*']:
+        [
+            os.remove(x) for x in glob(f'{output_dir}/{x}')
+            if os.path.isfile(x) is True
+        ]
+
+
+    for plot in glob(f'{output_dir}/*.png'):
+        move(plot, mkD('plots'))
+
+
+    def improve_turnpoints(output_dir):
         """
-        'init_tp_dir' is the initial turnpoints csv files dir
-        'output_dir' is the dir in which the output files will be saved
+        'output_dir' is the initial turnpoints csv files dir,
+        and also the dir in which the output files will be saved
         """
 
         tt = [300, 420, 600, 720, 900, 1020, 1200, 1320, 1500, 1620]
 
-        files = glob.glob(f'{init_tp_dir}/*.csv')
+        files = glob(f'{output_dir}/*.csv')
 
-        for file in files:
+        console.print('\nIMPROVING TURNPOINTS FILES...', style='bold blue')
+
+        for file in tqdm(files):
 
             df = pd.read_csv(file)
 
@@ -55,12 +96,12 @@ def analyze_turnpoints(improved_dlc_dir, init_tp_dir, output_dir):
 
             df['proba'], df['trial'], df['time'] = proba, tls, times
 
-            df.to_csv(f'{output_dir}/{Path(file).stem[:-11]}.csv',
+            df.to_csv(f'{output_dir}/{Path(file).stem}.csv',
                       index=False,
                       sep=',',
                       encoding='utf-8')
 
-    improve_turnpoints(init_tp_dir, output_dir)
+    improve_turnpoints(output_dir)
 
     def find_tps_velocity_values(improved_dlc_dir, output_dir, super_output_dir):
         """
@@ -70,14 +111,16 @@ def analyze_turnpoints(improved_dlc_dir, init_tp_dir, output_dir):
         """
         def tp_csv_file(cat):
 
-            fs = glob.glob(f'{output_dir}/{cat}.csv')
+            fs = glob(f'{output_dir}/{cat}.csv')
 
             for f in fs:
                 return pd.read_csv(f)
 
-        files = glob.glob(f'{improved_dlc_dir}/*.csv')
+        files = glob(f'{improved_dlc_dir}/*.csv')
 
-        for file in files:
+        console.print('\nFINDING VELOCITY VALUES...', style='bold blue')
+
+        for file in tqdm(files):
 
             df = pd.read_csv(file)
 
@@ -98,10 +141,10 @@ def analyze_turnpoints(improved_dlc_dir, init_tp_dir, output_dir):
 
     find_tps_velocity_values(improved_dlc_dir, output_dir, output_dir)
 
-    if not os.path.exists(f'{output_dir}/diff'):
-        os.makedirs(f'{output_dir}/diff')
+    for f in glob(f'{output_dir}/*.csv'):
+        move(f, mkD('single_files'))
 
-    diff_output_dir = f'{output_dir}/diff'
+    diff_output_dir = mkD('diff')
 
     def find_turnpoints_diff(output_dir_super, diff_output_dir):
         """
@@ -109,9 +152,13 @@ def analyze_turnpoints(improved_dlc_dir, init_tp_dir, output_dir):
         'output_dir_diff' is the directory in which the output files will be saved
         """
 
-        for variable in ['time', 'velocity_value']:
+        console.print('\nFINDING TURNPOINTS DIFFERENCE...', style='bold blue')
 
-            files = glob.glob(f'{output_dir_super}/*.csv')
+        output_dir_super = mkD('single_files')
+
+        for variable in tqdm(['time', 'velocity_value']):
+
+            files = glob(f'{output_dir_super}/*.csv')
 
             tls = trials()
 
@@ -193,3 +240,5 @@ def analyze_turnpoints(improved_dlc_dir, init_tp_dir, output_dir):
                 concat_csv(diff_output_dir, "all_time_diff")
 
     find_turnpoints_diff(output_dir, diff_output_dir)
+
+    console.print('\nDONE!', style='bold green')
