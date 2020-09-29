@@ -44,7 +44,6 @@ def AnovaRM_diff(csv_file, trls=[], sets=False):
     def ANVtest(df, voi, w):
         return AnovaRM(data=df, depvar=voi, subject='cat', within=[w], aggregate_func='mean').fit()
 
-
     if sets is not False:
         # Compare by sets (['ST1', 'UT1'] vs ['ST2', 'UT2'])
         w = 'set'
