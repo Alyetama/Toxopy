@@ -13,5 +13,6 @@ from .return_sem import return_sem
 from .sniff_boxplot import sniff_boxplot
 from .MannWhitney_U import *
 from .data_utils import json2tidycsv, obtain_grand_m, jsonify_dlc_avgs
+from .AnovaRM_diff import AnovaRM_diff
 
 from .version import __version__, VERSION
