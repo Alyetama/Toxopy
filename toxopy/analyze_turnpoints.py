@@ -187,20 +187,18 @@ def analyze_turnpoints(improved_dlc_dir, output_dir):
 
                     if i == n - 1:
                         break
+                    if variable == 'time':
+                        diff.append(altE(ls)[i + 1] - altE(ls)[i])
+                        trial.append(altE(df['trial'].tolist()))
+                        diff_calc.append(
+                            f'({altE(ls)[i + 1]}) - ({altE(ls)[i]})')
 
-                    else:
-                        if variable == 'time':
-                            diff.append(altE(ls)[i + 1] - altE(ls)[i])
-                            trial.append(altE(df['trial'].tolist()))
-                            diff_calc.append(
-                                f'({altE(ls)[i + 1]}) - ({altE(ls)[i]})')
-
-                        elif variable == 'velocity_value':
-                            diff.append(ls[1::2][i] - ls[::2][i])
-                            tl = df['trial'].tolist()
-                            trial.append(tl[::2])
-                            diff_calc.append(
-                                f'({round(ls[1::2][i], 4)}) - ({round(ls[::2][i], 4)})')
+                    elif variable == 'velocity_value':
+                        diff.append(ls[1::2][i] - ls[::2][i])
+                        tl = df['trial'].tolist()
+                        trial.append(tl[::2])
+                        diff_calc.append(
+                            f'({round(ls[1::2][i], 4)}) - ({round(ls[::2][i], 4)})')
 
                 diff = [round(x, 4) for x in diff]
 
