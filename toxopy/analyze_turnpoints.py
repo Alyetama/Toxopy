@@ -37,7 +37,7 @@ def analyze_turnpoints(improved_dlc_dir, output_dir):
     while True:
 
         if 'Darwin' in platform():
-            p = Popen(['open', f'{output_dir}/plot_turnpoints.r'])
+            Popen(['open', f'{output_dir}/plot_turnpoints.r'])
         else:
             pass
 
@@ -81,8 +81,6 @@ def analyze_turnpoints(improved_dlc_dir, output_dir):
                 proba.append(format(y, '.8f'))
 
             df = df.drop(columns=['proba'])
-
-            k, j, t = 300, 180, 120
 
             for i in times:
                 if i < tt[0]:
@@ -158,8 +156,6 @@ def analyze_turnpoints(improved_dlc_dir, output_dir):
 
             files = glob(f'{output_dir_super}/*.csv')
 
-            tls = trials()
-
             for file in files:
 
                 df = pd.read_csv(file)
@@ -172,9 +168,10 @@ def analyze_turnpoints(improved_dlc_dir, output_dir):
                 def altE(l):
                     if firstispeak == 'False':
                         return l[::2]
-
                     elif firstispeak == 'True':
                         return l[1::2]
+                    else:
+                        return None
 
                 ls = df[variable].tolist()
 
