@@ -49,9 +49,11 @@ def AnovaRM_diff(csv_file, trls=None, sets=False):
 
     # Compares by sets (['ST1', 'UT1'] vs ['ST2', 'UT2'])
     if sets is not False:
+        def SET(tls, rank):
+            return slct(tls), rank
         w = 'set'
-        s1, s1['set'] = slct(['ST1', 'UT1']), 'first'
-        s2, s2['set'] = slct(['ST2', 'UT2']), 'second'
+        s1, s1['set'] = SET(['ST1', 'UT1'], 'first')
+        s2, s2['set'] = SET(['ST2', 'UT2'], 'second')
         df = pd.concat([s1, s2])
         return print(ANVtest(df, voi, w))
     # Compares by a user-specified trials list
