@@ -9,7 +9,7 @@ from pathlib import Path
 from statsmodels.stats.anova import AnovaRM
 
 
-def AnovaRM_diff(csv_file, trls=[], sets=False):
+def AnovaRM_diff(csv_file, trls=None, sets=False):
     """
     'csv_file' is either 'vel_diff' or 'time_diff'
     'trls' is user-specified trials that will be used in the comparison,
@@ -30,7 +30,6 @@ def AnovaRM_diff(csv_file, trls=[], sets=False):
         def sub(i):
             return pd.concat(
                 [df[(df.trial == x)].reset_index(drop=True) for x in i])
-
         return pd.concat([sub(x) for x in [j]])
 
     def checkTlen(n):
@@ -48,20 +47,20 @@ def AnovaRM_diff(csv_file, trls=[], sets=False):
                        within=[w],
                        aggregate_func='mean').fit()
 
+    # Compares by sets (['ST1', 'UT1'] vs ['ST2', 'UT2'])
     if sets is not False:
-        # Compare by sets (['ST1', 'UT1'] vs ['ST2', 'UT2'])
         w = 'set'
         s1, s1['set'] = slct(['ST1', 'UT1']), 'first'
         s2, s2['set'] = slct(['ST2', 'UT2']), 'second'
         df = pd.concat([s1, s2])
         return print(ANVtest(df, voi, w))
-    # Compare by a user-specified trials list
+    # Compares by a user-specified trials list
+    if trls is None:
+        trls = []
     n = len(trls)
     df = slct(trls)
     w = 'trial'
     if checkTlen(n) == []:
         return print(ANVtest(df, voi, w))
-        if checkTlen(n) == []:
-            return print(ANVtest(df, voi, w))
-        raise ValueError(
-            f'The following cats\'s len(trials) != n:\n{checkTlen(n)}')
+    raise ValueError(
+        f'The following cats\'s len(trials) != n:\n{checkTlen(n)}')
