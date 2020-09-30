@@ -9,6 +9,8 @@ from toxopy import trials
 from os import remove
 from numpy import mean, median
 import pandas as pd
+from glob import glob
+from pathlib import Path
 
 
 # Global variables
@@ -111,3 +113,35 @@ def jsonify_dlc_avgs(csv_file):
 
     with open('dlc_avgs.json', 'w') as outfile:
         json.dump(d, outfile)
+
+
+def check_dfs_len(csv_dir, original=False):
+    """
+    'csv_dir' is 'csv_original' dir if original is True,
+        or improved and combined dir if original is False (default)
+    len(df) in ch is 17987
+    len(df) in oh/chwo is 30574 or 30573
+    """
+    def gp(project_type):
+        return glob(f'{csv_dir}/*_{project_type}.csv')
+
+    def rlen(dlen, file, project_type=None):
+        res = f'{Path(file).stem} ==> {len(df)}'
+        if original is True:
+            if x == gp(project_type):
+                if len(df) < dlen:
+                    return print(res)
+        else:
+            if len(df) > dlen:
+                return print(res)
+
+    if original is True:
+        for x in [gp('ch'), gp('oh'), gp('chwo')]:
+            for f in x:
+                df = pd.read_csv(f)
+                n = 30573
+                rlen(17987, f, 'ch'), rlen(n, f, 'oh'), rlen(n, f, 'chwo')
+    else:
+        for f in glob(f'{csv_dir}/*.csv'):
+            df = pd.read_csv(f)
+            rlen(48570, f)

@@ -56,8 +56,9 @@ def AnovaRM_diff(csv_file, trls=None, sets=False):
         s2, s2['set'] = SET(['ST2', 'UT2'], 'second')
         df = pd.concat([s1, s2])
         return print(ANVtest(df, voi, w))
+
     # Compares by a user-specified trials list
-    if trls is None:
+    if trls is None and sets is False:
         trls = []
     n = len(trls)
     df = slct(trls)

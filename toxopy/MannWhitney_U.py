@@ -4,12 +4,11 @@ Toxopy (https://github.com/bchaselab/Toxopy)
 Licensed under the terms of the MIT license
 """
 
+import os
 from scipy.stats import mannwhitneyu
 import pandas as pd
-from toxopy import trials, nadlc, roi_behaviors
+from toxopy import trials, nadlc, roi_behaviors, fwarnings
 from itertools import combinations
-
-excluded_cats, trls, vois = nadlc(), trials(), roi_behaviors()
 
 
 def alphaTest(p):
@@ -24,6 +23,9 @@ def alphaTest(p):
 def statVal(stat, p):
     res = 'Statistics=%.3f, p=%.3f' % (stat, p)
     return res
+
+
+excluded_cats, trls, vois = nadlc(), trials(), roi_behaviors()
 
 
 def boris_mw(csv_file, include_ns=True, drop_non_dlc=False):
@@ -149,3 +151,46 @@ def roi_diff_Btrials_Wgroup_mw(csv_file,
 
     if export_csv is True:
         f.close()
+
+
+def calc_dlc_mw(csv_file, export=False):
+
+    df = pd.read_csv(csv_file)
+
+    variables = ['vel', 'distance', 'cat_distance', 'acceleration', 'moving']
+
+    for t in trls:
+        with open(t, 'w') as f:
+            if export is False:
+                print('\nTrial:', t, '\n')
+                os.remove(t)
+            else:
+                print('trial, var, statistics, p', file=f)
+
+            for j in variables:
+
+                def slct(status):
+                    return df[(df['infection_status'] == status) & (df['trial'] == t) &
+                              (df['var'] == j)]['value']
+
+                pv, nv = slct('Positive'), slct('Negative')
+                stat, p = mannwhitneyu(pv, nv)
+                alpha = 0.05
+
+                if stat != 0:
+                    if export is False:
+                        print(j, '\nStatistics=%.3f, p=%.3f' % (stat, p))
+                        result = alphaTest(p)
+                    else:
+                        if p > alpha:
+                            print(f'{t},{j},{stat},{p}', file=f)
+                        elif p < alpha:
+                            print(f'{t},{j},{stat},{p},*', file=f)
+
+    if export is True:
+        combined_csv = pd.concat([pd.read_csv(f) for f in trls])
+        combined_csv.to_csv("mannwhitneyu_stats_results.csv",
+                            index=False,
+                            encoding='utf-8-sig')
+
+        [os.remove(f) for f in trls]
