@@ -55,14 +55,13 @@ def AnovaRM_diff(csv_file, trls=[], sets=False):
         s2, s2['set'] = slct(['ST2', 'UT2']), 'second'
         df = pd.concat([s1, s2])
         return print(ANVtest(df, voi, w))
-
-    else:
-        # Compare by a user-specified trials list
-        n = len(trls)
-        df = slct(trls)
-        w = 'trial'
+    # Compare by a user-specified trials list
+    n = len(trls)
+    df = slct(trls)
+    w = 'trial'
+    if checkTlen(n) == []:
+        return print(ANVtest(df, voi, w))
         if checkTlen(n) == []:
             return print(ANVtest(df, voi, w))
-        else:
-            raise ValueError(
-                f'The following cats\'s len(trials) != n:\n{checkTlen(n)}')
+        raise ValueError(
+            f'The following cats\'s len(trials) != n:\n{checkTlen(n)}')
