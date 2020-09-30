@@ -110,16 +110,16 @@ def analyze_rois(input_dir, room_layout, output_dir, plot=False):
 
         files = glob(f'{output_dir}/.*_del.csv')
 
-        for file in files:
+        for f in files:
 
-            df2 = pd.read_csv(file)
+            df2 = pd.read_csv(f)
 
             df2 = df2[[
                 'ROI_name', 'transitions_per_roi', 'cumulative_time_in_roi_sec',
                 'avg_time_in_roi_sec', 'avg_vel_in_roi', 'trial', 'cat', 'infection_status'
             ]]
 
-            df2.to_csv(file, index=False)
+            df2.to_csv(f, index=False)
 
         combined_csv = pd.concat([pd.read_csv(f) for f in files])
         combined_csv.to_csv(f'{output_dir}/{cat}.csv',
@@ -134,8 +134,8 @@ def analyze_rois(input_dir, room_layout, output_dir, plot=False):
         os.makedirs(sF)
     else:
         pass
-    for file in glob(f'{output_dir}/*.csv'):
-        if 'all' not in file:
-            move(file, sF)
+    for fl in glob(f'{output_dir}/*.csv'):
+        if 'all' not in fl:
+            move(fl, sF)
 
-    console.print(f'\nDone!', style='bold green')
+    console.print('\nDone!', style='bold green')
