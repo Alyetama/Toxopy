@@ -168,10 +168,9 @@ def analyze_turnpoints(improved_dlc_dir, output_dir):
                 def altE(l):
                     if firstispeak == 'False':
                         return l[::2]
-                    elif firstispeak == 'True':
+                    if firstispeak == 'True':
                         return l[1::2]
-                    else:
-                        return None
+                    return None
 
                 ls = df[variable].tolist()
 
