@@ -11,9 +11,9 @@ from glob import glob
 import pandas as pd
 from toxopy import fwarnings, trials, concat_csv
 import matplotlib.patches as patches
+import matplotlib.pyplot as plt
 from collections import namedtuple
 from dlcu.time_in_each_roi import get_timeinrois_stats as gts
-import matplotlib.pyplot as plt
 from pathlib import Path
 from rich.console import Console
 from tqdm import tqdm
