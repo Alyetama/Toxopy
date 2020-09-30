@@ -179,7 +179,8 @@ def calc_dlc_mw(csv_file, export=False):
 
                 if stat != 0:
                     if export is False:
-                        print(f'{j} ==> {"Statistics=%.3f, p=%.3f" % (stat, p)}, {alphaTest(p)}')
+                        print(
+                            f'{j} ==> {"Statistics=%.3f, p=%.3f" % (stat, p)}, {alphaTest(p)}')
                     else:
                         if p > alpha:
                             print(f'{t},{j},{stat},{p}', file=f)
@@ -193,5 +194,6 @@ def calc_dlc_mw(csv_file, export=False):
                             encoding='utf-8-sig')
 
         [os.remove(f) for f in trls]
+
 
 calc_dlc_mw(csv_file="/Users/Felis.catus/Desktop/GitHub/bchaselab/DLC-Chaselab/Data/pre-discovery/dlc_all_avgs_updated.csv", export=False)
