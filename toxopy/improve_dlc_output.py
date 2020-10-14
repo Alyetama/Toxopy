@@ -394,4 +394,5 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
     console.print('\nDONE!', style='bold green')
 
 
-improve_dlc_output("/Users/Felis.catus/Desktop/untitled folder", "/Users/Felis.catus/Desktop/output", only_improve_csv=False)
+improve_dlc_output("/Users/Felis.catus/Desktop/untitled folder",
+                   "/Users/Felis.catus/Desktop/output", only_improve_csv=False)
