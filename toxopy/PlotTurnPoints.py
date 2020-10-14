@@ -112,9 +112,3 @@ def plotTurnpoints(csv_file, turnpoints_dir):
         PlotCat(file, cat, pos)
 
     plt.show()
-
-
-plotTurnpoints(
-    "/Users/Felis.catus/Desktop/combined_4.csv",
-    '/Users/Felis.catus/Desktop/GitHub/bchaselab/DLC-Chaselab/Data/dATA_turnpoints/single_files'
-)
