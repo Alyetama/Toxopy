@@ -392,6 +392,3 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
         move(fi, cp)
 
     console.print('\nDONE!', style='bold green')
-
-
-improve_dlc_output("/Users/Felis.catus/Desktop/untitled folder", "/Users/Felis.catus/Desktop/output", only_improve_csv=False)
