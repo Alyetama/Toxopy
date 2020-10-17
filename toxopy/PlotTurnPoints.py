@@ -15,7 +15,7 @@ from pathlib import Path
 # %matplotlib inline
 
 
-def plotTurnpoints(csv_file, turnpoints_dir):
+def PlotTurnPoints(csv_file, turnpoints_dir):
 
     cats = sorted(list(pd.read_csv(csv_file).cat.unique()))
     positions = range(221, 225)
