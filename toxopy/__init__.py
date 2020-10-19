@@ -15,5 +15,6 @@ from .MannWhitney_U import *
 from .data_utils import *
 from .AnovaRM_diff import AnovaRM_diff
 from .PlotTurnPoints import PlotTurnPoints
+from .PlotPCA import PlotPCA
 
 from .version import __version__, VERSION
