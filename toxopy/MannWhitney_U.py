@@ -73,7 +73,8 @@ def boris_mw(csv_file, include_ns=True, drop_non_dlc=False, export_csv=False, pa
                     if t in trls[1::2] and b == 'Affiliative':
                         pass
                     else:
-                        print(f'{t},{b},{"%.2f" % stat},{"%.4f" % p}{ast},{result}', file=f)
+                        print(
+                            f'{t},{b},{"%.2f" % stat},{"%.4f" % p}{ast},{result}', file=f)
 
     if export_csv is True:
         f.close()
