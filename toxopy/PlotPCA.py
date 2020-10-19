@@ -12,6 +12,7 @@ import inspect
 # inspect.getargspec(pca.biplot3d)
 # colormaps: https://matplotlib.org/3.1.0/tutorials/colors/colormaps.html
 
+
 def PlotPCA(csv_file, T):
 
     df = pd.read_csv(csv_file)
@@ -26,11 +27,11 @@ def PlotPCA(csv_file, T):
         d[t] = trial
 
     features = [x[3:] for x in d[T]]
-    
+
     for i in features:
         df.rename(columns={i: i[3:]}, inplace=True)
-        
-    idx = df.loc[:,'infection_status'].values
+
+    idx = df.loc[:, 'infection_status'].values
     dt = df[d[T]].to_numpy()
 
     # Load dataset
