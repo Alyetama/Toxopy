@@ -21,44 +21,62 @@ def alphaTest(p):
 
 
 def statVal(stat, p):
-    res = 'Statistics=%.3f, p=%.3f' % (stat, p)
+    res = 'Statistics=%.2f, p=%.4f' % (stat, p)
     return res
 
 
 excluded_cats, trls, vois = nadlc(), trials(), roi_behaviors()
 
 
-def boris_mw(csv_file, include_ns=True, drop_non_dlc=False):
+def boris_mw(csv_file, include_ns=True, drop_non_dlc=False, export_csv=False, path=os.getcwd()):
     """
     df is typically "bin_data_grouped_____percentage____tidy" for the time
     budget analysis, and "bin_data_all_behaviors____frequency____tidy" for
     single behavior comparisons.
     """
     df = pd.read_csv(csv_file)
+
     if drop_non_dlc is True:
         for c in excluded_cats:
             df.drop(df[df.cat == c].index, inplace=True)
 
-    behaviors = list(df.Behavior.unique())
+    behaviors = sorted(list(df.Behavior.unique()))
 
     def slct(status, trial, behavior):
         return df[(df['infection_status'] == status) & (df['trial'] == trial) &
                   (df['Behavior'] == behavior)]['value']
 
+    if export_csv is True:
+        f = open(f'{path}/results.csv', 'w')
+        print('trial,behavior,stat,p,interpretation', file=f)
+
     for t in trls:
         print(f'\n{"-" * 60}\n{t}\n')
 
         for b in behaviors:
-            neg, pos = slct('Negative', t, b), slct('Positive', t, b)
+            neg, pos = slct('Control', t, b), slct('Infected', t, b)
+
             if sum(neg) and sum(pos) != 0:
                 stat, p = mannwhitneyu(neg, pos)
                 stat_values = statVal(stat, p)
                 result = alphaTest(p)
                 res_str = f'{b} ==> {stat_values}, {result}'
+
                 if result == 'reject H0':
                     print(f'{res_str}  *')
+                    ast = '*'
                 elif result != 'reject H0' and include_ns is True:
                     print(res_str)
+                    ast = ''
+
+                if export_csv is True:
+                    if t in trls[1::2] and b == 'Affiliative':
+                        pass
+                    else:
+                        print(f'{t},{b},{"%.2f" % stat},{"%.4f" % p}{ast},{result}', file=f)
+
+    if export_csv is True:
+        f.close()
 
 
 def roi_mw(csv_file):
@@ -77,7 +95,7 @@ def roi_mw(csv_file):
     for j in ['walls', 'middle']:
         print(f'\n{j}')
         for i in trls:
-            pos, neg = slct(i, 'Positive', j), slct(i, 'Negative', j)
+            pos, neg = slct(i, 'Infected', j), slct(i, 'Control', j)
             print(f'\n{i}')
             for voi in vois:
                 stat, p = mannwhitneyu(neg[voi], pos[voi])
@@ -131,7 +149,7 @@ def roi_diff_Btrials_Wgroup_mw(csv_file,
         f = open('results.csv', 'w')
         print('status,comparison,stat,p,interpretation', file=f)
 
-    for k in ['Negative', 'Positive']:
+    for k in ['Control', 'Infected']:
         if export_csv is not True:
             print(f'{"-" * 65}\n<< {k} >>')
         for b in vois:
@@ -173,7 +191,7 @@ def calc_dlc_mw(csv_file, export=False):
                     return df[(df['infection_status'] == status) & (df['trial'] == t) &
                               (df['var'] == j)]['value']
 
-                pv, nv = slct('Positive'), slct('Negative')
+                pv, nv = slct('Infected'), slct('Control')
                 stat, p = mannwhitneyu(pv, nv)
                 alpha = 0.05
 
