@@ -52,4 +52,5 @@ def PlotPCA(csv_file, Trial, legend=True, save=False, path=os.getcwd()):
     fig = ax.get_figure()
 
     if save is True:
-        fig.savefig(f'{path}/{Trial}.png', bbox_inches='tight', dpi=100, pad_inches=0.4)
+        fig.savefig(f'{path}/{Trial}.png', bbox_inches='tight',
+                    dpi=100, pad_inches=0.4)
