@@ -6,6 +6,7 @@ Licensed under the terms of the MIT license
 
 from toxopy import fwarnings, trials
 from pca import pca
+import os
 import pandas as pd
 import inspect
 
@@ -13,7 +14,7 @@ import inspect
 # colormaps: https://matplotlib.org/3.1.0/tutorials/colors/colormaps.html
 
 
-def PlotPCA(csv_file, T):
+def PlotPCA(csv_file, Trial, legend=True, save=False, path=os.getcwd()):
 
     df = pd.read_csv(csv_file)
 
@@ -26,13 +27,13 @@ def PlotPCA(csv_file, T):
         [trial.append(x) for x in list(df.columns[9:]) if f't{n}_' in x]
         d[t] = trial
 
-    features = [x[3:] for x in d[T]]
+    features = [x[3:] for x in d[Trial]]
 
     for i in features:
         df.rename(columns={i: i[3:]}, inplace=True)
 
     idx = df.loc[:, 'infection_status'].values
-    dt = df[d[T]].to_numpy()
+    dt = df[d[Trial]].to_numpy()
 
     # Load dataset
     X = pd.DataFrame(data=dt, columns=features, index=idx)
@@ -46,4 +47,9 @@ def PlotPCA(csv_file, T):
     # Fit transform
     results = model.fit_transform(X)
 
-    fig, ax = model.biplot3d(legend=True, SPE=True, hotellingt2=True)
+    fig, ax = model.biplot3d(legend=legend, SPE=True, hotellingt2=True)
+
+    fig = ax.get_figure()
+
+    if save is True:
+        fig.savefig(f'{path}/{Trial}.png', bbox_inches='tight', dpi=100, pad_inches=0.4)

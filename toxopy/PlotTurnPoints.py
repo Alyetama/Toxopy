@@ -4,6 +4,7 @@ Toxopy (https://github.com/bchaselab/Toxopy)
 Licensed under the terms of the MIT license
 """
 
+import os
 from rdp import rdp
 import pandas as pd
 import numpy as np
@@ -15,7 +16,7 @@ from pathlib import Path
 # %matplotlib inline
 
 
-def PlotTurnPoints(csv_file, turnpoints_dir):
+def PlotTurnPoints(csv_file, turnpoints_dir, save=False, path=os.getcwd()):
 
     cats = sorted(list(pd.read_csv(csv_file).cat.unique()))
     positions = range(221, 225)
@@ -111,4 +112,5 @@ def PlotTurnPoints(csv_file, turnpoints_dir):
     for file, cat, pos in zip(files, cats, positions):
         PlotCat(file, cat, pos)
 
-    plt.show()
+    if save is True:
+        fig.savefig(f'{path}/TurnPoints.png', bbox_inches='tight', dpi=100, pad_inches=0.4)
