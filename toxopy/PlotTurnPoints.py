@@ -113,4 +113,5 @@ def PlotTurnPoints(csv_file, turnpoints_dir, save=False, path=os.getcwd()):
         PlotCat(file, cat, pos)
 
     if save is True:
-        fig.savefig(f'{path}/TurnPoints.png', bbox_inches='tight', dpi=100, pad_inches=0.4)
+        fig.savefig(f'{path}/TurnPoints.png',
+                    bbox_inches='tight', dpi=100, pad_inches=0.4)
