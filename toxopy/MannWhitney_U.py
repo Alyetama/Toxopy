@@ -25,16 +25,27 @@ def statVal(stat, p):
     return res
 
 
+def comparison(compare_by):
+    if compare_by == 'infection_status':
+        control, test = 'Control', 'Infected'
+    elif compare_by == 'indoor_outdoor_status':
+        control, test = 'Indoor', 'Indoor-outdoor'
+
+    return control, test
+
+
 excluded_cats, trls, vois = nadlc(), trials(), roi_behaviors()
 
 
-def boris_mw(csv_file, include_ns=True, drop_non_dlc=False, export_csv=False, path=os.getcwd()):
+def boris_mw(csv_file, include_ns=True, drop_non_dlc=False, export_csv=False, path=os.getcwd(), compare_by='infection_status'):
     """
     df is typically "bin_data_grouped_____percentage____tidy" for the time
     budget analysis, and "bin_data_all_behaviors____frequency____tidy" for
     single behavior comparisons.
     """
     df = pd.read_csv(csv_file)
+
+    control, test = comparison(compare_by)
 
     if drop_non_dlc is True:
         for c in excluded_cats:
@@ -43,7 +54,7 @@ def boris_mw(csv_file, include_ns=True, drop_non_dlc=False, export_csv=False, pa
     behaviors = sorted(list(df.Behavior.unique()))
 
     def slct(status, trial, behavior):
-        return df[(df['infection_status'] == status) & (df['trial'] == trial) &
+        return df[(df[compare_by] == status) & (df['trial'] == trial) &
                   (df['Behavior'] == behavior)]['value']
 
     if export_csv is True:
@@ -54,7 +65,7 @@ def boris_mw(csv_file, include_ns=True, drop_non_dlc=False, export_csv=False, pa
         print(f'\n{"-" * 60}\n{t}\n')
 
         for b in behaviors:
-            neg, pos = slct('Control', t, b), slct('Infected', t, b)
+            neg, pos = slct(control, t, b), slct(test, t, b)
 
             if sum(neg) and sum(pos) != 0:
                 stat, p = mannwhitneyu(neg, pos)
@@ -80,7 +91,7 @@ def boris_mw(csv_file, include_ns=True, drop_non_dlc=False, export_csv=False, pa
         f.close()
 
 
-def roi_mw(csv_file):
+def roi_mw(csv_file, compare_by='infection_status'):
     """
     Time Spent in Regions of Interest (ROIs)
     Video pixel coordinates for the DeepLabCut-generated labels were
@@ -89,14 +100,16 @@ def roi_mw(csv_file):
     """
     df = pd.read_csv(csv_file)
 
+    control, test = comparison(compare_by)
+
     def slct(i, s, j):
-        return df.loc[(df['trial'] == i) & (df['infection_status'] == s) &
+        return df.loc[(df['trial'] == i) & (df[compare_by] == s) &
                       (df['ROI_name'] == j)]
 
     for j in ['walls', 'middle']:
         print(f'\n{j}')
         for i in trls:
-            pos, neg = slct(i, 'Infected', j), slct(i, 'Control', j)
+            pos, neg = slct(i, test, j), slct(i, control, j)
             print(f'\n{i}')
             for voi in vois:
                 stat, p = mannwhitneyu(neg[voi], pos[voi])
@@ -106,7 +119,8 @@ def roi_mw(csv_file):
 def roi_diff_Btrials_Wgroup_mw(csv_file,
                                comparison,
                                trial_type=None,
-                               export_csv=False):
+                               export_csv=False,
+                               compare_by='infection_status'):
     """
     Time Spent in ROIs – Within-group
     Similar to 'roi'. Except it compares time spent in
@@ -114,14 +128,16 @@ def roi_diff_Btrials_Wgroup_mw(csv_file,
     """
     df = pd.read_csv(csv_file)
 
+    control, test = comparison(compare_by)
+
     def slct(tr):
         if comparison == 'all':
             return df.loc[(df['ROI_name'] == 'walls')
-                          & (df['infection_status'] == k) &
+                          & (df[compare_by] == k) &
                           (df['trial'] == tr)][b]
         if comparison == 'split':
             return df.loc[(df['ROI_name'] == 'walls')
-                          & (df['infection_status'] == k)
+                          & (df[compare_by] == k)
                           & df.trial.isin(tr)][b]
 
     def res(s):
@@ -150,7 +166,7 @@ def roi_diff_Btrials_Wgroup_mw(csv_file,
         f = open('results.csv', 'w')
         print('status,comparison,stat,p,interpretation', file=f)
 
-    for k in ['Control', 'Infected']:
+    for k in [control, test]:
         if export_csv is not True:
             print(f'{"-" * 65}\n<< {k} >>')
         for b in vois:
@@ -172,9 +188,11 @@ def roi_diff_Btrials_Wgroup_mw(csv_file,
         f.close()
 
 
-def calc_dlc_mw(csv_file, export=False):
+def calc_dlc_mw(csv_file, export=False, compare_by='infection_status'):
 
     df = pd.read_csv(csv_file)
+
+    control, test = comparison(compare_by)
 
     variables = ['vel', 'distance', 'cat_distance', 'acceleration', 'moving']
 
@@ -189,10 +207,10 @@ def calc_dlc_mw(csv_file, export=False):
             for j in variables:
 
                 def slct(status):
-                    return df[(df['infection_status'] == status) & (df['trial'] == t) &
+                    return df[(df[compare_by] == status) & (df['trial'] == t) &
                               (df['var'] == j)]['value']
 
-                pv, nv = slct('Infected'), slct('Control')
+                pv, nv = slct(test), slct(control)
                 stat, p = mannwhitneyu(pv, nv)
                 alpha = 0.05
 
@@ -203,7 +221,7 @@ def calc_dlc_mw(csv_file, export=False):
                         if p > alpha:
                             print(f'{t},{j},{stat},{p}', file=f)
                         elif p < alpha:
-                            print(f'{t},{j},{stat},{p},*', file=f)
+                            print(f'{t},{j},{stat},{p}*', file=f)
 
     if export is True:
         combined_csv = pd.concat([pd.read_csv(f) for f in trls])
