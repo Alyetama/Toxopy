@@ -36,13 +36,13 @@ def comparison(compare_by):
 
 
 def interp(control, test, ctrl, tst):
-	print(f'> {control} M=%.2f, {test} M=%.2f' % (mean(ctrl), mean(tst)))
-	if mean(ctrl) > mean(tst):
-		print(f'>> {control} cats scored higher.')
-	elif mean(ctrl) < mean(tst):
-		print(f'>> {test} cats scored higher.')
-	else:
-		print('>> Equal means.')
+    print(f'> {control} M=%.2f, {test} M=%.2f' % (mean(ctrl), mean(tst)))
+    if mean(ctrl) > mean(tst):
+        print(f'>> {control} cats scored higher.')
+    elif mean(ctrl) < mean(tst):
+        print(f'>> {test} cats scored higher.')
+    else:
+        print('>> Equal means.')
 
 
 excluded_cats, trls, vois = nadlc(), trials(), roi_behaviors()
