@@ -9,6 +9,7 @@ from scipy.stats import mannwhitneyu
 import pandas as pd
 from toxopy import trials, nadlc, roi_behaviors, fwarnings
 from itertools import combinations
+from numpy import mean
 
 
 def alphaTest(p):
@@ -32,6 +33,16 @@ def comparison(compare_by):
         control, test = 'Indoor', 'Indoor-outdoor'
 
     return control, test
+
+
+def interp(control, test, ctrl, tst):
+	print(f'> {control} M=%.2f, {test} M=%.2f' % (mean(ctrl), mean(tst)))
+	if mean(ctrl) > mean(tst):
+		print(f'>> {control} cats scored higher.')
+	elif mean(ctrl) < mean(tst):
+		print(f'>> {test} cats scored higher.')
+	else:
+		print('>> Equal means.')
 
 
 excluded_cats, trls, vois = nadlc(), trials(), roi_behaviors()
@@ -65,13 +76,13 @@ def boris_mw(csv_file, include_ns=True, drop_non_dlc=False, export_csv=False, pa
         print(f'\n{"-" * 60}\n{t}\n')
 
         for b in behaviors:
-            neg, pos = slct(control, t, b), slct(test, t, b)
+            ctrl, tst = slct(control, t, b), slct(test, t, b)
 
-            if sum(neg) and sum(pos) != 0:
-                stat, p = mannwhitneyu(neg, pos)
+            if sum(ctrl) and sum(tst) != 0:
+                stat, p = mannwhitneyu(ctrl, tst)
                 stat_values = statVal(stat, p)
                 result = alphaTest(p)
-                res_str = f'{b} ==> {stat_values}, {result}'
+                res_str = f'\n{b} ==> {stat_values}, {result}'
 
                 if result == 'reject H0':
                     print(f'{res_str}  *')
@@ -79,6 +90,8 @@ def boris_mw(csv_file, include_ns=True, drop_non_dlc=False, export_csv=False, pa
                 elif result != 'reject H0' and include_ns is True:
                     print(res_str)
                     ast = ''
+
+                interp(control, test, ctrl, tst)
 
                 if export_csv is True:
                     if t in trls[1::2] and b == 'Affiliative':
@@ -109,11 +122,13 @@ def roi_mw(csv_file, compare_by='infection_status'):
     for j in ['walls', 'middle']:
         print(f'\n{j}')
         for i in trls:
-            pos, neg = slct(i, test, j), slct(i, control, j)
+            tst, ctrl = slct(i, test, j), slct(i, control, j)
             print(f'\n{i}')
             for voi in vois:
-                stat, p = mannwhitneyu(neg[voi], pos[voi])
-                print(f'{voi} ==> {statVal(stat, p)}, ' + f'{alphaTest(p)}')
+                stat, p = mannwhitneyu(ctrl[voi], tst[voi])
+                print(f'\n{voi} ==> {statVal(stat, p)}, ' + f'{alphaTest(p)}')
+
+                interp(control, test, ctrl[voi], tst[voi])
 
 
 def roi_diff_Btrials_Wgroup_mw(csv_file,
