@@ -35,13 +35,13 @@ def dlcboxplot(file,
     plt.figure(figsize=(13, 5), dpi=100)
 
     if comparison == 'infection_status':
-    	test, control = 'Positive', 'Negative'
-    	comparing = 'infection_status'
-    	legend = 'Infection Status'
+        test, control = 'Positive', 'Negative'
+        comparing = 'infection_status'
+        legend = 'Infection Status'
     elif comparison == 'indoor_outdoor_status':
-    	test, control = 'Indoor-outdoor', 'Indoor'
-    	comparing = 'indoor_outdoor_status'
-    	legend = 'Indoor-outdoor Status'
+        test, control = 'Indoor-outdoor', 'Indoor'
+        comparing = 'indoor_outdoor_status'
+        legend = 'Indoor-outdoor Status'
 
     if colors is False:
         my_pal = {control: '#00FFFF', test: '#E60E3C'}
