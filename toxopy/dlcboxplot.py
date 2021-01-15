@@ -94,19 +94,19 @@ def dlcboxplot(file,
     ax.set(xlabel='Trial', ylabel=ylab)
 
     plt.legend(title=legend)
-    # '''add significance bars and asterisks between boxes'''
-    # # [first pair, second pair], ..., [|, –], ...
-    # # if variable == 'vel' or variable == 'cat_distance':
-    # #     if variable == 'vel':
-    # #         l = [[7.75, 5.75], [8.25, 6.25], [26, 28], [31, 33]]
-    # #     elif variable == 'cat_distance':
-    # #         l = [[7.75, 5.75], [8.25, 6.25], [0.85, 0.9], [0.95, 1]]
+    '''add significance bars and asterisks between boxes.
+    [first pair, second pair], ..., [|, –], ...'''
+    if variable == 'distance':
+        if variable == 'vel':
+            l = [[7.75, 5.75], [8.25, 6.25], [26, 28], [31, 33]]
+        elif variable == 'cat_distance':
+            l = [[7.75, 5.75], [8.25, 6.25], [0.85, 0.9], [0.95, 1]]
 
-    # #     for x1, x2, y1, y2 in zip(l[0], l[1], l[2], l[3]):
-    # #         sig = plt.plot([x1, x1, x2, x2], [y1, y2, y2, y1],
-    # #                        linewidth=1,
-    # #                        color='k')
-    # #         plt.text((x1 + x2) * .5, y2 + 0, "*", ha='center', va='bottom')
+        for x1, x2, y1, y2 in zip(l[0], l[1], l[2], l[3]):
+            sig = plt.plot([x1, x1, x2, x2], [y1, y2, y2, y1],
+                           linewidth=1,
+                           color='k')
+            plt.text((x1 + x2) * .5, y2 + 0, "*", ha='center', va='bottom')
 
     plt.show()
 
