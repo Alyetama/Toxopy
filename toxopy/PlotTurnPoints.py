@@ -60,14 +60,15 @@ def PlotTurnPoints(csv_file, turnpoints_dir, save=False, path=os.getcwd()):
         fig.set_size_inches(20, 12)
 
         ax = fig.add_subplot(pos)
-        ax.plot(x, y, 'k-', label='Trajectory')
+        ax.plot(x, y, 'k-', label='Trajectory', alpha=0.8)
 
         for i, j, k in zip([0, 1], [P[0], P[1]], ['Maximum', 'Minimum']):
             ax.plot(x[idx][i::2],
                     y[idx][i::2],
                     j,
                     mfc='none',
-                    label=f'Local {k}')
+                    label=f'Local {k}',
+                    alpha=0.9)
 
         times = [0, 300, 420, 600, 720, 900, 1020, 1200, 1320, 1500, 1620]
 
@@ -75,7 +76,8 @@ def PlotTurnPoints(csv_file, turnpoints_dir, save=False, path=os.getcwd()):
             plt.axvline(x=i,
                         linestyle='--',
                         color='gray',
-                        label='Trial Boundary')
+                        label='Trial Boundary',
+                        alpha=0.4)
 
         handles, labels = plt.gca().get_legend_handles_labels()
         order = [3, 0, 1, 2]
@@ -92,26 +94,26 @@ def PlotTurnPoints(csv_file, turnpoints_dir, save=False, path=os.getcwd()):
             bbox_transform=plt.gcf().transFigure,
         )
 
-    fig, ax = plt.subplots(nrows=0,
-                           ncols=0,
-                           sharex=True,
-                           sharey=True,
-                           figsize=(6, 6))
+#     fig, ax = plt.subplots(nrows=2,
+#                            ncols=2,
+#                            sharex=True,
+#                            sharey=True,
+#                            figsize=(6, 6))
 
-    font = {'family': 'DejaVu Sans', 'weight': 'regular', 'size': 18}
+        font = {'family': 'DejaVu Sans', 'weight': 'regular', 'size': 18}
 
-    plt.rc('font', **font)
+        plt.rc('font', **font)
 
-    fig.text(0.5, 0.07, 'Time', ha='center')
-    fig.text(0.07,
-             0.5,
-             'Speed in Pixels per Second',
-             va='center',
-             rotation='vertical')
+        fig.text(0.5, 0.05, 'Time', ha='center')
+        fig.text(0.07,
+                 0.5,
+                 'Velocity in Pixels per Second',
+                 va='center',
+                 rotation='vertical')
 
     for file, cat, pos in zip(files, cats, positions):
         PlotCat(file, cat, pos)
 
     if save is True:
-        fig.savefig(f'{path}/TurnPoints.png',
-                    bbox_inches='tight', dpi=100, pad_inches=0.4)
+        plt.savefig(f'{path}/TurnPoints.png',
+                    bbox_inches='tight', dpi=100, pad_inches=0.1)

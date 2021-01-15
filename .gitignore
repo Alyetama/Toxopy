@@ -5,6 +5,8 @@ test_files/
 merged_functions/
 toxopy/r_smooth_loop.py
 .update_version.py
+toxopy/recycle.py
+toxopy/fwarnings.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

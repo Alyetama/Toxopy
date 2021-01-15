@@ -4,7 +4,7 @@ Toxopy (https://github.com/bchaselab/Toxopy)
 Licensed under the terms of the MIT license
 """
 
-from toxopy import fwarnings
+from toxopy import fwarnings, trials
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -28,6 +28,15 @@ def dlcboxplot(file,
   """
 
     df = pd.read_csv(file)
+    tls = trials()
+    new = ['FT', 'ALONE1', 'SALINE1', 'ALONE2', 'URINE1', 'ALONE3', 'SALINE2', 'ALONE4', 'URINE2', 'ALONE5']
+    df = df[(df['trial'].isin(tls[0::2]))]
+    d = {}
+
+    for i, j in zip(new, tls):
+        d[j] = i
+
+    df = df.replace(d)
     df = df[df['var'] == variable]
 
     sns.set(style='ticks', font_scale=1)
@@ -35,7 +44,7 @@ def dlcboxplot(file,
     plt.figure(figsize=(13, 5), dpi=100)
 
     if comparison == 'infection_status':
-        test, control = 'Positive', 'Negative'
+        test, control = 'Infected', 'Control'
         comparing = 'infection_status'
         legend = 'Infection Status'
     elif comparison == 'indoor_outdoor_status':
@@ -85,19 +94,19 @@ def dlcboxplot(file,
     ax.set(xlabel='Trial', ylabel=ylab)
 
     plt.legend(title=legend)
-    '''add significance bars and asterisks between boxes'''
-    # [first pair, second pair], ..., [|, –], ...
-    if variable == 'vel' or variable == 'cat_distance':
-        if variable == 'vel':
-            l = [[7.75, 5.75], [8.25, 6.25], [26, 28], [31, 33]]
-        elif variable == 'cat_distance':
-            l = [[7.75, 5.75], [8.25, 6.25], [0.85, 0.9], [0.95, 1]]
+    # '''add significance bars and asterisks between boxes'''
+    # # [first pair, second pair], ..., [|, –], ...
+    # # if variable == 'vel' or variable == 'cat_distance':
+    # #     if variable == 'vel':
+    # #         l = [[7.75, 5.75], [8.25, 6.25], [26, 28], [31, 33]]
+    # #     elif variable == 'cat_distance':
+    # #         l = [[7.75, 5.75], [8.25, 6.25], [0.85, 0.9], [0.95, 1]]
 
-        for x1, x2, y1, y2 in zip(l[0], l[1], l[2], l[3]):
-            sig = plt.plot([x1, x1, x2, x2], [y1, y2, y2, y1],
-                           linewidth=1,
-                           color='k')
-            plt.text((x1 + x2) * .5, y2 + 0, "*", ha='center', va='bottom')
+    # #     for x1, x2, y1, y2 in zip(l[0], l[1], l[2], l[3]):
+    # #         sig = plt.plot([x1, x1, x2, x2], [y1, y2, y2, y1],
+    # #                        linewidth=1,
+    # #                        color='k')
+    # #         plt.text((x1 + x2) * .5, y2 + 0, "*", ha='center', va='bottom')
 
     plt.show()
 
