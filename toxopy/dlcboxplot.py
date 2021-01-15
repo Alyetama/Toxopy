@@ -30,11 +30,12 @@ def dlcboxplot(file,
     df = pd.read_csv(file)
     tls = trials()
     new = ['FT', 'ALONE1', 'SALINE1', 'ALONE2', 'URINE1', 'ALONE3', 'SALINE2', 'ALONE4', 'URINE2', 'ALONE5']
-    df = df[(df['trial'].isin(tls[0::2]))]
+    if variable == 'distance':
+      df = df[(df['trial'].isin(tls[0::2]))]
     d = {}
 
     for i, j in zip(new, tls):
-        d[j] = i
+      d[j] = i
 
     df = df.replace(d)
     df = df[df['var'] == variable]
@@ -71,20 +72,14 @@ def dlcboxplot(file,
                       size=3,
                       jitter=1)
 
-    for i in range(len(df['trial'].unique()) - 1):
-
-        def vLines(i, j):
-            '''add vertical lines to seperate boxplots pairs (style)'''
-            return plt.vlines(i + .5,
-                              i,
-                              j,
-                              linestyles='solid',
-                              colors='black',
-                              alpha=0.2)
-            if variable == 'vel':
-                vLines(10, 45)
-            elif variable == 'cat_distance':
-                vLines(0, 1.3)
+    if variable != 'distance':
+      for i in range(len(df['trial'].unique())-1):
+          if variable == 'vel':
+              plt.vlines(i+.5, 10, 45, linestyles='solid',
+                         colors='black', alpha=0.2)
+          elif variable == 'cat_distance':
+              plt.vlines(i+.5, 0, 1.3, linestyles='solid',
+                         colors='black', alpha=0.2)
 
     if title is not False:
         plt.title(title, fontsize=14)
@@ -96,17 +91,16 @@ def dlcboxplot(file,
     plt.legend(title=legend)
     '''add significance bars and asterisks between boxes.
     [first pair, second pair], ..., [|, –], ...'''
-    if variable == 'distance':
-        if variable == 'vel':
-            l = [[7.75, 5.75], [8.25, 6.25], [26, 28], [31, 33]]
-        elif variable == 'cat_distance':
-            l = [[7.75, 5.75], [8.25, 6.25], [0.85, 0.9], [0.95, 1]]
+    if variable == 'vel':
+        l = [[7.75, 5.75], [8.25, 6.25], [26, 28], [31, 33]]
+    elif variable == 'cat_distance':
+        l = [[7.75, 5.75], [8.25, 6.25], [0.85, 0.9], [0.95, 1]]
 
-        for x1, x2, y1, y2 in zip(l[0], l[1], l[2], l[3]):
-            sig = plt.plot([x1, x1, x2, x2], [y1, y2, y2, y1],
-                           linewidth=1,
-                           color='k')
-            plt.text((x1 + x2) * .5, y2 + 0, "*", ha='center', va='bottom')
+    for x1, x2, y1, y2 in zip(l[0], l[1], l[2], l[3]):
+        sig = plt.plot([x1, x1, x2, x2], [y1, y2, y2, y1],
+                       linewidth=1,
+                       color='k')
+        plt.text((x1 + x2) * .5, y2 + 0, "*", ha='center', va='bottom', fontsize=18)
 
     plt.show()
 
