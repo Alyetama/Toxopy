@@ -29,7 +29,8 @@ def dlcboxplot(file,
 
     df = pd.read_csv(file)
     tls = trials()
-    new = ['FT', 'ALONE1', 'SALINE1', 'ALONE2', 'URINE1', 'ALONE3', 'SALINE2', 'ALONE4', 'URINE2', 'ALONE5']
+    new = ['FT', 'ALONE1', 'SALINE1', 'ALONE2', 'URINE1',
+           'ALONE3', 'SALINE2', 'ALONE4', 'URINE2', 'ALONE5']
     df = df[(df['trial'].isin(tls[0::2]))]
     d = {}
 
