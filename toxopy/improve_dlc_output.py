@@ -376,9 +376,9 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
 
             toxopy.set_status(cat, ccsv)
             ccsv = ccsv[['cat', 'infection_status', 'time', 'trial', 'x_cat', 'y_cat',
-            'cat_distance', 'distance', 'velocity', 'acceleration', 'moving', 'not_moving',
-            'x_cat_loess05', 'y_cat_loess05', 'cat_distance_loess05', 'distance_loess05',
-            'velocity_loess05', 'acceleration_loess05']]
+                         'cat_distance', 'distance', 'velocity', 'acceleration', 'moving', 'not_moving',
+                         'x_cat_loess05', 'y_cat_loess05', 'cat_distance_loess05', 'distance_loess05',
+                         'velocity_loess05', 'acceleration_loess05']]
 
             ccsv.to_csv(f'{outDIR}/{cat}.csv',
                         index=False,
