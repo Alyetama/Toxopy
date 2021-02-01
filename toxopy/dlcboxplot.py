@@ -82,11 +82,14 @@ def dlcboxplot(file,
                          colors='black', alpha=0.2)
 
     if title is not False:
-        plt.title(title, fontsize=14)
+        plt.title(title, fontsize=12)
     else:
         pass
 
-    ax.set(xlabel='Trial', ylabel=ylab)
+    ax.set_xlabel('Trial',fontsize=12)
+    ax.set_ylabel(ylab, fontsize=12)
+
+    ax.legend(title=legend)
 
     plt.legend(title=legend)
     '''add significance bars and asterisks between boxes.

@@ -7,6 +7,7 @@ toxopy/r_smooth_loop.py
 .update_version.py
 toxopy/recycle.py
 toxopy/fwarnings.py
+run_function.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -138,7 +139,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# System files
+# System files/Other
 .DS_Store
 .DS_Store?
 .ini

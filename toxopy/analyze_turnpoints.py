@@ -21,6 +21,7 @@ def analyze_turnpoints(improved_dlc_dir, output_dir):
     """
     'improved_dlc_dir' the path to improved_dlc files (timed & combined)
     'output_dir' is the dir in which the output files will be saved
+    see: https://metacpan.org/pod/Statistics::Sequences::Turns
     """
 
     console = Console()
@@ -32,12 +33,17 @@ def analyze_turnpoints(improved_dlc_dir, output_dir):
         if not os.path.exists(x):
             os.makedirs(x)
 
+    '''
+    'csv_dir' is combined and timed files
+    'variable' is usually 'velocity_loess05'
+    'output_dir' is the output directory for the R script output (not the script file itself!)
+    '''
     dirtyR.turnpoints(improved_dlc_dir, 'velocity_loess05', output_dir)
 
     while True:
 
-        if 'Darwin' in platform():
-            Popen(['open', f'{output_dir}/plot_turnpoints.r'])
+        if 'macOS' in platform():
+            Popen(['open', f'plot_turnpoints.r'])
         else:
             pass
 
