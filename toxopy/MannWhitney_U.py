@@ -97,6 +97,7 @@ def roi_mw(csv_file, compare_by='infection_status'):
     Video pixel coordinates for the DeepLabCut-generated labels were
     used to calculate the average time a cat spent near the walls
     (as opposed to being in the center) in the experimental room.
+    combined_rois__updated_with_indoor_outdoor_status.csv or rois_all
     """
     df = pd.read_csv(csv_file)
 

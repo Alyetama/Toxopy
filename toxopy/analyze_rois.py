@@ -30,23 +30,23 @@ def analyze_rois(input_dir, room_layout, output_dir, plot=False):
     for file, it in zip(tqdm(files), range(0, len(files))):
 
         cat = Path(file).stem
+        df = pd.read_csv(file)
+        # df = df.dropna()
+        infection_status = df.reset_index()['infection_status'][0]
 
         if it != 0:
             tqdm.status_printer(console.print(
-                f'{" " * it * 2}{cat.upper()} :cat2:', style='bold blue'))
+                f'{" " * it * 2}{cat.upper()}', style='bold blue'))
 
         for trial in trials():
 
-            df = pd.read_csv(file)
-            df = df.dropna()
-            df = df[(df['trial'] == trial)]
-            infection_status = df.reset_index()['infection_status'][0]
+            df_current = df[(df['trial'] == trial)]
 
             with open(room_layout) as json_file:
                 p = json.load(json_file)
 
-            velocity = df['velocity_loess05']
-            x_cat, y_cat = df['x_cat_loess05'], df['y_cat_loess05']
+            velocity = df_current['velocity_loess05']
+            x_cat, y_cat = df_current['x_cat_loess05'], df_current['y_cat_loess05']
 
             def posi(cat):
                 position = namedtuple('position', ['topleft', 'bottomright'])

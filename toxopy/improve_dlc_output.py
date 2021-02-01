@@ -40,7 +40,7 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
 
         cat = Path(cat_head).stem[:-5]
 
-        console.print(f'\nCAT ==> {cat.upper()} :cat2:', style='bold red')
+        console.print(f'\nCAT ==> {cat.upper()}', style='bold red')
 
         def improve_dlc_csv(csv_file, trial_type, file_name):
             """Add time and trial type."""
@@ -260,7 +260,7 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
 
             df['cat'] = cat
 
-            df = df.dropna()
+            # df = df.dropna()
 
             df.to_csv(f'{outDIR}/{cat}_{name}_improved.csv',
                       index=False,
@@ -287,8 +287,8 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
 
     while True:
 
-        if 'Darwin' in platform():
-            p = Popen(['open', f'{outDIR}/smooth.r'])
+        if 'macOS' in platform():
+            p = Popen(['open', f'smooth.r'])
         else:
             pass
 
@@ -297,11 +297,11 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
             break
         continue
 
-    for x in ['/*', '/.*']:
-        [
-            os.remove(x) for x in glob(f'{outDIR}/{x}')
-            if os.path.isfile(x) is True
-        ]
+    # for x in ['/*', '/.*']:
+    #     [
+    #         os.remove(x) for x in glob(f'{outDIR}/{x}')
+    #         if os.path.isfile(x) is True
+    #     ]
 
     def one_cat_one_file(ca_dir, wo_dir, outDIR):
         """
@@ -375,7 +375,10 @@ def improve_dlc_output(inDIR, outDIR, only_improve_csv=False):
             ccsv = ccsv.sort_values(by=['time'])
 
             toxopy.set_status(cat, ccsv)
-            ccsv = ccsv[toxopy.combined_behaviors()]
+            ccsv = ccsv[['cat', 'infection_status', 'time', 'trial', 'x_cat', 'y_cat',
+            'cat_distance', 'distance', 'velocity', 'acceleration', 'moving', 'not_moving',
+            'x_cat_loess05', 'y_cat_loess05', 'cat_distance_loess05', 'distance_loess05',
+            'velocity_loess05', 'acceleration_loess05']]
 
             ccsv.to_csv(f'{outDIR}/{cat}.csv',
                         index=False,
