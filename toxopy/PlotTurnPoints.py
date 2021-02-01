@@ -119,4 +119,5 @@ def PlotTurnPoints(csv_file, turnpoints_dir, save=False, path=os.getcwd()):
                     bbox_inches='tight', dpi=100, pad_inches=0.1)
 
 
-PlotTurnPoints("/Users/Felis.catus/Desktop/combined_4.csv", "/Users/Felis.catus/Desktop/GitHub/bchaselab/DLC-Chaselab/Data/dATA_turnpoints/single_files", save=True)
+PlotTurnPoints("/Users/Felis.catus/Desktop/combined_4.csv",
+               "/Users/Felis.catus/Desktop/GitHub/bchaselab/DLC-Chaselab/Data/dATA_turnpoints/single_files", save=True)
